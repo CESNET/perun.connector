@@ -1,0 +1,174 @@
+import abc
+from typing import List
+from models import User, Group, Vo, Facility, HasIdInterface
+
+
+class AdapterInterface(metaclass=abc.ABCMeta):
+    @classmethod
+    def __subclasshook__(cls, subclass):
+        return (
+            hasattr(subclass, "get_perun_user")
+            and callable(subclass.get_perun_user)
+            and hasattr(subclass, "get_group_by_name")
+            and callable(subclass.get_perun_user)
+            and hasattr(subclass, "get_vo_by_short_name")
+            and callable(subclass.get_vo_by_short_name)
+            and hasattr(subclass, "get_vo_by_id")
+            and callable(subclass.get_vo_by_id)
+            and hasattr(subclass, "get_member_groups")
+            and callable(subclass.get_member_groups)
+            and hasattr(subclass, "get_sp_groups")
+            and callable(subclass.get_sp_groups)
+            and hasattr(subclass, "get_user_attributes")
+            and callable(subclass.get_user_attributes)
+            and hasattr(subclass, "get_user_attributes_values")
+            and callable(subclass.get_user_attributes_values)
+            and hasattr(subclass, "get_entityless_attribute")
+            and callable(subclass.get_entityless_attribute)
+            and hasattr(subclass, "get_vo_attributes")
+            and callable(subclass.get_vo_attributes)
+            and hasattr(subclass, "get_vo_attributes_values")
+            and callable(subclass.get_vo_attributes_values)
+            and hasattr(subclass, "get_facility_attribute")
+            and callable(subclass.get_facility_attribute)
+            and hasattr(subclass, "get_facility_by_entity_id")
+            and callable(subclass.get_facility_by_entity_id)
+            and hasattr(subclass, "get_facility_by_client_id")
+            and callable(subclass.get_facility_by_client_id)
+            and hasattr(subclass, "get_users_groups_on_facility")
+            and callable(subclass.get_users_groups_on_facility)
+            and hasattr(subclass, "search_facilities_by_attribute_value")
+            and callable(subclass.search_facilities_by_attribute_value)
+            and hasattr(subclass, "get_facility_attributes")
+            and callable(subclass.get_facility_attributes)
+            and hasattr(subclass, "get_facility_attributes_values")
+            and callable(subclass.get_facility_attributes_values)
+            and hasattr(subclass, "get_user_ext_source")
+            and callable(subclass.get_user_ext_source)
+            and hasattr(subclass, "update_user_ext_source_last_access")
+            and callable(subclass.update_user_ext_source_last_access)
+            and hasattr(subclass, "get_user_ext_source_attributes")
+            and callable(subclass.get_user_ext_source_attributes)
+            and hasattr(subclass, "set_user_ext_source_attributes")
+            and callable(subclass.set_user_ext_source_attributes)
+            and hasattr(subclass, "get_member_status_by_user_and_vo")
+            and callable(subclass.get_member_status_by_user_and_vo)
+            and hasattr(subclass, "is_user_in_vo")
+            and callable(subclass.is_user_in_vo)
+            and hasattr(subclass, "get_resource_capabilities")
+            and callable(subclass.get_resource_capabilities)
+            and hasattr(subclass, "get_facility_capabilities")
+            and callable(subclass.get_resource_capabilities)
+            and hasattr(subclass, "remove_duplicate_entities")
+            and callable(subclass.remove_duplicate_entities)
+            or NotImplemented
+        )
+
+    @abc.abstractmethod
+    def get_perun_user(self, idp_entity_id: int, uids: List[int]) -> User:
+        """Get Perun user with at least one of the uids"""
+        raise NotImplementedError
+
+    def get_group_by_name(self, vo: Vo, name: str) -> Group:
+        """Get Group based on its name"""
+        raise NotImplementedError
+
+    def get_vo_by_short_name(self, vo_short_name: str) -> Vo:
+        """Get VO by its short name"""
+        raise NotImplementedError
+
+    def get_vo_by_id(self, id: int) -> Vo:
+        """Get VO by its id"""
+        raise NotImplementedError
+
+    def get_member_groups(self, user: User, vo: Vo) -> List[Group]:
+        """Get member groups of given user"""
+        raise NotImplementedError
+
+    def get_sp_groups(self, sp_entity_id: id) -> List[Group]:
+        """Get groups associated withs given SP entity"""
+        raise NotImplementedError
+
+    def get_user_attributes(self, user: User, attr_names: List[str]) -> dict[str, str]:
+        """Get specified attributes of given user"""
+        raise NotImplementedError
+
+    def get_user_attributes_values(self, user: User, attributes: List[str]) -> dict[str, str]:
+        """Get values of specified attributes of given user"""
+        raise NotImplementedError
+
+    def get_entityless_attribute(self, attr_name: str) -> dict[int, str]:
+        """Get value of given entityless attribute"""
+        raise NotImplementedError
+
+    def get_vo_attributes(self, vo: Vo, attr_names: List[str]) -> dict[str, str]:
+        """Get specified attributes of given VO"""
+        raise NotImplementedError
+
+    def get_vo_attributes_values(self, vo: Vo, attributes: List[dict[str, str]]) -> dict[str, str]:
+        """Get values of specified attributes of given VO"""
+        raise NotImplementedError
+
+    def get_facility_attribute(self, facility: Facility, attr_name: str) -> str:
+        """Get specified attribute of given facility"""
+        raise NotImplementedError
+
+    def get_facility_by_entity_id(self, sp_entity_id: int, entity_id_attr: str) -> Facility:
+        """Get specified facility based on given entity ID"""
+        raise NotImplementedError
+
+    def get_facility_by_client_id(self, client_entity_id: int, entity_id_attr: str) -> Facility:
+        """Get specified facility based on given client ID"""
+        raise NotImplementedError
+
+    def get_users_groups_on_facility(self, sp_entity_id: int, user_id: str) -> List[Group]:
+        """Get groups of specified user on given facility"""
+        raise NotImplementedError
+
+    def search_facilities_by_attribute_value(self, attribute: dict[str, str]) -> List[Facility]:
+        """Search facilities based on given attribute value"""
+        raise NotImplementedError
+
+    def get_facility_attributes(self, facility: Facility, attr_names: List[str]) -> dict[str, str]:
+        """Get specified attributes of given facility"""
+        raise NotImplementedError
+
+    def get_facility_attributes_values(self, facility: Facility, attributes: List[dict[str, str]]) -> dict[str, str]:
+        """Get values of specified attributes of given facility"""
+        raise NotImplementedError
+
+    def get_user_ext_source(self, ext_source_name: str, ext_source_login: str) -> str:
+        """Get user's external source based on external source name and login"""
+        raise NotImplementedError
+
+    def update_user_ext_source_last_access(self, user_ext_source: str) -> None:
+        """Update user's last access of external source"""
+        raise NotImplementedError
+
+    def get_user_ext_source_attributes(self, user_ext_source_id: int, attributes: List[dict[str, str]]) -> List[str]:
+        """Get attributes of user's external source"""
+        raise NotImplementedError
+
+    def set_user_ext_source_attributes(self, user_ext_source_id: int, attributes: List[dict[str, str]]) -> None:
+        """Set attributes of user's external source"""
+        raise NotImplementedError
+
+    def get_member_status_by_user_and_vo(self, user: User, vo: Vo) -> str:
+        """Get member's status based on given User and VO"""
+        raise NotImplementedError
+
+    def is_user_in_vo(self, user: User, vo_short_name: str) -> bool:
+        """Verifies whether given User is in given VO"""
+        raise NotImplementedError
+
+    def get_resource_capabilities(self, entity_id: int, user_groups: List[Group]) -> List[str]:
+        """Obtains resource capabilities of groups linked to the facility with given entity ID"""
+        raise NotImplementedError
+
+    def get_facility_capabilities(self, entity_id: int) -> List[str]:
+        """Obtains facility capabilities of facility with given entity ID"""
+        raise NotImplementedError
+
+    def remove_duplicate_entities(self, entities: List[HasIdInterface]) -> List[HasIdInterface]:
+        """Returns objects with IDs of unique entities in input list"""
+        raise NotImplementedError
