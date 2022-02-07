@@ -1,17 +1,11 @@
-from models import HasIdInterface
+from models import HasIdAbstract
 
 
-class Vo(HasIdInterface):
+class Vo(HasIdAbstract):
     def __init__(self, id, name, short_name):
-        self.__id = id
-        self.__name = name
-        self.__short_name = short_name
+        super.__init__(id)
+        self.name = name
+        self.short_name = short_name
 
-    def get_id(self) -> int:
-        return self.__id
-
-    def get_name(self) -> str:
-        return self.__name
-
-    def get_short_name(self) -> str:
-        return self.__short_name
+    def __str__(self):
+        return "id:", self.id, "name: ", self.name, "short_name: ", self.short_name

@@ -1,13 +1,10 @@
-from models import HasIdInterface
+from models import HasIdAbstract
 
 
-class User(HasIdInterface):
+class User(HasIdAbstract):
     def __init__(self, id, name):
-        self.__id = id
-        self.__name = name
+        super.__init__(id)
+        self.name = name
 
-    def get_id(self) -> int:
-        return self.__id
-
-    def get_name(self) -> str:
-        return self.__name
+    def __str__(self):
+        return "id:", self.id, "name:", self.name

@@ -1,22 +1,12 @@
-from models import HasIdInterface
+from models import HasIdAbstract
 
 
-class Facility(HasIdInterface):
-    def __init__(self, id, name, description, entity_id):
-        self.__id = id
-        self.__name = name
-        self.__description = description
-        self.__entity_id = entity_id
+class Facility(HasIdAbstract):
+    def __init__(self, id, name, description, rp_id):
+        super.__init__(id)
+        self.name = name
+        self.description = description
+        self.rp_id = rp_id
 
-    def get_id(self) -> int:
-        return self.__id
-
-    def get_name(self) -> str:
-        return self.__name
-
-    def get_description(self) -> str:
-        return self.__description
-
-    def get_entity_id(self) -> str:
-        return self.__entity_id
-
+    def __str__(self):
+        return "id:", self.id, "name: ", self.name, "description: ", self.description, "rp_id: ", self.lastName

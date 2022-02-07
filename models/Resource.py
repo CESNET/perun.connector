@@ -1,21 +1,12 @@
-from models import HasIdInterface
+from models import HasIdAbstract
 
 
-class Resource(HasIdInterface):
+class Resource(HasIdAbstract):
     def __init__(self, id, vo_id, facility_id, name):
-        self.__id = id
-        self.__vo_id = vo_id
-        self.__facility_id = facility_id
-        self.__name = name
+        super.__init__(id)
+        self.vo_id = vo_id
+        self.facility_id = facility_id
+        self.name = name
 
-    def get_id(self) -> int:
-        return self.__id
-
-    def get_vo_id(self) -> int:
-        return self.__vo_id
-
-    def get_facility_id(self) -> int:
-        return self.__facility_id
-
-    def get_name(self) -> str:
-        return self.__name
+    def __str__(self):
+        return "id:", self.id, "vo_id: ", self.vo_id, "facility_id: ", self.facility_id, "name:", self.name
