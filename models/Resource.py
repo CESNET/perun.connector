@@ -9,4 +9,13 @@ class Resource(HasIdAbstract):
         self.name = name
 
     def __str__(self):
-        return "id:", self.id, "vo_id: ", self.vo_id, "facility_id: ", self.facility_id, "name:", self.name
+        return (
+            "id:",
+            self.id,
+            "vo_id: ",
+            self.vo_id,
+            "facility_id: ",
+            self.facility_id,
+            "name:",
+            self.name,
+        )

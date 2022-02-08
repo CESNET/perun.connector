@@ -11,5 +11,17 @@ class Group(HasIdAbstract):
         self.description = description
 
     def __str__(self):
-        return "id:", self.id, "vo_id:", self.vo_id, "uuid:", self.uuid, "name:", self.name,\
-               "unique_name: ", self.unique_name, "description: ", self.description
+        return (
+            "id:",
+            self.id,
+            "vo_id:",
+            self.vo_id,
+            "uuid:",
+            self.uuid,
+            "name:",
+            self.name,
+            "unique_name: ",
+            self.unique_name,
+            "description: ",
+            self.description,
+        )

@@ -8,4 +8,11 @@ class Vo(HasIdAbstract):
         self.short_name = short_name
 
     def __str__(self):
-        return "id:", self.id, "name: ", self.name, "short_name: ", self.short_name
+        return (
+            "id:",
+            self.id,
+            "name: ",
+            self.name,
+            "short_name: ",
+            self.short_name,
+        )

@@ -9,4 +9,13 @@ class Facility(HasIdAbstract):
         self.rp_id = rp_id
 
     def __str__(self):
-        return "id:", self.id, "name: ", self.name, "description: ", self.description, "rp_id: ", self.lastName
+        return (
+            "id:",
+            self.id,
+            "name: ",
+            self.name,
+            "description: ",
+            self.description,
+            "rp_id: ",
+            self.lastName,
+        )
