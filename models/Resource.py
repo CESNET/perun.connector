@@ -1,21 +1,13 @@
-from models import HasIdAbstract
+from HasIdAbstract import HasIdAbstract
 
 
 class Resource(HasIdAbstract):
-    def __init__(self, id, vo_id, facility_id, name):
-        super.__init__(id)
-        self.vo_id = vo_id
-        self.facility_id = facility_id
+    def __init__(self, id, vo, facility, name):
+        super().__init__(id)
+        self.vo = vo
+        self.facility = facility
         self.name = name
 
     def __str__(self):
-        return (
-            "id:",
-            self.id,
-            "vo_id: ",
-            self.vo_id,
-            "facility_id: ",
-            self.facility_id,
-            "name:",
-            self.name,
-        )
+        return f"id: {self.id} vo_id: {self.vo} facility_id: {self.facility} "\
+               f"name: {self.name}"
