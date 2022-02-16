@@ -1,0 +1,9 @@
+username: cn=admin,dc=muni,dc=cz
+base_dn: dc=muni,dc=cz
+password: mypassword
+start_tls: True
+servers:
+  - hostname: ldap://openldap
+    port: 389
+  - hostname: ldap://openldap2
+    port: 389
