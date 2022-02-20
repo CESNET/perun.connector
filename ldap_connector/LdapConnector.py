@@ -7,9 +7,9 @@ from typing import List, Any, Optional, Dict
 
 class LdapConnector:
     def __init__(self, config):
-        self.servers = ldap3.ServerPool()
+        self.servers = ServerPool()
         for server in config['servers']:
-            self.servers.add(ldap3.Server(server['hostname'], server['port']))
+            self.servers.add(.Server(server['hostname'], server['port']))
             
         self.enableTLS = False
         if config['start_tls'] == 'true':
@@ -58,22 +58,22 @@ class LdapConnector:
         conn = Connection(server=self.servers, auto_bind=False,
                           user=self.user, password=self.password, version=3)
         if not conn:
-            raise Exception("Unable to connect to the Perun LDAP,",
-                            self.hostname)
-
+            raise Exception("Unable to connect to the Perun LDAP,")
+        
+        hostname = self.servers.get_current_server(conn)
         # enable TLS if required
-        if self.enableTLS and not self.hostname.startswith("ldaps:"):
+        if self.enableTLS and not hostname.startswith("ldaps:"):
             if not conn.start_tls():
                 raise Exception('Unable to force STARTTLS on Perun LDAP')
-
+        
         if not conn.bind():
             raise Exception('Unable to bind user to the Perun LDAP,',
-                            self.hostname)
+                            hostname)
 
         debug('LdapConnector.search - Connection '
               'to Perun LDAP established. Ready to '
               'perform search query. host: ',
-              self.hostname, ', user: ', self.user)
+              hostname, ', user: ', self.user)
 
         start_time = time.time()
         conn.search(search_base=base, search_filter=filters,
