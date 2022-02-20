@@ -59,13 +59,13 @@ class LdapConnector:
                           user=self.user, password=self.password, version=3)
         if not conn:
             raise Exception("Unable to connect to the Perun LDAP,")
-        
+            
         hostname = self.servers.get_current_server(conn)
         # enable TLS if required
         if self.enableTLS and not hostname.startswith("ldaps:"):
             if not conn.start_tls():
                 raise Exception('Unable to force STARTTLS on Perun LDAP')
-        
+                
         if not conn.bind():
             raise Exception('Unable to bind user to the Perun LDAP,',
                             hostname)
