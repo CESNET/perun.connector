@@ -9,7 +9,7 @@ class LdapConnector:
     def __init__(self, config):
         self.servers = ServerPool()
         for server in config['servers']:
-            self.servers.add(.Server(server['hostname'], server['port']))
+            self.servers.add(Server(server['hostname'], server['port']))
             
         self.enableTLS = False
         if config['start_tls'] == 'true':
