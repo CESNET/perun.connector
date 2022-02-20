@@ -1,4 +1,4 @@
-from ldap3 import Connection, Server
+from ldap3 import Connection, Server, ServerPool
 from logging import debug
 import time
 import json
