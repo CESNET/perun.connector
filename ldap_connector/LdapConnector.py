@@ -7,13 +7,16 @@ from typing import List, Any, Optional, Dict
 
 class LdapConnector:
     def __init__(self, config):
-        # TODO change config <list> to config <file>
-        # IGNORE THIS CONSTRUCTOR, IT IS NOT YET IMPLEMENTED
-        # CORRECTLY (CONFIG FILE IS MISSING)
-        self.hostname = config[0]
-        self.user = config[1]
-        self.password = config[2]
-        self.enableTLS = config[3]
+        self.servers = ldap3.ServerPool()
+        for server in config['servers']:
+            self.servers.add(ldap3.Server(server['hostname'], server['port']))
+            
+        self.enableTLS = False
+        if config['start_tls'] == 'true':
+            self.enableTLS = True
+            
+        self.user = config['username']
+        self.password = config['password']
 
     def search_for_entity(self, base: str, filters: str,
                           attr_names: Optional[List[Any]] = None) \
@@ -21,14 +24,14 @@ class LdapConnector:
         entries = self._search(base, filters, attr_names)
 
         if not entries:
-            debug('sspmod_perun_LdapConnector.search_for_entity '
+            debug('LdapConnector.search_for_entity '
                   '- No entity found. Returning \'None\'. ',
                   'query base: ', base, ', filter: ', filters, '"')
 
             return None
 
         if len(entries) > 1:
-            raise Exception('sspmod_perun_LdapConnector.search_for_entity - '
+            raise Exception('LdapConnector.search_for_entity - '
                             'More than one entity found.', 'query base:',
                             base, ', filter:', filters, '.', 'Hint: Use '
                             'method ''search_for_entities if you expect '
@@ -52,7 +55,7 @@ class LdapConnector:
 
     def _search(self, base: str, filters: str, attributes:
                 Optional[List[Any]] = None) -> Optional[List[Dict[Any]]]:
-        conn = Connection(server=Server(self.hostname), auto_bind=False,
+        conn = Connection(server=self.servers, auto_bind=False,
                           user=self.user, password=self.password, version=3)
         if not conn:
             raise Exception("Unable to connect to the Perun LDAP,",
@@ -87,7 +90,7 @@ class LdapConnector:
 
         conn.unbind()
 
-        debug('sspmod_perun_LdapConnector.search - search query proceeded in ',
+        debug('LdapConnector.search - search query proceeded in ',
               response_time, 'ms. ', 'Query base: ', base, ', filter: ',
               filters, ', response: ', json.dumps(entries))
 
