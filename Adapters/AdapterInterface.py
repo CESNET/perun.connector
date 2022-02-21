@@ -125,7 +125,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     def get_user_ext_source(
             self, ext_source_name: str, ext_source_login: str
-    ) -> str:
+    ) -> UserExtSource:
         """Get user's external source based on external source name and
         login"""
         raise NotImplementedError
