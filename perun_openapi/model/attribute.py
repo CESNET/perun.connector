@@ -105,7 +105,7 @@ class Attribute(ModelComposed):
             'modified_by_uid': (int, none_type,),  # noqa: E501
             'friendly_name': (str,),  # noqa: E501
             'namespace': (str,),  # noqa: E501
-            'description': (str,),  # noqa: E501
+            'description': (str, none_type,),  # noqa: E501
             'type': (str,),  # noqa: E501
             'display_name': (str,),  # noqa: E501
             'writable': (bool,),  # noqa: E501
@@ -206,7 +206,7 @@ class Attribute(ModelComposed):
             modified_by_uid (int, none_type): [optional]  # noqa: E501
             friendly_name (str): [optional]  # noqa: E501
             namespace (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
+            description (str, none_type): [optional]  # noqa: E501
             type (str): [optional]  # noqa: E501
             display_name (str): [optional]  # noqa: E501
             writable (bool): [optional]  # noqa: E501
@@ -328,7 +328,7 @@ class Attribute(ModelComposed):
             modified_by_uid (int, none_type): [optional]  # noqa: E501
             friendly_name (str): [optional]  # noqa: E501
             namespace (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
+            description (str, none_type): [optional]  # noqa: E501
             type (str): [optional]  # noqa: E501
             display_name (str): [optional]  # noqa: E501
             writable (bool): [optional]  # noqa: E501

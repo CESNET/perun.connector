@@ -96,9 +96,9 @@ class Group(ModelComposed):
             'bean_name': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'short_name': (str,),  # noqa: E501
-            'description': (str,),  # noqa: E501
+            'description': (str, none_type,),  # noqa: E501
             'vo_id': (int,),  # noqa: E501
-            'parent_group_id': (int,),  # noqa: E501
+            'parent_group_id': (int, none_type,),  # noqa: E501
             'uuid': (str,),  # noqa: E501
             'created_at': (str, none_type,),  # noqa: E501
             'created_by': (str, none_type,),  # noqa: E501
@@ -178,9 +178,9 @@ class Group(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             name (str): [optional]  # noqa: E501
             short_name (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
+            description (str, none_type): [optional]  # noqa: E501
             vo_id (int): [optional]  # noqa: E501
-            parent_group_id (int): [optional]  # noqa: E501
+            parent_group_id (int, none_type): [optional]  # noqa: E501
             uuid (str): [optional]  # noqa: E501
             created_at (str, none_type): [optional]  # noqa: E501
             created_by (str, none_type): [optional]  # noqa: E501
@@ -291,9 +291,9 @@ class Group(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             name (str): [optional]  # noqa: E501
             short_name (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
+            description (str, none_type): [optional]  # noqa: E501
             vo_id (int): [optional]  # noqa: E501
-            parent_group_id (int): [optional]  # noqa: E501
+            parent_group_id (int, none_type): [optional]  # noqa: E501
             uuid (str): [optional]  # noqa: E501
             created_at (str, none_type): [optional]  # noqa: E501
             created_by (str, none_type): [optional]  # noqa: E501
