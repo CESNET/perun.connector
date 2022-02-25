@@ -1,0 +1,14 @@
+host: "https://perun.cesnet.cz/krb/rpc
+
+#possible values: BasicAuth, ApiKeyAuth, BearerAuth
+auth_type: BasicAuth
+
+#BA
+username: username
+password: mypasswd
+
+#ApiKeyAuth
+api_key: your_api_key
+
+#BearerAuth
+access_token: your_bearer_token

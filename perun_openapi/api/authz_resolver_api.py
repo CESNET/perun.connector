@@ -1719,9 +1719,9 @@ class AuthzResolverApi(object):
         specific_attributes,
         **kwargs
     ):
-        """Gets all rich admins  # noqa: E501
+        """Gets all valid rich admins  # noqa: E501
 
-        Returns all managers for complementaryObject and role with specified attributes.  # noqa: E501
+        Get all valid richUser administrators (for group-based rights, status must be VALID for both Vo and group) for complementary object and role with specified attributes.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
