@@ -18,6 +18,8 @@ from perun_openapi.model.application_form import ApplicationForm
 from perun_openapi.model.application_form_item import ApplicationFormItem
 from perun_openapi.model.application_form_item_data import ApplicationFormItemData
 from perun_openapi.model.application_mail import ApplicationMail
+from perun_openapi.model.applications_order_column import ApplicationsOrderColumn
+from perun_openapi.model.applications_page_query import ApplicationsPageQuery
 from perun_openapi.model.assigned_group import AssignedGroup
 from perun_openapi.model.assigned_member import AssignedMember
 from perun_openapi.model.assigned_resource import AssignedResource
@@ -117,6 +119,7 @@ from perun_openapi.model.input_form_item_data import InputFormItemData
 from perun_openapi.model.input_form_item_data1 import InputFormItemData1
 from perun_openapi.model.input_get_all_resources_by_resource_tag import InputGetAllResourcesByResourceTag
 from perun_openapi.model.input_get_messages_page import InputGetMessagesPage
+from perun_openapi.model.input_get_paginated_applications import InputGetPaginatedApplications
 from perun_openapi.model.input_get_paginated_groups import InputGetPaginatedGroups
 from perun_openapi.model.input_get_paginated_members import InputGetPaginatedMembers
 from perun_openapi.model.input_get_paginated_subgroups import InputGetPaginatedSubgroups
@@ -194,6 +197,7 @@ from perun_openapi.model.namespace_rules import NamespaceRules
 from perun_openapi.model.new_apps import NewApps
 from perun_openapi.model.owner import Owner
 from perun_openapi.model.owner_all_of import OwnerAllOf
+from perun_openapi.model.paginated_applications import PaginatedApplications
 from perun_openapi.model.paginated_audit_messages import PaginatedAuditMessages
 from perun_openapi.model.paginated_rich_groups import PaginatedRichGroups
 from perun_openapi.model.paginated_rich_members import PaginatedRichMembers

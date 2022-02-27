@@ -33,6 +33,7 @@ from perun_openapi.model.input_add_application_mail_for_group import InputAddApp
 from perun_openapi.model.input_add_application_mail_for_vo import InputAddApplicationMailForVo
 from perun_openapi.model.input_form_item_data import InputFormItemData
 from perun_openapi.model.input_form_item_data1 import InputFormItemData1
+from perun_openapi.model.input_get_paginated_applications import InputGetPaginatedApplications
 from perun_openapi.model.input_send_message import InputSendMessage
 from perun_openapi.model.input_set_sending_enabled import InputSetSendingEnabled
 from perun_openapi.model.input_submit_application import InputSubmitApplication
@@ -40,6 +41,7 @@ from perun_openapi.model.input_update_application_mail import InputUpdateApplica
 from perun_openapi.model.input_update_form import InputUpdateForm
 from perun_openapi.model.input_update_form_items_for_group import InputUpdateFormItemsForGroup
 from perun_openapi.model.input_update_form_items_for_vo import InputUpdateFormItemsForVo
+from perun_openapi.model.paginated_applications import PaginatedApplications
 from perun_openapi.model.perun_exception import PerunException
 from perun_openapi.model.user_ext_source import UserExtSource
 
@@ -1553,6 +1555,60 @@ class RegistrarManagerApi(object):
                     'application/json'
                 ],
                 'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.get_applications_page_endpoint = _Endpoint(
+            settings={
+                'response_type': (PaginatedApplications,),
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/json/registrarManager/getApplicationsPage',
+                'operation_id': 'get_applications_page',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'input_get_paginated_applications',
+                ],
+                'required': [
+                    'input_get_paginated_applications',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'input_get_paginated_applications':
+                        (InputGetPaginatedApplications,),
+                },
+                'attribute_map': {
+                },
+                'location_map': {
+                    'input_get_paginated_applications': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
             },
             api_client=api_client
         )
@@ -4717,6 +4773,76 @@ class RegistrarManagerApi(object):
         kwargs['vo'] = \
             vo
         return self.get_applications_for_vo_endpoint.call_with_http_info(**kwargs)
+
+    def get_applications_page(
+        self,
+        input_get_paginated_applications,
+        **kwargs
+    ):
+        """Get page of applications from the given vo, based on the query attributes.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_applications_page(input_get_paginated_applications, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            input_get_paginated_applications (InputGetPaginatedApplications):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            PaginatedApplications
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['input_get_paginated_applications'] = \
+            input_get_paginated_applications
+        return self.get_applications_page_endpoint.call_with_http_info(**kwargs)
 
     def get_consolidator_token(
         self,

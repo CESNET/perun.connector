@@ -1,0 +1,29 @@
+adapters:
+  - type: ldap
+    #1-X 1 highest
+    priority: 1
+    username: cn=admin,dc=muni,dc=cz
+    base_dn: dc=muni,dc=cz
+    password: mypassword
+    start_tls: True
+    servers:
+      - hostname: ldap://openldap
+        port: 389
+      - hostname: ldap://openldap2
+        port: 389
+
+  - type: openApi
+    priority: 2
+    host: "https://perun.cesnet.cz/krb/rpc
+    #possible values: BasicAuth, ApiKeyAuth, BearerAuth
+    auth_type: BasicAuth
+    #BA
+    username: username
+    password: mypasswd
+    #ApiKeyAuth
+    api_key: your_api_key
+    #BearerAuth
+    access_token: your_bearer_token
+
+  - type: curl
+    priority: 3

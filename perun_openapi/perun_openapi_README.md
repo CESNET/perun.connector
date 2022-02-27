@@ -298,7 +298,7 @@ Class | Method | HTTP request | Description
 *AuthzResolverApi* | [**get_all_policies**](perun_openapi/docs/AuthzResolverApi.md#get_all_policies) | **GET** /json/authzResolver/getAllPolicies | Return all loaded perun policies.
 *AuthzResolverApi* | [**get_all_roles_management_rules**](perun_openapi/docs/AuthzResolverApi.md#get_all_roles_management_rules) | **GET** /json/authzResolver/getAllRolesManagementRules | Return all loaded roles management rules.
 *AuthzResolverApi* | [**get_authz_admin_groups**](perun_openapi/docs/AuthzResolverApi.md#get_authz_admin_groups) | **GET** /json/authzResolver/getAdminGroups | Get all groups of managers (authorizedGroups) for complementaryObject and role
-*AuthzResolverApi* | [**get_authz_rich_admins**](perun_openapi/docs/AuthzResolverApi.md#get_authz_rich_admins) | **GET** /json/authzResolver/getRichAdmins | Gets all rich admins
+*AuthzResolverApi* | [**get_authz_rich_admins**](perun_openapi/docs/AuthzResolverApi.md#get_authz_rich_admins) | **GET** /json/authzResolver/getRichAdmins | Gets all valid rich admins
 *AuthzResolverApi* | [**get_facilities_where_user_is_in_roles**](perun_openapi/docs/AuthzResolverApi.md#get_facilities_where_user_is_in_roles) | **GET** /json/authzResolver/getFacilitiesWhereUserIsInRoles | Get all Facilities where the given user (principal if user not sent) has set one of the given roles or the given user is a member of an authorized group with such roles.
 *AuthzResolverApi* | [**get_group_role_names**](perun_openapi/docs/AuthzResolverApi.md#get_group_role_names) | **GET** /json/authzResolver/getGroupRoleNames | Returns list of group&#39;s role names. Perun system uses role names in the upper case format. However, for now, they are converted to the lower case format because of the compatibility with external systems. 
 *AuthzResolverApi* | [**get_group_roles**](perun_openapi/docs/AuthzResolverApi.md#get_group_roles) | **GET** /urlinjsonout/authzResolver/getGroupRoles | Returns all roles as an AuthzRoles object for a given group.
@@ -592,6 +592,7 @@ Class | Method | HTTP request | Description
 *RegistrarManagerApi* | [**get_applications_for_group**](perun_openapi/docs/RegistrarManagerApi.md#get_applications_for_group) | **GET** /json/registrarManager/getApplicationsForGroup | Gets all applications for a given Group.
 *RegistrarManagerApi* | [**get_applications_for_member**](perun_openapi/docs/RegistrarManagerApi.md#get_applications_for_member) | **GET** /json/registrarManager/getApplicationsForMember | Gets all aplications for a given Member.
 *RegistrarManagerApi* | [**get_applications_for_vo**](perun_openapi/docs/RegistrarManagerApi.md#get_applications_for_vo) | **GET** /json/registrarManager/getApplicationsForVo | Gets all applications for a given VO.
+*RegistrarManagerApi* | [**get_applications_page**](perun_openapi/docs/RegistrarManagerApi.md#get_applications_page) | **POST** /json/registrarManager/getApplicationsPage | Get page of applications from the given vo, based on the query attributes.
 *RegistrarManagerApi* | [**get_consolidator_token**](perun_openapi/docs/RegistrarManagerApi.md#get_consolidator_token) | **GET** /json/registrarManager/getConsolidatorToken | Get time-limited token proving user identity in external source (for now 3 minutes).
 *RegistrarManagerApi* | [**get_form_items_for_group**](perun_openapi/docs/RegistrarManagerApi.md#get_form_items_for_group) | **GET** /json/registrarManager/getFormItems/group | Gets all items in Group application form.
 *RegistrarManagerApi* | [**get_form_items_for_group_with_type**](perun_openapi/docs/RegistrarManagerApi.md#get_form_items_for_group_with_type) | **GET** /json/registrarManager/getFormItems/group-type | Gets items of specified type in Group application form, for initital registration or extension of account.
@@ -897,6 +898,8 @@ Class | Method | HTTP request | Description
  - [ApplicationFormItem](perun_openapi/docs/ApplicationFormItem.md)
  - [ApplicationFormItemData](perun_openapi/docs/ApplicationFormItemData.md)
  - [ApplicationMail](perun_openapi/docs/ApplicationMail.md)
+ - [ApplicationsOrderColumn](perun_openapi/docs/ApplicationsOrderColumn.md)
+ - [ApplicationsPageQuery](perun_openapi/docs/ApplicationsPageQuery.md)
  - [AssignedGroup](perun_openapi/docs/AssignedGroup.md)
  - [AssignedMember](perun_openapi/docs/AssignedMember.md)
  - [AssignedResource](perun_openapi/docs/AssignedResource.md)
@@ -996,6 +999,7 @@ Class | Method | HTTP request | Description
  - [InputFormItemData1](perun_openapi/docs/InputFormItemData1.md)
  - [InputGetAllResourcesByResourceTag](perun_openapi/docs/InputGetAllResourcesByResourceTag.md)
  - [InputGetMessagesPage](perun_openapi/docs/InputGetMessagesPage.md)
+ - [InputGetPaginatedApplications](perun_openapi/docs/InputGetPaginatedApplications.md)
  - [InputGetPaginatedGroups](perun_openapi/docs/InputGetPaginatedGroups.md)
  - [InputGetPaginatedMembers](perun_openapi/docs/InputGetPaginatedMembers.md)
  - [InputGetPaginatedSubgroups](perun_openapi/docs/InputGetPaginatedSubgroups.md)
@@ -1073,6 +1077,7 @@ Class | Method | HTTP request | Description
  - [NewApps](perun_openapi/docs/NewApps.md)
  - [Owner](perun_openapi/docs/Owner.md)
  - [OwnerAllOf](perun_openapi/docs/OwnerAllOf.md)
+ - [PaginatedApplications](perun_openapi/docs/PaginatedApplications.md)
  - [PaginatedAuditMessages](perun_openapi/docs/PaginatedAuditMessages.md)
  - [PaginatedRichGroups](perun_openapi/docs/PaginatedRichGroups.md)
  - [PaginatedRichMembers](perun_openapi/docs/PaginatedRichMembers.md)

@@ -1232,7 +1232,9 @@ class VosManagerApi(object):
                 'all': [
                     'short_name',
                 ],
-                'required': [],
+                'required': [
+                    'short_name',
+                ],
                 'nullable': [
                 ],
                 'enum': [
@@ -3339,6 +3341,7 @@ class VosManagerApi(object):
 
     def get_vo_by_short_name(
         self,
+        short_name,
         **kwargs
     ):
         """Returns a VO by its short name.  # noqa: E501
@@ -3346,12 +3349,13 @@ class VosManagerApi(object):
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_vo_by_short_name(async_req=True)
+        >>> thread = api.get_vo_by_short_name(short_name, async_req=True)
         >>> result = thread.get()
 
+        Args:
+            short_name (str): short name of Vo
 
         Keyword Args:
-            short_name (str): short name of Vo. [optional]
             _return_http_data_only (bool): response data without head status
                 code and headers. Default is True.
             _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -3401,6 +3405,8 @@ class VosManagerApi(object):
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['short_name'] = \
+            short_name
         return self.get_vo_by_short_name_endpoint.call_with_http_info(**kwargs)
 
     def get_vo_members_counts_by_status(
