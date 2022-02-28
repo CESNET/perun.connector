@@ -31,7 +31,7 @@ class ConfigStore(object):
 
     @staticmethod
     def get_openapi_config():
-        if ConfigStore._OPENAPI_CFG_FILE is None:
+        if ConfigStore._OPENAPI_CFG is None:
             ConfigStore._load_cfg(
                 ConfigStore._OPENAPI_CFG_FILE, "_OPENAPI_CFG"
             )
