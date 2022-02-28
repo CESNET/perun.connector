@@ -1,4 +1,4 @@
-host: "https://perun.cesnet.cz/krb/rpc
+host: https://perun.cesnet.cz/krb/rpc
 
 #possible values: BasicAuth, ApiKeyAuth, BearerAuth
 auth_type: BasicAuth
