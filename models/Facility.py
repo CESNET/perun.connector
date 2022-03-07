@@ -1,4 +1,4 @@
-from HasIdAbstract import HasIdAbstract
+from models.HasIdAbstract import HasIdAbstract
 
 
 class Facility(HasIdAbstract):

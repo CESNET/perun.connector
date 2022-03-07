@@ -1,6 +1,12 @@
 import abc
 from typing import List, Union, Optional
-from models import User, Group, VO, Facility, HasIdAbstract, UserExtSource
+
+from models.Facility import Facility
+from models.Group import Group
+from models.HasIdAbstract import HasIdAbstract
+from models.User import User
+from models.UserExtSource import UserExtSource
+from models.VO import VO
 
 
 class AdapterInterface(metaclass=abc.ABCMeta):

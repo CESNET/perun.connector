@@ -1,4 +1,4 @@
-from HasIdAbstract import HasIdAbstract
+from models.HasIdAbstract import HasIdAbstract
 
 
 class Group(HasIdAbstract):
@@ -11,6 +11,6 @@ class Group(HasIdAbstract):
         self.description = description
 
     def __str__(self):
-        return f"id: {self.id} vo_id: {self.vo} uuid: {self.uuid} name: " \
+        return f"id: {self.id} vo: {self.vo} uuid: {self.uuid} name: " \
                f"{self.name} unique_name: {self.unique_name}, descri" \
                f"ption: {self.description}"
