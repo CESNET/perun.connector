@@ -1,13 +1,13 @@
-from HasIdAbstract import HasIdAbstract
+from models.HasIdAbstract import HasIdAbstract
 
 
 class UserExtSource(HasIdAbstract):
-    def __init__(self, id, name, login, user_id):
+    def __init__(self, id, name, login, user):
         super().__init__(id)
         self.name = name
         self.login = login
-        self.user_id = user_id
+        self.user = user
 
     def __str__(self):
         return f"id: {self.id} name: {self.name} login: {self.login} " \
-               f"user_id: {self.user_id}"
+               f"user: {self.user}"

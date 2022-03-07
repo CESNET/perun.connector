@@ -1,5 +1,5 @@
 from enums.MemberStatusEnum import MemberStatusEnum
-from HasIdAbstract import HasIdAbstract
+from models.HasIdAbstract import HasIdAbstract
 
 
 class Member(HasIdAbstract):
