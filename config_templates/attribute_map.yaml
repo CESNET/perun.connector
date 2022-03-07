@@ -13,7 +13,7 @@
   "ldap": "dynamicRegistration"
   "type": "bool"
 
-"perunFacilityAttr_entityID":
+"perunFacilityAttr_rpID":
   "rpc": "urn:perun:facility:attribute-def:def:entityID"
   "ldap": "entityID"
   "type": "string"
