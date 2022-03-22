@@ -78,11 +78,11 @@ class LdapAdapter(AdapterInterface):
                 ['o', 'description']
             )
             if not vo:
-                raise Exception('Vo with id: ' + id +
+                raise Exception('Vo with id: ' + str(id) +
                                 ' does not exists in Perun LDAP.')
 
         return VO(
-            id or vo['perunVoId'],
+            id or int(vo['perunVoId']),
             vo['description'][0],
             vo['o'][0]
         )
@@ -135,7 +135,6 @@ class LdapAdapter(AdapterInterface):
                         )
 
                         unique_ids.append(group['perunGroupId'])
-
         return groups
 
     def get_user_attributes(self, user, attr_names):
