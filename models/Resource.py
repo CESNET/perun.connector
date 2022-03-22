@@ -1,4 +1,4 @@
-from HasIdAbstract import HasIdAbstract
+from models.HasIdAbstract import HasIdAbstract
 
 
 class Resource(HasIdAbstract):
@@ -9,5 +9,5 @@ class Resource(HasIdAbstract):
         self.name = name
 
     def __str__(self):
-        return f"id: {self.id} vo_id: {self.vo} facility_id: {self.facility} "\
+        return f"id: {self.id} vo: {self.vo} facility: {self.facility} "\
                f"name: {self.name}"
