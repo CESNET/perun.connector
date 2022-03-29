@@ -29,6 +29,7 @@ from perun_openapi.api.owners_manager_api import OwnersManagerApi
 from perun_openapi.api.rt_messages_manager_api import RTMessagesManagerApi
 from perun_openapi.api.registrar_manager_api import RegistrarManagerApi
 from perun_openapi.api.resources_manager_api import ResourcesManagerApi
+from perun_openapi.api.searcher_api import SearcherApi
 from perun_openapi.api.services_manager_api import ServicesManagerApi
 from perun_openapi.api.tasks_manager_api import TasksManagerApi
 from perun_openapi.api.users_manager_api import UsersManagerApi

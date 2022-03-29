@@ -24,6 +24,7 @@ from perun_openapi.model_utils import (  # noqa: F401
 )
 from perun_openapi.model.ban_on_vo import BanOnVo
 from perun_openapi.model.candidate import Candidate
+from perun_openapi.model.enriched_vo import EnrichedVo
 from perun_openapi.model.group import Group
 from perun_openapi.model.input_create_vo_with_vo import InputCreateVoWithVo
 from perun_openapi.model.input_set_vo_ban import InputSetVoBan
@@ -47,6 +48,65 @@ class VosManagerApi(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
+        self.add_member_vo_endpoint = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/urlinjsonout/vosManager/addMemberVo',
+                'operation_id': 'add_member_vo',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'vo',
+                    'member_vo',
+                ],
+                'required': [
+                    'vo',
+                    'member_vo',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'vo':
+                        (int,),
+                    'member_vo':
+                        (int,),
+                },
+                'attribute_map': {
+                    'vo': 'vo',
+                    'member_vo': 'memberVo',
+                },
+                'location_map': {
+                    'vo': 'query',
+                    'member_vo': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.add_sponsor_role_to_group_endpoint = _Endpoint(
             settings={
                 'response_type': None,
@@ -755,6 +815,158 @@ class VosManagerApi(object):
             },
             api_client=api_client
         )
+        self.get_enriched_vo_by_id_endpoint = _Endpoint(
+            settings={
+                'response_type': (EnrichedVo,),
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/json/vosManager/getEnrichedVoById',
+                'operation_id': 'get_enriched_vo_by_id',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'id',
+                ],
+                'required': [
+                    'id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'id':
+                        (int,),
+                },
+                'attribute_map': {
+                    'id': 'id',
+                },
+                'location_map': {
+                    'id': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.get_member_vos_endpoint = _Endpoint(
+            settings={
+                'response_type': ([Vo],),
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/json/vosManager/getMemberVos',
+                'operation_id': 'get_member_vos',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'vo',
+                ],
+                'required': [
+                    'vo',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'vo':
+                        (int,),
+                },
+                'attribute_map': {
+                    'vo': 'vo',
+                },
+                'location_map': {
+                    'vo': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.get_my_enriched_vos_endpoint = _Endpoint(
+            settings={
+                'response_type': ([EnrichedVo],),
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/json/vosManager/getEnrichedVos',
+                'operation_id': 'get_my_enriched_vos',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                },
+                'attribute_map': {
+                },
+                'location_map': {
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.get_my_vos_endpoint = _Endpoint(
             settings={
                 'response_type': ([Vo],),
@@ -789,6 +1001,59 @@ class VosManagerApi(object):
                 'attribute_map': {
                 },
                 'location_map': {
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
+        self.get_parent_vos_endpoint = _Endpoint(
+            settings={
+                'response_type': ([Vo],),
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/json/vosManager/getParentVos',
+                'operation_id': 'get_parent_vos',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'vo',
+                ],
+                'required': [
+                    'vo',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'vo':
+                        (int,),
+                },
+                'attribute_map': {
+                    'vo': 'vo',
+                },
+                'location_map': {
+                    'vo': 'query',
                 },
                 'collection_format_map': {
                 }
@@ -1421,6 +1686,65 @@ class VosManagerApi(object):
             },
             api_client=api_client
         )
+        self.remove_member_vo_endpoint = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/urlinjsonout/vosManager/removeMemberVo',
+                'operation_id': 'remove_member_vo',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'vo',
+                    'member_vo',
+                ],
+                'required': [
+                    'vo',
+                    'member_vo',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'vo':
+                        (int,),
+                    'member_vo':
+                        (int,),
+                },
+                'attribute_map': {
+                    'vo': 'vo',
+                    'member_vo': 'memberVo',
+                },
+                'location_map': {
+                    'vo': 'query',
+                    'member_vo': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.remove_sponsor_role_from_group_endpoint = _Endpoint(
             settings={
                 'response_type': None,
@@ -1871,6 +2195,80 @@ class VosManagerApi(object):
             },
             api_client=api_client
         )
+
+    def add_member_vo(
+        self,
+        vo,
+        member_vo,
+        **kwargs
+    ):
+        """Add member vo to vo.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.add_member_vo(vo, member_vo, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            vo (int): id of Vo
+            member_vo (int): id of member Vo
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['vo'] = \
+            vo
+        kwargs['member_vo'] = \
+            member_vo
+        return self.add_member_vo_endpoint.call_with_http_info(**kwargs)
 
     def add_sponsor_role_to_group(
         self,
@@ -2753,6 +3151,211 @@ class VosManagerApi(object):
             search_string
         return self.get_complete_candidates_for_vo_endpoint.call_with_http_info(**kwargs)
 
+    def get_enriched_vo_by_id(
+        self,
+        id,
+        **kwargs
+    ):
+        """Returns an enriched virtual organization by id.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_enriched_vo_by_id(id, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            id (int): numeric id
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            EnrichedVo
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['id'] = \
+            id
+        return self.get_enriched_vo_by_id_endpoint.call_with_http_info(**kwargs)
+
+    def get_member_vos(
+        self,
+        vo,
+        **kwargs
+    ):
+        """Get list of all members organizations of a vo.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_member_vos(vo, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            vo (int): id of Vo
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            [Vo]
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['vo'] = \
+            vo
+        return self.get_member_vos_endpoint.call_with_http_info(**kwargs)
+
+    def get_my_enriched_vos(
+        self,
+        **kwargs
+    ):
+        """Return list of all EnrichedVos the caller is associated with.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_my_enriched_vos(async_req=True)
+        >>> result = thread.get()
+
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            [EnrichedVo]
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        return self.get_my_enriched_vos_endpoint.call_with_http_info(**kwargs)
+
     def get_my_vos(
         self,
         **kwargs
@@ -2818,6 +3421,76 @@ class VosManagerApi(object):
         kwargs['_host_index'] = kwargs.get('_host_index')
         return self.get_my_vos_endpoint.call_with_http_info(**kwargs)
 
+    def get_parent_vos(
+        self,
+        vo,
+        **kwargs
+    ):
+        """Get list of all parent organizations of a vo.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_parent_vos(vo, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            vo (int): id of Vo
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            [Vo]
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['vo'] = \
+            vo
+        return self.get_parent_vos_endpoint.call_with_http_info(**kwargs)
+
     def get_rich_admins_for_vo(
         self,
         vo,
@@ -2829,7 +3502,7 @@ class VosManagerApi(object):
     ):
         """get_rich_admins_for_vo  # noqa: E501
 
-        Get list of all richUser administrators for the vo and supported role with specific attributes. Supported roles: VOOBSERVER, TOPGROUPCREATOR, VOADMIN If \"onlyDirectAdmins\" is == true, return only direct admins of the vo for supported role with specific attributes. If \"allUserAttributes\" is == true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes.   # noqa: E501
+        Get list of all richUser administrators for the vo and supported role with specific attributes. If some group is administrator of the given group, all VALID members are included in the list. Supported roles: VOOBSERVER, TOPGROUPCREATOR, VOADMIN If \"onlyDirectAdmins\" is == true, return only direct admins of the vo for supported role with specific attributes. If \"allUserAttributes\" is == true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -2989,7 +3662,7 @@ class VosManagerApi(object):
     ):
         """get_vo_admin_users  # noqa: E501
 
-        Get list of all vo administrators for supported role and specific vo. If onlyDirectAdmins is true, return only direct admins of the vo for supported role. Supported roles: VOOBSERVER, TOPGROUPCREATOR, VOADMIN   # noqa: E501
+        Get list of all vo administrators for supported role and specific vo. If onlyDirectAdmins is true, return only direct admins of the vo for supported role. Otherwise return direct admins and users who are VALID members of administrator groups Supported roles: VOOBSERVER, TOPGROUPCREATOR, VOADMIN   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -3613,6 +4286,80 @@ class VosManagerApi(object):
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
         return self.get_vos_count_endpoint.call_with_http_info(**kwargs)
+
+    def remove_member_vo(
+        self,
+        vo,
+        member_vo,
+        **kwargs
+    ):
+        """Remove member vo from vo.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.remove_member_vo(vo, member_vo, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            vo (int): id of Vo
+            member_vo (int): id of member Vo
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['vo'] = \
+            vo
+        kwargs['member_vo'] = \
+            member_vo
+        return self.remove_member_vo_endpoint.call_with_http_info(**kwargs)
 
     def remove_sponsor_role_from_group(
         self,

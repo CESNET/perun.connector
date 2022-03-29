@@ -6619,7 +6619,7 @@ class ResourcesManagerApi(object):
     ):
         """Get list of all resource administrators for supported role and given resource.  # noqa: E501
 
-        If onlyDirectAdmins is == true, return only direct admins of the group for supported role. Supported roles are ResourceAdmin, VOAdmin.  # noqa: E501
+        If onlyDirectAdmins is == true, return only direct admins of the group for supported role. Otherwise include users who are VALID members of administrator groups. Supported roles are ResourceAdmin, VOAdmin.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -9242,7 +9242,7 @@ class ResourcesManagerApi(object):
         user,
         **kwargs
     ):
-        """Returns list of Resources for specified VO and Facility, where the user is an Administrator.  # noqa: E501
+        """Returns list of Resources for specified VO and Facility, where the user is a direct Administrator or a VALID member of an administrator group.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -9321,7 +9321,7 @@ class ResourcesManagerApi(object):
         only_direct_admins,
         **kwargs
     ):
-        """Get list of all richUser administrators for the resource and supported role with specific attributes. Supported roles: ResourceAdmin, VOAdmin If \"onlyDirectAdmins\" is true, return only direct admins of the resource for supported role with specific attributes. If \"allUserAttributes\" is true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes.   # noqa: E501
+        """Get list of all richUser administrators for the resource and supported role with specific attributes. If some group is administrator of the given group, all VALID members are included in the list. Supported roles: ResourceAdmin, VOAdmin If \"onlyDirectAdmins\" is true, return only direct admins of the resource for supported role with specific attributes. If \"allUserAttributes\" is true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes.   # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True

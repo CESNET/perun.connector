@@ -54,6 +54,8 @@ from perun_openapi.model.candidate import Candidate
 from perun_openapi.model.candidate_all_of import CandidateAllOf
 from perun_openapi.model.category import Category
 from perun_openapi.model.category_all_of import CategoryAllOf
+from perun_openapi.model.consent_hub import ConsentHub
+from perun_openapi.model.consent_hub_all_of import ConsentHubAllOf
 from perun_openapi.model.destination import Destination
 from perun_openapi.model.destination_all_of import DestinationAllOf
 from perun_openapi.model.destination_propagation_type import DestinationPropagationType
@@ -62,6 +64,7 @@ from perun_openapi.model.enriched_facility import EnrichedFacility
 from perun_openapi.model.enriched_group import EnrichedGroup
 from perun_openapi.model.enriched_host import EnrichedHost
 from perun_openapi.model.enriched_resource import EnrichedResource
+from perun_openapi.model.enriched_vo import EnrichedVo
 from perun_openapi.model.entityless_attributes_by_keys import EntitylessAttributesByKeys
 from perun_openapi.model.ext_source import ExtSource
 from perun_openapi.model.ext_source_all_of import ExtSourceAllOf
@@ -118,12 +121,17 @@ from perun_openapi.model.input_entityless_attribute import InputEntitylessAttrib
 from perun_openapi.model.input_form_item_data import InputFormItemData
 from perun_openapi.model.input_form_item_data1 import InputFormItemData1
 from perun_openapi.model.input_get_all_resources_by_resource_tag import InputGetAllResourcesByResourceTag
+from perun_openapi.model.input_get_facilities import InputGetFacilities
+from perun_openapi.model.input_get_members_by_user_attributes import InputGetMembersByUserAttributes
 from perun_openapi.model.input_get_messages_page import InputGetMessagesPage
 from perun_openapi.model.input_get_paginated_applications import InputGetPaginatedApplications
 from perun_openapi.model.input_get_paginated_groups import InputGetPaginatedGroups
 from perun_openapi.model.input_get_paginated_members import InputGetPaginatedMembers
 from perun_openapi.model.input_get_paginated_subgroups import InputGetPaginatedSubgroups
 from perun_openapi.model.input_get_paginated_users import InputGetPaginatedUsers
+from perun_openapi.model.input_get_resources import InputGetResources
+from perun_openapi.model.input_get_resources1 import InputGetResources1
+from perun_openapi.model.input_get_users import InputGetUsers
 from perun_openapi.model.input_lock_publications import InputLockPublications
 from perun_openapi.model.input_remove_resource_tag_from_resource import InputRemoveResourceTagFromResource
 from perun_openapi.model.input_send_message import InputSendMessage
@@ -197,8 +205,8 @@ from perun_openapi.model.namespace_rules import NamespaceRules
 from perun_openapi.model.new_apps import NewApps
 from perun_openapi.model.owner import Owner
 from perun_openapi.model.owner_all_of import OwnerAllOf
-from perun_openapi.model.paginated_applications import PaginatedApplications
 from perun_openapi.model.paginated_audit_messages import PaginatedAuditMessages
+from perun_openapi.model.paginated_rich_applications import PaginatedRichApplications
 from perun_openapi.model.paginated_rich_groups import PaginatedRichGroups
 from perun_openapi.model.paginated_rich_members import PaginatedRichMembers
 from perun_openapi.model.paginated_rich_users import PaginatedRichUsers
@@ -219,6 +227,8 @@ from perun_openapi.model.resource_all_of import ResourceAllOf
 from perun_openapi.model.resource_state import ResourceState
 from perun_openapi.model.resource_tag import ResourceTag
 from perun_openapi.model.resource_tag_all_of import ResourceTagAllOf
+from perun_openapi.model.rich_application import RichApplication
+from perun_openapi.model.rich_application_all_of import RichApplicationAllOf
 from perun_openapi.model.rich_destination import RichDestination
 from perun_openapi.model.rich_destination_all_of import RichDestinationAllOf
 from perun_openapi.model.rich_facility import RichFacility
