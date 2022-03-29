@@ -426,7 +426,7 @@ Class | Method | HTTP request | Description
 *FacilitiesManagerApi* | [**get_facilities_by_host_name**](perun_openapi/docs/FacilitiesManagerApi.md#get_facilities_by_host_name) | **GET** /json/facilitiesManager/getFacilitiesByHostName | Return all facilities where exists host with the specific hostname
 *FacilitiesManagerApi* | [**get_facilities_by_ids**](perun_openapi/docs/FacilitiesManagerApi.md#get_facilities_by_ids) | **GET** /json/facilitiesManager/getFacilitiesByIds | Returns list of Facilities by their ids.
 *FacilitiesManagerApi* | [**get_facilities_count**](perun_openapi/docs/FacilitiesManagerApi.md#get_facilities_count) | **GET** /json/facilitiesManager/getFacilitiesCount | Gets count of all facilities.
-*FacilitiesManagerApi* | [**get_facilities_where_user_is_admin**](perun_openapi/docs/FacilitiesManagerApi.md#get_facilities_where_user_is_admin) | **GET** /json/facilitiesManager/getFacilitiesWhereUserIsAdmin | Returns list of Facilities, where the user is an Administrator.
+*FacilitiesManagerApi* | [**get_facilities_where_user_is_admin**](perun_openapi/docs/FacilitiesManagerApi.md#get_facilities_where_user_is_admin) | **GET** /json/facilitiesManager/getFacilitiesWhereUserIsAdmin | Returns list of Facilities, where the user is a direct Administrator or a VALID member of an administrator group.
 *FacilitiesManagerApi* | [**get_facility_admin_groups**](perun_openapi/docs/FacilitiesManagerApi.md#get_facility_admin_groups) | **GET** /json/facilitiesManager/getAdminGroups | Get all Facility group admins.
 *FacilitiesManagerApi* | [**get_facility_admin_users**](perun_openapi/docs/FacilitiesManagerApi.md#get_facility_admin_users) | **GET** /json/facilitiesManager/getAdmins | 
 *FacilitiesManagerApi* | [**get_facility_admin_users_by_facility_name**](perun_openapi/docs/FacilitiesManagerApi.md#get_facility_admin_users_by_facility_name) | **GET** /json/facilitiesManager/getAdmins/f-name | 
@@ -542,6 +542,7 @@ Class | Method | HTTP request | Description
 *MembersManagerApi* | [**get_rich_member**](perun_openapi/docs/MembersManagerApi.md#get_rich_member) | **GET** /json/membersManager/getRichMember | Returns RichMember by member id.
 *MembersManagerApi* | [**get_rich_member_with_attributes**](perun_openapi/docs/MembersManagerApi.md#get_rich_member_with_attributes) | **GET** /json/membersManager/getRichMemberWithAttributes | Returns Member by its id.
 *MembersManagerApi* | [**get_rich_members_by_ids**](perun_openapi/docs/MembersManagerApi.md#get_rich_members_by_ids) | **GET** /json/membersManager/getRichMembersByIds | Returns rich members by their IDs with specific attributes. When the list of attribute names is null or empty then rich members will be returned without attributes.
+*MembersManagerApi* | [**get_rich_members_no_user_attributes**](perun_openapi/docs/MembersManagerApi.md#get_rich_members_no_user_attributes) | **GET** /json/membersManager/getRichMembersNoUserAttributes | Returns list of all RichMembers for specified VO. User attributes aren&#39;t included in the returned objects
 *MembersManagerApi* | [**get_sponsored_members**](perun_openapi/docs/MembersManagerApi.md#get_sponsored_members) | **GET** /json/membersManager/getSponsoredMembers/v | Gets members from VO who are sponsored.
 *MembersManagerApi* | [**get_sponsored_members_and_their_sponsors**](perun_openapi/docs/MembersManagerApi.md#get_sponsored_members_and_their_sponsors) | **GET** /json/membersManager/getSponsoredMembersAndTheirSponsors | Gets list of members with sponsors.
 *MembersManagerApi* | [**get_sponsors_by_member**](perun_openapi/docs/MembersManagerApi.md#get_sponsors_by_member) | **GET** /json/membersManager/getSponsors/member | Gets sponsors for given member with optional attribute names.
@@ -676,8 +677,8 @@ Class | Method | HTTP request | Description
 *ResourcesManagerApi* | [**get_resources_count_for_vo**](perun_openapi/docs/ResourcesManagerApi.md#get_resources_count_for_vo) | **GET** /json/resourcesManager/getResourcesCount/vo | Returns number of VO resources
 *ResourcesManagerApi* | [**get_resources_from_vo_where_user_is_admin**](perun_openapi/docs/ResourcesManagerApi.md#get_resources_from_vo_where_user_is_admin) | **GET** /json/resourcesManager/getResourcesWhereUserIsAdmin/fromVo | Returns list of Resources for specified VO, where the user is an Administrator.
 *ResourcesManagerApi* | [**get_resources_where_group_is_admin**](perun_openapi/docs/ResourcesManagerApi.md#get_resources_where_group_is_admin) | **GET** /json/resourcesManager/getResourcesWhereUserIsAdmin/group | Returns list of Resources for specified VO and Facility, where the group is an Administrator.
-*ResourcesManagerApi* | [**get_resources_where_user_is_admin**](perun_openapi/docs/ResourcesManagerApi.md#get_resources_where_user_is_admin) | **GET** /json/resourcesManager/getResourcesWhereUserIsAdmin | Returns list of Resources for specified VO and Facility, where the user is an Administrator.
-*ResourcesManagerApi* | [**get_rich_admins**](perun_openapi/docs/ResourcesManagerApi.md#get_rich_admins) | **GET** /json/resourcesManager/getRichAdmins | Get list of all richUser administrators for the resource and supported role with specific attributes. Supported roles: ResourceAdmin, VOAdmin If \&quot;onlyDirectAdmins\&quot; is true, return only direct admins of the resource for supported role with specific attributes. If \&quot;allUserAttributes\&quot; is true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes. 
+*ResourcesManagerApi* | [**get_resources_where_user_is_admin**](perun_openapi/docs/ResourcesManagerApi.md#get_resources_where_user_is_admin) | **GET** /json/resourcesManager/getResourcesWhereUserIsAdmin | Returns list of Resources for specified VO and Facility, where the user is a direct Administrator or a VALID member of an administrator group.
+*ResourcesManagerApi* | [**get_rich_admins**](perun_openapi/docs/ResourcesManagerApi.md#get_rich_admins) | **GET** /json/resourcesManager/getRichAdmins | Get list of all richUser administrators for the resource and supported role with specific attributes. If some group is administrator of the given group, all VALID members are included in the list. Supported roles: ResourceAdmin, VOAdmin If \&quot;onlyDirectAdmins\&quot; is true, return only direct admins of the resource for supported role with specific attributes. If \&quot;allUserAttributes\&quot; is true, do not specify attributes through list and return them all in objects richUser. Ignoring list of specific attributes. 
 *ResourcesManagerApi* | [**get_rich_resource_by_id**](perun_openapi/docs/ResourcesManagerApi.md#get_rich_resource_by_id) | **GET** /json/resourcesManager/getRichResourceById | Returns RichResource by id (also containing facility and VO inside).
 *ResourcesManagerApi* | [**get_rich_resources**](perun_openapi/docs/ResourcesManagerApi.md#get_rich_resources) | **GET** /json/resourcesManager/getRichResources | Get all VO rich resources.
 *ResourcesManagerApi* | [**get_rich_resources_by_ids**](perun_openapi/docs/ResourcesManagerApi.md#get_rich_resources_by_ids) | **GET** /json/resourcesManager/getRichResourcesByIds | Returns list of RichResources by their ids.
@@ -701,6 +702,11 @@ Class | Method | HTTP request | Description
 *ResourcesManagerApi* | [**update_resource**](perun_openapi/docs/ResourcesManagerApi.md#update_resource) | **POST** /json/resourcesManager/updateResource | Updates a resource.
 *ResourcesManagerApi* | [**update_resource_ban**](perun_openapi/docs/ResourcesManagerApi.md#update_resource_ban) | **POST** /json/resourcesManager/updateBan | Update existing ban (description, validation timestamp)
 *ResourcesManagerApi* | [**update_resource_tag**](perun_openapi/docs/ResourcesManagerApi.md#update_resource_tag) | **POST** /json/resourcesManager/updateResourceTag | Update resource tag name by it&#39;s id and VO_ID
+*SearcherApi* | [**get_attributes_match_resources**](perun_openapi/docs/SearcherApi.md#get_attributes_match_resources) | **POST** /json/Searcher/getResources/attributes-match | Get list of resources that have attributes with partially matched values if allowPartialMatchForString is set to true, else with exactly matched values.
+*SearcherApi* | [**get_attributes_resources**](perun_openapi/docs/SearcherApi.md#get_attributes_resources) | **POST** /json/Searcher/getResources/attributes | Get list of resources who have attributes with specific values.
+*SearcherApi* | [**get_facilities**](perun_openapi/docs/SearcherApi.md#get_facilities) | **POST** /json/Searcher/getFacilities | Get list of facilities who have attributes with specific values.
+*SearcherApi* | [**get_members_by_user_attributes**](perun_openapi/docs/SearcherApi.md#get_members_by_user_attributes) | **POST** /json/Searcher/getMembersByUserAttributes | Get list of members who have attributes with specific values.
+*SearcherApi* | [**get_users_searcher**](perun_openapi/docs/SearcherApi.md#get_users_searcher) | **POST** /json/Searcher/getUsers | Get list of users who have attributes with specific values.
 *ServicesManagerApi* | [**add_destination**](perun_openapi/docs/ServicesManagerApi.md#add_destination) | **POST** /urlinjsonout/servicesManager/addDestination | Adds an destination for a facility and service. If destination doesn&#39;t exist it will be created.
 *ServicesManagerApi* | [**add_destination_to_multiple_services**](perun_openapi/docs/ServicesManagerApi.md#add_destination_to_multiple_services) | **POST** /json/servicesManager/addDestination | 
 *ServicesManagerApi* | [**add_destinations_defined_by_hosts_on_facility_with_facility**](perun_openapi/docs/ServicesManagerApi.md#add_destinations_defined_by_hosts_on_facility_with_facility) | **POST** /urlinjsonout/servicesManager/addDestinationsDefinedByHostsOnFacility/f | Add services destinations for one service. Destinations names are taken from all facility&#39;s host hostnames.
@@ -811,8 +817,8 @@ Class | Method | HTTP request | Description
 *UsersManagerApi* | [**get_assigned_rich_resources_for_user**](perun_openapi/docs/UsersManagerApi.md#get_assigned_rich_resources_for_user) | **GET** /json/usersManager/getAssignedRichResources | Get all rich resources which have the user assigned.
 *UsersManagerApi* | [**get_groups_for_facility_where_user_is_active**](perun_openapi/docs/UsersManagerApi.md#get_groups_for_facility_where_user_is_active) | **GET** /json/usersManager/getGroupsWhereUserIsActive/facility | Get list of groups of user on specified facility where use is active.
 *UsersManagerApi* | [**get_groups_for_resource_where_user_is_active**](perun_openapi/docs/UsersManagerApi.md#get_groups_for_resource_where_user_is_active) | **GET** /json/usersManager/getGroupsWhereUserIsActive/resource | Get list of groups of user on specified resource where use is active.
-*UsersManagerApi* | [**get_groups_in_vo_where_user_is_admin**](perun_openapi/docs/UsersManagerApi.md#get_groups_in_vo_where_user_is_admin) | **GET** /json/usersManager/getGroupsWhereUserIsAdmin/u-v | Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.
-*UsersManagerApi* | [**get_groups_where_user_is_admin**](perun_openapi/docs/UsersManagerApi.md#get_groups_where_user_is_admin) | **GET** /json/usersManager/getGroupsWhereUserIsAdmin/u | Returns list of Groups in Perun, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.
+*UsersManagerApi* | [**get_groups_in_vo_where_user_is_admin**](perun_openapi/docs/UsersManagerApi.md#get_groups_in_vo_where_user_is_admin) | **GET** /json/usersManager/getGroupsWhereUserIsAdmin/u-v | Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a VALID member of any group which is Administrator of some of these Groups.
+*UsersManagerApi* | [**get_groups_where_user_is_admin**](perun_openapi/docs/UsersManagerApi.md#get_groups_where_user_is_admin) | **GET** /json/usersManager/getGroupsWhereUserIsAdmin/u | Returns list of Groups in Perun, where the User is a direct Administrator or he is a VALID member of any group which is Administrator of some of these Groups.
 *UsersManagerApi* | [**get_pending_preferred_email_changes**](perun_openapi/docs/UsersManagerApi.md#get_pending_preferred_email_changes) | **GET** /json/usersManager/getPendingPreferredEmailChanges | Return list of email addresses of user, which are awaiting validation and are inside time window for validation. If there is no preferred email change request pending or requests are outside time window for validation, returns empty list.
 *UsersManagerApi* | [**get_rich_user_ext_sources**](perun_openapi/docs/UsersManagerApi.md#get_rich_user_ext_sources) | **GET** /json/usersManager/getRichUserExtSources/u | Gets list of all user&#39;s external sources with attributes.
 *UsersManagerApi* | [**get_rich_user_with_attributes**](perun_openapi/docs/UsersManagerApi.md#get_rich_user_with_attributes) | **GET** /json/usersManager/getRichUserWithAttributes | Returns user with attributes
@@ -824,6 +830,7 @@ Class | Method | HTTP request | Description
 *UsersManagerApi* | [**get_sponsors_for_member_by_vo_and_login**](perun_openapi/docs/UsersManagerApi.md#get_sponsors_for_member_by_vo_and_login) | **GET** /json/usersManager/getSponsorsForMember/vo | Gets sponsors for member specified by VO, extSourceName and extLogin with optional attribute names.
 *UsersManagerApi* | [**get_user_by_ext_source_name_and_ext_login**](perun_openapi/docs/UsersManagerApi.md#get_user_by_ext_source_name_and_ext_login) | **GET** /json/usersManager/getUserByExtSourceNameAndExtLogin | Returns user by its ExtSourceName and ExtLogin.
 *UsersManagerApi* | [**get_user_by_id**](perun_openapi/docs/UsersManagerApi.md#get_user_by_id) | **GET** /json/usersManager/getUserById | Returns user by its id
+*UsersManagerApi* | [**get_user_ext_source_by_ext_login_and_ext_source_name**](perun_openapi/docs/UsersManagerApi.md#get_user_ext_source_by_ext_login_and_ext_source_name) | **GET** /json/usersManager/getUserExtSourceByExtLoginAndExtSourceName | Returns user&#39;s external source by the user&#39;s external login and external source name.
 *UsersManagerApi* | [**get_user_ext_source_by_id**](perun_openapi/docs/UsersManagerApi.md#get_user_ext_source_by_id) | **GET** /json/usersManager/getUserExtSourceById | Returns user ext source by its id.
 *UsersManagerApi* | [**get_user_ext_source_by_unique_attribute_value_and_attribute_id**](perun_openapi/docs/UsersManagerApi.md#get_user_ext_source_by_unique_attribute_value_and_attribute_id) | **GET** /json/usersManager/getUserExtSourceByUniqueAttributeValue/id | Return userExtSource for specific attribute definition (specified by id) and unique value.
 *UsersManagerApi* | [**get_user_ext_source_by_unique_attribute_value_and_attribute_name**](perun_openapi/docs/UsersManagerApi.md#get_user_ext_source_by_unique_attribute_value_and_attribute_name) | **GET** /json/usersManager/getUserExtSourceByUniqueAttributeValue/name | Return userExtSource for specific attribute definition (specified by name) and unique value.
@@ -833,7 +840,7 @@ Class | Method | HTTP request | Description
 *UsersManagerApi* | [**get_users_by_ids**](perun_openapi/docs/UsersManagerApi.md#get_users_by_ids) | **GET** /json/usersManager/getUsersByIds | Returns list of Users by their ids.
 *UsersManagerApi* | [**get_users_by_specific_user**](perun_openapi/docs/UsersManagerApi.md#get_users_by_specific_user) | **GET** /json/usersManager/getUsersBySpecificUser | Return all users who owns the specific user.
 *UsersManagerApi* | [**get_users_page**](perun_openapi/docs/UsersManagerApi.md#get_users_page) | **POST** /json/usersManager/getUsersPage | Get page of users with the given attributes.
-*UsersManagerApi* | [**get_vos_where_user_is_admin**](perun_openapi/docs/UsersManagerApi.md#get_vos_where_user_is_admin) | **GET** /json/usersManager/getVosWhereUserIsAdmin | Returns list of VOs, where the user is an Administrator.
+*UsersManagerApi* | [**get_vos_where_user_is_admin**](perun_openapi/docs/UsersManagerApi.md#get_vos_where_user_is_admin) | **GET** /json/usersManager/getVosWhereUserIsAdmin | Returns list of VOs, where the user is an Administrator. If a group, of which the user is a valid member, is an administrator of a VO, include that VO as well.
 *UsersManagerApi* | [**get_vos_where_user_is_member**](perun_openapi/docs/UsersManagerApi.md#get_vos_where_user_is_member) | **GET** /json/usersManager/getVosWhereUserIsMember | Returns list of VOs, where the user is a Member.
 *UsersManagerApi* | [**is_login_available**](perun_openapi/docs/UsersManagerApi.md#is_login_available) | **POST** /urlinjsonout/usersManager/isLoginAvailable | Checks if the login is available in the namespace. Return 1 if yes, 0 if no.
 *UsersManagerApi* | [**login_exist**](perun_openapi/docs/UsersManagerApi.md#login_exist) | **POST** /urlinjsonout/usersManager/loginExist | Check wheter login exists in specified login-namespace. Only available for some namespaces.
@@ -844,6 +851,7 @@ Class | Method | HTTP request | Description
 *UsersManagerApi* | [**reserve_password_for_user**](perun_openapi/docs/UsersManagerApi.md#reserve_password_for_user) | **POST** /urlinjsonout/usersManager/reservePassword/user | Reserves password for a user in specified login-namespace.
 *UsersManagerApi* | [**reserve_random_password**](perun_openapi/docs/UsersManagerApi.md#reserve_random_password) | **POST** /urlinjsonout/usersManager/reserveRandomPassword | Reserves a random password in external authz system. User shouldn&#39;t be able to log-in (account disabled, password unknown to him). This is usefull when manager create account for others and later send them password reset request.
 *UsersManagerApi* | [**update_user**](perun_openapi/docs/UsersManagerApi.md#update_user) | **POST** /json/usersManager/updateUser | Updates user
+*UsersManagerApi* | [**update_user_ext_source_last_access**](perun_openapi/docs/UsersManagerApi.md#update_user_ext_source_last_access) | **POST** /urlinjsonout/usersManager/updateUserExtSourceLastAccess | Updates user&#39;s userExtSource last access time in DB. We can get information which userExtSource has been used as a last one.
 *UsersManagerApi* | [**validate_password_for_login**](perun_openapi/docs/UsersManagerApi.md#validate_password_for_login) | **POST** /urlinjsonout/usersManager/validatePassword/login | Validate password for a user in specified login-namespace.
 *UsersManagerApi* | [**validate_password_for_user**](perun_openapi/docs/UsersManagerApi.md#validate_password_for_user) | **POST** /urlinjsonout/usersManager/validatePassword/user | Validate password for a user in specified login-namespace.
 *UsersManagerApi* | [**validate_preferred_email_change_with_token**](perun_openapi/docs/UsersManagerApi.md#validate_preferred_email_change_with_token) | **POST** /urlinjsonout/usersManager/validatePreferredEmailChange | Validate new preferred email address. Request to validate is determined based on token parameter sent in email notice by requestPreferredEmailChange() method.
@@ -853,6 +861,7 @@ Class | Method | HTTP request | Description
 *UtilsApi* | [**get_perun_statistics**](perun_openapi/docs/UtilsApi.md#get_perun_statistics) | **GET** /json/utils/getPerunStatistics | Gets Perun runtime statistics
 *UtilsApi* | [**get_perun_status**](perun_openapi/docs/UtilsApi.md#get_perun_status) | **GET** /json/utils/getPerunStatus | Gets Perun runtime status
 *UtilsApi* | [**get_perun_system_time_in_millis**](perun_openapi/docs/UtilsApi.md#get_perun_system_time_in_millis) | **GET** /json/utils/getPerunSystemTimeInMillis | Gets Perun system time in milliseconds since the epoch
+*VosManagerApi* | [**add_member_vo**](perun_openapi/docs/VosManagerApi.md#add_member_vo) | **POST** /urlinjsonout/vosManager/addMemberVo | Add member vo to vo.
 *VosManagerApi* | [**add_sponsor_role_to_group**](perun_openapi/docs/VosManagerApi.md#add_sponsor_role_to_group) | **POST** /urlinjsonout/vosManager/addSponsorRole/group | Add group as a sponsor of guest members of VO. All members of group will become sponsors.
 *VosManagerApi* | [**add_sponsor_role_to_user**](perun_openapi/docs/VosManagerApi.md#add_sponsor_role_to_user) | **POST** /urlinjsonout/vosManager/addSponsorRole/user | Add user as a sponsor for guest members of VO.
 *VosManagerApi* | [**add_vo_admin_group**](perun_openapi/docs/VosManagerApi.md#add_vo_admin_group) | **POST** /urlinjsonout/vosManager/addAdmin/group | Adds a group as a Vo admin.
@@ -865,7 +874,11 @@ Class | Method | HTTP request | Description
 *VosManagerApi* | [**get_all_vos**](perun_openapi/docs/VosManagerApi.md#get_all_vos) | **GET** /json/vosManager/getAllVos | Return list of all VOs in Perun.
 *VosManagerApi* | [**get_complete_candidates_for_group**](perun_openapi/docs/VosManagerApi.md#get_complete_candidates_for_group) | **GET** /json/vosManager/getCompleteCandidates/forGroup | Find MemberCandidates for GROUP. MemberCandidates can be used to create new members. They are made of Candidate, RichUser and Member objects. Candidates are searched in VO&#39;s or GROUP&#39;s (depends on privileges) external sources (if available). RichUsers are searched in given VO and are associated with appropriate candidate and member. RichUsers for appropriate Candidate are also searched in the whole Perun. 
 *VosManagerApi* | [**get_complete_candidates_for_vo**](perun_openapi/docs/VosManagerApi.md#get_complete_candidates_for_vo) | **GET** /json/vosManager/getCompleteCandidates/forVo | Find MemberCandidates for VO. MemberCandidates can be used to create new members. They are made of Candidate, RichUser and Member objects. Candidates are searched in VO&#39;s external sources (if available). RichUsers are searched in given VO and are associated with appropriate candidate and member. RichUsers for MemberCandidates may also be searched in the whole Perun. 
+*VosManagerApi* | [**get_enriched_vo_by_id**](perun_openapi/docs/VosManagerApi.md#get_enriched_vo_by_id) | **GET** /json/vosManager/getEnrichedVoById | Returns an enriched virtual organization by id.
+*VosManagerApi* | [**get_member_vos**](perun_openapi/docs/VosManagerApi.md#get_member_vos) | **GET** /json/vosManager/getMemberVos | Get list of all members organizations of a vo.
+*VosManagerApi* | [**get_my_enriched_vos**](perun_openapi/docs/VosManagerApi.md#get_my_enriched_vos) | **GET** /json/vosManager/getEnrichedVos | Return list of all EnrichedVos the caller is associated with.
 *VosManagerApi* | [**get_my_vos**](perun_openapi/docs/VosManagerApi.md#get_my_vos) | **GET** /json/vosManager/getVos | Return list of all VOs the caller is associated with.
+*VosManagerApi* | [**get_parent_vos**](perun_openapi/docs/VosManagerApi.md#get_parent_vos) | **GET** /json/vosManager/getParentVos | Get list of all parent organizations of a vo.
 *VosManagerApi* | [**get_rich_admins_for_vo**](perun_openapi/docs/VosManagerApi.md#get_rich_admins_for_vo) | **GET** /json/vosManager/getRichAdmins | 
 *VosManagerApi* | [**get_vo_admin_groups**](perun_openapi/docs/VosManagerApi.md#get_vo_admin_groups) | **GET** /json/vosManager/getAdminGroups | 
 *VosManagerApi* | [**get_vo_admin_users**](perun_openapi/docs/VosManagerApi.md#get_vo_admin_users) | **GET** /json/vosManager/getAdmins | 
@@ -877,6 +890,7 @@ Class | Method | HTTP request | Description
 *VosManagerApi* | [**get_vo_members_counts_by_status**](perun_openapi/docs/VosManagerApi.md#get_vo_members_counts_by_status) | **GET** /json/vosManager/getVoMembersCountsByStatus | Returns number of vo members by their status.
 *VosManagerApi* | [**get_vos_by_ids**](perun_openapi/docs/VosManagerApi.md#get_vos_by_ids) | **GET** /json/vosManager/getVosByIds | Return list of VOs by their ids.
 *VosManagerApi* | [**get_vos_count**](perun_openapi/docs/VosManagerApi.md#get_vos_count) | **GET** /json/vosManager/getVosCount | Gets count of all vos.
+*VosManagerApi* | [**remove_member_vo**](perun_openapi/docs/VosManagerApi.md#remove_member_vo) | **POST** /urlinjsonout/vosManager/removeMemberVo | Remove member vo from vo.
 *VosManagerApi* | [**remove_sponsor_role_from_group**](perun_openapi/docs/VosManagerApi.md#remove_sponsor_role_from_group) | **POST** /urlinjsonout/vosManager/removeSponsorRole/group | Removes group as a sponsor. All group members will cease to be sponsors, and their sponsored members will be set as expired if the group member was their last sponsor.
 *VosManagerApi* | [**remove_sponsor_role_from_user**](perun_openapi/docs/VosManagerApi.md#remove_sponsor_role_from_user) | **POST** /urlinjsonout/vosManager/removeSponsorRole/user | Removes user as a sponsor. His or her sponsored members will be set as expired if the user was their last sponsor.
 *VosManagerApi* | [**remove_vo_admin_group**](perun_openapi/docs/VosManagerApi.md#remove_vo_admin_group) | **POST** /urlinjsonout/vosManager/removeAdmin/group | Removes a group as a Vo admin.
@@ -934,6 +948,8 @@ Class | Method | HTTP request | Description
  - [CandidateAllOf](perun_openapi/docs/CandidateAllOf.md)
  - [Category](perun_openapi/docs/Category.md)
  - [CategoryAllOf](perun_openapi/docs/CategoryAllOf.md)
+ - [ConsentHub](perun_openapi/docs/ConsentHub.md)
+ - [ConsentHubAllOf](perun_openapi/docs/ConsentHubAllOf.md)
  - [Destination](perun_openapi/docs/Destination.md)
  - [DestinationAllOf](perun_openapi/docs/DestinationAllOf.md)
  - [DestinationPropagationType](perun_openapi/docs/DestinationPropagationType.md)
@@ -942,6 +958,7 @@ Class | Method | HTTP request | Description
  - [EnrichedGroup](perun_openapi/docs/EnrichedGroup.md)
  - [EnrichedHost](perun_openapi/docs/EnrichedHost.md)
  - [EnrichedResource](perun_openapi/docs/EnrichedResource.md)
+ - [EnrichedVo](perun_openapi/docs/EnrichedVo.md)
  - [EntitylessAttributesByKeys](perun_openapi/docs/EntitylessAttributesByKeys.md)
  - [ExtSource](perun_openapi/docs/ExtSource.md)
  - [ExtSourceAllOf](perun_openapi/docs/ExtSourceAllOf.md)
@@ -998,12 +1015,17 @@ Class | Method | HTTP request | Description
  - [InputFormItemData](perun_openapi/docs/InputFormItemData.md)
  - [InputFormItemData1](perun_openapi/docs/InputFormItemData1.md)
  - [InputGetAllResourcesByResourceTag](perun_openapi/docs/InputGetAllResourcesByResourceTag.md)
+ - [InputGetFacilities](perun_openapi/docs/InputGetFacilities.md)
+ - [InputGetMembersByUserAttributes](perun_openapi/docs/InputGetMembersByUserAttributes.md)
  - [InputGetMessagesPage](perun_openapi/docs/InputGetMessagesPage.md)
  - [InputGetPaginatedApplications](perun_openapi/docs/InputGetPaginatedApplications.md)
  - [InputGetPaginatedGroups](perun_openapi/docs/InputGetPaginatedGroups.md)
  - [InputGetPaginatedMembers](perun_openapi/docs/InputGetPaginatedMembers.md)
  - [InputGetPaginatedSubgroups](perun_openapi/docs/InputGetPaginatedSubgroups.md)
  - [InputGetPaginatedUsers](perun_openapi/docs/InputGetPaginatedUsers.md)
+ - [InputGetResources](perun_openapi/docs/InputGetResources.md)
+ - [InputGetResources1](perun_openapi/docs/InputGetResources1.md)
+ - [InputGetUsers](perun_openapi/docs/InputGetUsers.md)
  - [InputLockPublications](perun_openapi/docs/InputLockPublications.md)
  - [InputRemoveResourceTagFromResource](perun_openapi/docs/InputRemoveResourceTagFromResource.md)
  - [InputSendMessage](perun_openapi/docs/InputSendMessage.md)
@@ -1077,8 +1099,8 @@ Class | Method | HTTP request | Description
  - [NewApps](perun_openapi/docs/NewApps.md)
  - [Owner](perun_openapi/docs/Owner.md)
  - [OwnerAllOf](perun_openapi/docs/OwnerAllOf.md)
- - [PaginatedApplications](perun_openapi/docs/PaginatedApplications.md)
  - [PaginatedAuditMessages](perun_openapi/docs/PaginatedAuditMessages.md)
+ - [PaginatedRichApplications](perun_openapi/docs/PaginatedRichApplications.md)
  - [PaginatedRichGroups](perun_openapi/docs/PaginatedRichGroups.md)
  - [PaginatedRichMembers](perun_openapi/docs/PaginatedRichMembers.md)
  - [PaginatedRichUsers](perun_openapi/docs/PaginatedRichUsers.md)
@@ -1099,6 +1121,8 @@ Class | Method | HTTP request | Description
  - [ResourceState](perun_openapi/docs/ResourceState.md)
  - [ResourceTag](perun_openapi/docs/ResourceTag.md)
  - [ResourceTagAllOf](perun_openapi/docs/ResourceTagAllOf.md)
+ - [RichApplication](perun_openapi/docs/RichApplication.md)
+ - [RichApplicationAllOf](perun_openapi/docs/RichApplicationAllOf.md)
  - [RichDestination](perun_openapi/docs/RichDestination.md)
  - [RichDestinationAllOf](perun_openapi/docs/RichDestinationAllOf.md)
  - [RichFacility](perun_openapi/docs/RichFacility.md)

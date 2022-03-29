@@ -16,7 +16,7 @@ import re
 import ssl
 from urllib.parse import urlencode
 from urllib.parse import urlparse
-from urllib.request import proxy_bypass
+from urllib.request import proxy_bypass_environment
 import urllib3
 import ipaddress
 
@@ -344,4 +344,4 @@ def should_bypass_proxies(url, no_proxy=None):
         for item in entries:
            if in_ipv4net(parsed.hostname, item):
                return True
-    return proxy_bypass(parsed.hostname, {'no': no_proxy} )
+    return proxy_bypass_environment(parsed.hostname, {'no': no_proxy} )

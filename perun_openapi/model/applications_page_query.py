@@ -98,6 +98,7 @@ class ApplicationsPageQuery(ModelNormal):
             'sort_column': (ApplicationsOrderColumn,),  # noqa: E501
             'search_string': (str,),  # noqa: E501
             'include_group_applications': (bool,),  # noqa: E501
+            'get_details': (bool,),  # noqa: E501
             'states': ([AppState],),  # noqa: E501
             'date_from': (date,),  # noqa: E501
             'date_to': (date,),  # noqa: E501
@@ -117,6 +118,7 @@ class ApplicationsPageQuery(ModelNormal):
         'sort_column': 'sortColumn',  # noqa: E501
         'search_string': 'searchString',  # noqa: E501
         'include_group_applications': 'includeGroupApplications',  # noqa: E501
+        'get_details': 'getDetails',  # noqa: E501
         'states': 'states',  # noqa: E501
         'date_from': 'dateFrom',  # noqa: E501
         'date_to': 'dateTo',  # noqa: E501
@@ -173,6 +175,7 @@ class ApplicationsPageQuery(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             search_string (str): [optional]  # noqa: E501
             include_group_applications (bool): [optional]  # noqa: E501
+            get_details (bool): [optional]  # noqa: E501
             states ([AppState]): [optional]  # noqa: E501
             date_from (date): [optional]  # noqa: E501
             date_to (date): [optional]  # noqa: E501
@@ -271,6 +274,7 @@ class ApplicationsPageQuery(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             search_string (str): [optional]  # noqa: E501
             include_group_applications (bool): [optional]  # noqa: E501
+            get_details (bool): [optional]  # noqa: E501
             states ([AppState]): [optional]  # noqa: E501
             date_from (date): [optional]  # noqa: E501
             date_to (date): [optional]  # noqa: E501

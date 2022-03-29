@@ -2080,6 +2080,65 @@ class UsersManagerApi(object):
             },
             api_client=api_client
         )
+        self.get_user_ext_source_by_ext_login_and_ext_source_name_endpoint = _Endpoint(
+            settings={
+                'response_type': (UserExtSource,),
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/json/usersManager/getUserExtSourceByExtLoginAndExtSourceName',
+                'operation_id': 'get_user_ext_source_by_ext_login_and_ext_source_name',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'ext_source_name',
+                    'ext_source_login',
+                ],
+                'required': [
+                    'ext_source_name',
+                    'ext_source_login',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'ext_source_name':
+                        (str,),
+                    'ext_source_login':
+                        (str,),
+                },
+                'attribute_map': {
+                    'ext_source_name': 'extSourceName',
+                    'ext_source_login': 'extSourceLogin',
+                },
+                'location_map': {
+                    'ext_source_name': 'query',
+                    'ext_source_login': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.get_user_ext_source_by_id_endpoint = _Endpoint(
             settings={
                 'response_type': (UserExtSource,),
@@ -3231,6 +3290,59 @@ class UsersManagerApi(object):
                 'content_type': [
                     'application/json'
                 ]
+            },
+            api_client=api_client
+        )
+        self.update_user_ext_source_last_access_endpoint = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'ApiKeyAuth',
+                    'BasicAuth',
+                    'BearerAuth'
+                ],
+                'endpoint_path': '/urlinjsonout/usersManager/updateUserExtSourceLastAccess',
+                'operation_id': 'update_user_ext_source_last_access',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'user_ext_source',
+                ],
+                'required': [
+                    'user_ext_source',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'user_ext_source':
+                        (int,),
+                },
+                'attribute_map': {
+                    'user_ext_source': 'userExtSource',
+                },
+                'location_map': {
+                    'user_ext_source': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
             },
             api_client=api_client
         )
@@ -5037,7 +5149,7 @@ class UsersManagerApi(object):
         vo,
         **kwargs
     ):
-        """Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.  # noqa: E501
+        """Returns list of Groups in selected Vo, where the User is a direct Administrator or he is a VALID member of any group which is Administrator of some of these Groups.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -5110,7 +5222,7 @@ class UsersManagerApi(object):
         user,
         **kwargs
     ):
-        """Returns list of Groups in Perun, where the User is a direct Administrator or he is a member of any group which is Administrator of some of these Groups.  # noqa: E501
+        """Returns list of Groups in Perun, where the User is a direct Administrator or he is a VALID member of any group which is Administrator of some of these Groups.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -5958,6 +6070,80 @@ class UsersManagerApi(object):
             id
         return self.get_user_by_id_endpoint.call_with_http_info(**kwargs)
 
+    def get_user_ext_source_by_ext_login_and_ext_source_name(
+        self,
+        ext_source_name,
+        ext_source_login,
+        **kwargs
+    ):
+        """Returns user's external source by the user's external login and external source name.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_user_ext_source_by_ext_login_and_ext_source_name(ext_source_name, ext_source_login, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            ext_source_name (str): external source name, e.g. IdP entityId
+            ext_source_login (str): external source login
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            UserExtSource
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['ext_source_name'] = \
+            ext_source_name
+        kwargs['ext_source_login'] = \
+            ext_source_login
+        return self.get_user_ext_source_by_ext_login_and_ext_source_name_endpoint.call_with_http_info(**kwargs)
+
     def get_user_ext_source_by_id(
         self,
         user_ext_source,
@@ -6597,7 +6783,7 @@ class UsersManagerApi(object):
         user,
         **kwargs
     ):
-        """Returns list of VOs, where the user is an Administrator.  # noqa: E501
+        """Returns list of VOs, where the user is an Administrator. If a group, of which the user is a valid member, is an administrator of a VO, include that VO as well.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -7406,6 +7592,76 @@ class UsersManagerApi(object):
         kwargs['input_update_user'] = \
             input_update_user
         return self.update_user_endpoint.call_with_http_info(**kwargs)
+
+    def update_user_ext_source_last_access(
+        self,
+        user_ext_source,
+        **kwargs
+    ):
+        """Updates user's userExtSource last access time in DB. We can get information which userExtSource has been used as a last one.  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.update_user_ext_source_last_access(user_ext_source, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            user_ext_source (int): id of UserExtSource
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['user_ext_source'] = \
+            user_ext_source
+        return self.update_user_ext_source_last_access_endpoint.call_with_http_info(**kwargs)
 
     def validate_password_for_login(
         self,

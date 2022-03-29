@@ -42,6 +42,7 @@ def lazy_import():
     from perun_openapi.model.ban_on_vo import BanOnVo
     from perun_openapi.model.candidate import Candidate
     from perun_openapi.model.category import Category
+    from perun_openapi.model.consent_hub import ConsentHub
     from perun_openapi.model.destination import Destination
     from perun_openapi.model.ext_source import ExtSource
     from perun_openapi.model.facility import Facility
@@ -81,6 +82,7 @@ def lazy_import():
     globals()['BanOnVo'] = BanOnVo
     globals()['Candidate'] = Candidate
     globals()['Category'] = Category
+    globals()['ConsentHub'] = ConsentHub
     globals()['Destination'] = Destination
     globals()['ExtSource'] = ExtSource
     globals()['Facility'] = Facility
@@ -183,6 +185,7 @@ class PerunBean(ModelNormal):
             'BanOnVo': BanOnVo,
             'Candidate': Candidate,
             'Category': Category,
+            'ConsentHub': ConsentHub,
             'Destination': Destination,
             'ExtSource': ExtSource,
             'Facility': Facility,
