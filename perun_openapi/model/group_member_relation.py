@@ -83,8 +83,11 @@ class GroupMemberRelation(ModelNormal):
         """
         return {
             'm': (int,),  # noqa: E501
+            'u': (int,),  # noqa: E501
             'g': (int,),  # noqa: E501
             'sg': (int,),  # noqa: E501
+            'gn': (str,),  # noqa: E501
+            'pg': (int,),  # noqa: E501
             's': (str,),  # noqa: E501
             't': (str,),  # noqa: E501
         }
@@ -96,8 +99,11 @@ class GroupMemberRelation(ModelNormal):
 
     attribute_map = {
         'm': 'm',  # noqa: E501
+        'u': 'u',  # noqa: E501
         'g': 'g',  # noqa: E501
         'sg': 'sg',  # noqa: E501
+        'gn': 'gn',  # noqa: E501
+        'pg': 'pg',  # noqa: E501
         's': 's',  # noqa: E501
         't': 't',  # noqa: E501
     }
@@ -144,8 +150,11 @@ class GroupMemberRelation(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             m (int): member id. [optional]  # noqa: E501
+            u (int): user_id. [optional]  # noqa: E501
             g (int): group id. [optional]  # noqa: E501
             sg (int): source group id. [optional]  # noqa: E501
+            gn (str): group_name. [optional]  # noqa: E501
+            pg (int): parent_group_id. [optional]  # noqa: E501
             s (str): source group status. [optional]  # noqa: E501
             t (str): membership type. [optional]  # noqa: E501
         """
@@ -230,8 +239,11 @@ class GroupMemberRelation(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             m (int): member id. [optional]  # noqa: E501
+            u (int): user_id. [optional]  # noqa: E501
             g (int): group id. [optional]  # noqa: E501
             sg (int): source group id. [optional]  # noqa: E501
+            gn (str): group_name. [optional]  # noqa: E501
+            pg (int): parent_group_id. [optional]  # noqa: E501
             s (str): source group status. [optional]  # noqa: E501
             t (str): membership type. [optional]  # noqa: E501
         """

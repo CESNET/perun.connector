@@ -41,7 +41,7 @@ from perun_openapi.model.input_update_application_mail import InputUpdateApplica
 from perun_openapi.model.input_update_form import InputUpdateForm
 from perun_openapi.model.input_update_form_items_for_group import InputUpdateFormItemsForGroup
 from perun_openapi.model.input_update_form_items_for_vo import InputUpdateFormItemsForVo
-from perun_openapi.model.paginated_applications import PaginatedApplications
+from perun_openapi.model.paginated_rich_applications import PaginatedRichApplications
 from perun_openapi.model.perun_exception import PerunException
 from perun_openapi.model.user_ext_source import UserExtSource
 
@@ -1560,7 +1560,7 @@ class RegistrarManagerApi(object):
         )
         self.get_applications_page_endpoint = _Endpoint(
             settings={
-                'response_type': (PaginatedApplications,),
+                'response_type': (PaginatedRichApplications,),
                 'auth': [
                     'ApiKeyAuth',
                     'BasicAuth',
@@ -4815,7 +4815,7 @@ class RegistrarManagerApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            PaginatedApplications
+            PaginatedRichApplications
                 If the method is called asynchronously, returns the request
                 thread.
         """

@@ -39,6 +39,7 @@ def lazy_import():
     from perun_openapi.model.ban_on_resource import BanOnResource
     from perun_openapi.model.ban_on_vo import BanOnVo
     from perun_openapi.model.candidate import Candidate
+    from perun_openapi.model.consent_hub import ConsentHub
     from perun_openapi.model.destination import Destination
     from perun_openapi.model.ext_source import ExtSource
     from perun_openapi.model.facility import Facility
@@ -70,6 +71,7 @@ def lazy_import():
     globals()['BanOnResource'] = BanOnResource
     globals()['BanOnVo'] = BanOnVo
     globals()['Candidate'] = Candidate
+    globals()['ConsentHub'] = ConsentHub
     globals()['Destination'] = Destination
     globals()['ExtSource'] = ExtSource
     globals()['Facility'] = Facility
@@ -169,6 +171,7 @@ class Auditable(ModelComposed):
             'BanOnResource': BanOnResource,
             'BanOnVo': BanOnVo,
             'Candidate': Candidate,
+            'ConsentHub': ConsentHub,
             'Destination': Destination,
             'ExtSource': ExtSource,
             'Facility': Facility,

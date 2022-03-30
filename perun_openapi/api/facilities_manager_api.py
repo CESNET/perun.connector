@@ -9928,7 +9928,7 @@ class FacilitiesManagerApi(object):
         user,
         **kwargs
     ):
-        """Returns list of Facilities, where the user is an Administrator.  # noqa: E501
+        """Returns list of Facilities, where the user is a direct Administrator or a VALID member of an administrator group.  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
@@ -10071,7 +10071,7 @@ class FacilitiesManagerApi(object):
     ):
         """get_facility_admin_users  # noqa: E501
 
-        Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Supported roles: FacilityAdmin   # noqa: E501
+        Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Includes users who are VALID members of administrator groups. Supported roles: FacilityAdmin   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -10146,7 +10146,7 @@ class FacilitiesManagerApi(object):
     ):
         """get_facility_admin_users_by_facility_name  # noqa: E501
 
-        Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Supported roles: FacilityAdmin   # noqa: E501
+        Get list of all facility administrators for supported role and given facility. If onlyDirectAdmins is true, return only direct admins of the group for supported role. Includes users who are VALID members of administrator groups. Supported roles: FacilityAdmin   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
