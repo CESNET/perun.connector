@@ -85,7 +85,7 @@ class LdapConnector:
         if not response:
             return []
 
-        entries = self.__get_simplified_entries(response)
+        entries = self._get_simplified_entries(response)
 
         self.conn.unbind()
 
@@ -98,7 +98,7 @@ class LdapConnector:
         return entries
 
     @staticmethod
-    def __get_simplified_entries(result):
+    def _get_simplified_entries(result):
 
         entries = []
         for entry in result:
