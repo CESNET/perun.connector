@@ -58,7 +58,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         )
 
     @abc.abstractmethod
-    def get_perun_user(self, idp_id: str, uids: List[str]) -> User:
+    def get_perun_user(self, idp_id: str, uids: List[str]) -> Optional[User]:
         """Get Perun user with at least one of the uids"""
         raise NotImplementedError
 
@@ -78,7 +78,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_sp_groups(self, rp_identifier: str) -> List[Group]:
+    def get_sp_groups(self, facility: Facility) -> List[Group]:
         """Get groups associated withs given SP entity"""
         raise NotImplementedError
 
@@ -112,14 +112,14 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def get_facility_by_rp_identifier(
-            self, rp_identifier: str, rp_identifier_attr: str
+            self, rp_identifier: str
     ) -> Facility:
         """Get specified facility based on given rp_identifier"""
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_users_groups_on_facility(
-            self, rp_identifier: str, user: User
+            self, facility: Facility, user: User
     ) -> List[Group]:
         """Get groups of specified user on given facility"""
         raise NotImplementedError
@@ -147,7 +147,9 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def update_user_ext_source_last_access(self, user_ext_source: str) -> None:
+    def update_user_ext_source_last_access(
+            self, user_ext_source: UserExtSource
+    ) -> None:
         """Update user's last access of external source"""
         raise NotImplementedError
 
@@ -179,13 +181,13 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def get_resource_capabilities(
-            self, rp_identifier: str, user_groups: List[Group]
+            self, facility: Facility, user_groups: List[Group]
     ) -> List[str]:
         """Obtains resource capabilities of groups linked to the facility
         with given entity ID"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_facility_capabilities(self, rp_identifier: str) -> List[str]:
+    def get_facility_capabilities(self, facility: Facility) -> List[str]:
         """Obtains facility capabilities of facility with given entity ID"""
         raise NotImplementedError
