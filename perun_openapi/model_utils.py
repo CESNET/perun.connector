@@ -20,6 +20,7 @@ import tempfile
 
 from dateutil.parser import parse
 
+import perun_openapi
 from perun_openapi.exceptions import (
     ApiKeyError,
     ApiAttributeError,
@@ -646,10 +647,11 @@ class ModelComposed(OpenApiModel):
         # The value stored in all model instances must be the same
         if model_instances:
             for model_instance in model_instances:
-                if name in model_instance._data_store:
-                    v = model_instance._data_store[name]
-                    if v not in values:
-                        values.append(v)
+                if not isinstance(model_instance, perun_openapi.model.auditable.Auditable):
+                    if name in model_instance._data_store:
+                        v = model_instance._data_store[name]
+                        if v not in values:
+                            values.append(v)
         len_values = len(values)
         if len_values == 0:
             return default
