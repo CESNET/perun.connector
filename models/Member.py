@@ -1,9 +1,10 @@
 from enums.MemberStatusEnum import MemberStatusEnum
 from models.HasIdAbstract import HasIdAbstract
+from models.VO import VO
 
 
 class Member(HasIdAbstract):
-    def __init__(self, id, vo, status):
+    def __init__(self, id: int, vo: VO, status: str):
         super().__init__(id)
         self.vo = vo
         self.status = status
@@ -23,3 +24,12 @@ class Member(HasIdAbstract):
             raise ValueError(f'"{value}" is not a valid state.')
 
         self._status = MemberStatusEnum[value.upper()]
+
+    def __eq__(self, other):
+        if isinstance(other, Member):
+            return (
+                self.id == other.id
+                and self.vo == other.vo
+                and self.status == other.status
+            )
+        return False
