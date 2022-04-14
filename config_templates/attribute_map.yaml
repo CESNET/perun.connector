@@ -14,11 +14,6 @@
   "type": "bool"
 
 "perunFacilityAttr_rpID":
-  "rpc": "urn:perun:facility:attribute-def:def:entityID"
-  "ldap": "entityID"
-  "type": "string"
-
-"perunFacilityAttr_OIDCClientID":
   "rpc": "urn:perun:facility:attribute-def:def:OIDCClientID"
   "ldap": "OIDCClientID"
   "type": "string"
@@ -224,9 +219,21 @@
   "ldap": "aup"
   "type": "string"
 
+"perunVoAttribute_id":
+  "rpc": "urn:perun:vo:attribute-def:core:id"
+  "ldap": "perunVoId"
+  "type": "int"
+
   # RESOURCE ATTRIBUTES
 
 "perunResourceAttribute_capabilities":
   "rpc": "urn:perun:resource:attribute-def:def:capabilities"
   "ldap": "capabilities"
   "type": "list"
+
+  # ENTITYLESS ATTRIBUTES
+
+"perunEntitylessAttribute_orgAups":
+    "rpc": "urn:perun:entityless:attribute-def:def:orgAups"
+    "ldap": "orgAups"
+    "type": "dictionary"
