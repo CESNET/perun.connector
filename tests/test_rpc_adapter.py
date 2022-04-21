@@ -6,7 +6,7 @@ import pytest
 
 import perun_openapi
 from adapters.PerunRpcAdapter import PerunRpcAdapter
-from enums.MemberStatusEnum import MemberStatusEnum
+from models.MemberStatusEnum import MemberStatusEnum
 from models.Facility import Facility
 from models.Group import Group
 from models.Member import Member

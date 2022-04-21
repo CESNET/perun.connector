@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from utils.ConfigStore import ConfigStore
-from loggers.Logger import Logger
+from utils.Logger import Logger
 
 
 class AttributeUtils:

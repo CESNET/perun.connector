@@ -1,5 +1,5 @@
 
-from ldap_connector.LdapConnector import LdapConnector
+from connectors.LdapConnector import LdapConnector
 from unittest.mock import patch, MagicMock
 
 import pytest
@@ -31,7 +31,7 @@ FILTERS = "(name=test_filters)"
 
 
 @patch(
-    "ldap_connector.LdapConnector.LdapConnector._search"
+    "connectors.LdapConnector.LdapConnector._search"
 )
 def test_search_for_entity_not_found(mock_request):
     CONNECTOR._search = MagicMock(
@@ -42,7 +42,7 @@ def test_search_for_entity_not_found(mock_request):
 
 
 @patch(
-    "ldap_connector.LdapConnector.LdapConnector._search"
+    "connectors.LdapConnector.LdapConnector._search"
 )
 def test_search_for_entity_found(mock_request):
     CONNECTOR._search = MagicMock(
@@ -53,7 +53,7 @@ def test_search_for_entity_found(mock_request):
 
 
 @patch(
-    "ldap_connector.LdapConnector.LdapConnector._search"
+    "connectors.LdapConnector.LdapConnector._search"
 )
 def test_search_for_entity_found_invalid(mock_request):
     CONNECTOR._search = MagicMock(
@@ -72,7 +72,7 @@ def test_search_for_entity_found_invalid(mock_request):
 
 
 @patch(
-    "ldap_connector.LdapConnector.LdapConnector._search"
+    "connectors.LdapConnector.LdapConnector._search"
 )
 def test_search_for_entities_not_found(mock_request):
     CONNECTOR._search = MagicMock(
@@ -83,7 +83,7 @@ def test_search_for_entities_not_found(mock_request):
 
 
 @patch(
-    "ldap_connector.LdapConnector.LdapConnector._search"
+    "connectors.LdapConnector.LdapConnector._search"
 )
 def test_search_for_entities_found(mock_request):
     CONNECTOR._search = MagicMock(

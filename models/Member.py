@@ -1,4 +1,4 @@
-from enums.MemberStatusEnum import MemberStatusEnum
+from models.MemberStatusEnum import MemberStatusEnum
 from models.HasIdAbstract import HasIdAbstract
 from models.VO import VO
 

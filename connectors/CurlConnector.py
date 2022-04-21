@@ -1,7 +1,7 @@
 from typing import Union, Optional, List
 
-from loggers.Logger import Logger
-from curl_connector.CurlConnectorInterface import CurlInterface
+from utils.Logger import Logger
+from connectors.CurlConnectorInterface import CurlInterface
 import collections
 import urllib.parse
 import pycurl
