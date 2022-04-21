@@ -2,8 +2,8 @@ from typing import List, Union, Optional
 
 import perun_openapi.model.group
 from adapters.AdapterInterface import AdapterInterface
-from enums.MemberStatusEnum import MemberStatusEnum
-from loggers.Logger import Logger
+from models.MemberStatusEnum import MemberStatusEnum
+from utils.Logger import Logger
 from models.Facility import Facility
 from models.Group import Group
 from models.Member import Member

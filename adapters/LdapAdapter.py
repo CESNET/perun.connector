@@ -1,11 +1,11 @@
-from ldap_connector.LdapConnector import LdapConnector
+from connectors.LdapConnector import LdapConnector
 from models.Facility import Facility
 from models.Group import Group
 from models.User import User
 from models.VO import VO
-from enums.MemberStatusEnum import MemberStatusEnum
+from models.MemberStatusEnum import MemberStatusEnum
 from utils.AttributeUtils import AttributeUtils
-from loggers.Logger import Logger
+from utils.Logger import Logger
 from adapters.AdapterInterface import AdapterInterface
 
 
