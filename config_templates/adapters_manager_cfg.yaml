@@ -24,6 +24,3 @@ adapters:
     api_key: your_api_key
     #BearerAuth
     access_token: your_bearer_token
-
-  - type: curl
-    priority: 3
