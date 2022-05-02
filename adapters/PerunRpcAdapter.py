@@ -102,7 +102,7 @@ class PerunRpcAdapter(AdapterInterface):
 
     def _create_internal_representation_groups(self,
                                                input_groups: List[
-                                                perun_openapi.model.group.Group
+                                                   perun_openapi.model.group.Group
                                                ],
                                                converted_groups: List[Group],
                                                attributes_api_instance:
@@ -116,7 +116,7 @@ class PerunRpcAdapter(AdapterInterface):
                 converted_groups.append(
                     Group(
                         group["id"],
-                        self.get_vo(id=group["vo_id"]),
+                        self.get_vo(vo_id=group["vo_id"]),
                         group["uuid"],
                         group["name"],
                         group["unique_name"],
@@ -125,16 +125,18 @@ class PerunRpcAdapter(AdapterInterface):
                 )
                 unique_ids.append(group["id"])
 
-    def get_member_groups(self, user: User, vo: VO) -> List[Group]:
+    def get_member_groups(self, user: Union[User, int], vo: Union[VO, int]) -> List[Group]:
         with ApiClient(self._CONFIG) as api_client:
             members_api_instance = MembersManagerApi(api_client)
             groups_api_instance = GroupsManagerApi(api_client)
             attributes_api_instance = AttributesManagerApi(api_client)
 
             converted_groups = []
+            vo_id = AdapterInterface.get_object_id(vo)
+            user_id = AdapterInterface.get_object_id(user)
             try:
                 member = members_api_instance.get_member_by_user(
-                    vo.id, user.id
+                    vo_id, user_id
                 )
                 member_groups = []
                 if member:
@@ -149,18 +151,19 @@ class PerunRpcAdapter(AdapterInterface):
 
             return converted_groups
 
-    def get_sp_groups(self, facility: Facility) -> List[Group]:
+    def get_sp_groups_by_facility(self, facility: Union[Facility, int]) -> List[Group]:
+        if facility is None:
+            return []
+
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
             facilities_api_instance = FacilitiesManagerApi(api_client)
             resources_api_instance = ResourcesManagerApi(api_client)
 
-            if facility is None:
-                return []
-
+            facility_id = AdapterInterface.get_object_id(facility)
             resources = (
                 facilities_api_instance.get_assigned_resources_for_facility(
-                    facility.id
+                    facility_id
                 )
             )
 
@@ -177,12 +180,17 @@ class PerunRpcAdapter(AdapterInterface):
                                                             attributes_api_instance)  # noqa E501
             return sp_groups
 
-    def get_group_by_name(self, vo: VO, name: str) -> Group:
+    def get_sp_groups_by_rp_id(self, rp_id: str) -> List[Group]:
+        facility = self.get_facility_by_rp_identifier(rp_id)
+        return self.get_sp_groups_by_facility(facility)
+
+    def get_group_by_name(self, vo: Union[VO, int], name: str) -> Group:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
             groups_api_instance = GroupsManagerApi(api_client)
 
-            group = groups_api_instance.get_group_by_name(vo.id, name)
+            vo_id = AdapterInterface.get_object_id(vo)
+            group = groups_api_instance.get_group_by_name(vo_id, name)
             group_external_representation = [group]
             converted_group = []
             self._create_internal_representation_groups(
@@ -191,19 +199,19 @@ class PerunRpcAdapter(AdapterInterface):
                 attributes_api_instance)
             return converted_group[0]
 
-    def get_vo(self, short_name=None, id=None) -> Optional[VO]:
+    def get_vo(self, short_name=None, vo_id=None) -> Optional[VO]:
         with ApiClient(self._CONFIG) as api_client:
             vos_api_instance = VosManagerApi(api_client)
 
-            if short_name and id:
+            if short_name and vo_id:
                 raise ValueError(
                     "VO can be obtained either by its short_name or id, "
                     "not both "
                     "at the same time."
                 )
-            elif id:
+            elif vo_id:
                 vo_lookup_method = vos_api_instance.get_vo_by_id
-                vo_lookup_attribute = id
+                vo_lookup_attribute = vo_id
                 identifier = "id"
             elif short_name:
                 vo_lookup_method = vos_api_instance.get_vo_by_short_name
@@ -264,7 +272,7 @@ class PerunRpcAdapter(AdapterInterface):
             )
 
     def get_users_groups_on_facility(
-            self, facility: Facility, user: User
+            self, facility: Union[Facility, int], user: Union[User, int]
     ) -> List[Group]:
         if facility is None:
             return []
@@ -273,10 +281,12 @@ class PerunRpcAdapter(AdapterInterface):
             users_api_instance = UsersManagerApi(api_client)
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            facility_id = AdapterInterface.get_object_id(facility)
+            user_id = AdapterInterface.get_object_id(user)
             users_groups_on_facility = (
                 users_api_instance.get_groups_for_facility_where_user_is_active(  # noqa E501
-                    user.id,
-                    facility.id,
+                    user_id,
+                    facility_id,
                 )
             )
             converted_groups = []
@@ -284,6 +294,12 @@ class PerunRpcAdapter(AdapterInterface):
                 users_groups_on_facility, converted_groups,
                 attributes_api_instance)
             return converted_groups
+
+    def get_users_groups_on_facility_by_rp_id(
+            self, rp_identifier: str, user: Union[User, int]
+    ) -> List[Group]:
+        facility = self.get_facility_by_rp_identifier(rp_identifier)
+        return self.get_users_groups_on_facility(facility, user)
 
     def _get_rp_id(self, facility: Facility) -> str:
         return self.get_facility_attributes(facility, [self._RP_ID_ATTR]) \
@@ -320,17 +336,19 @@ class PerunRpcAdapter(AdapterInterface):
         return facilities
 
     def get_facility_attributes(
-            self, facility: Facility, attr_names: List[str]
+            self, facility: Union[Facility, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
+
+            facility_id = AdapterInterface.get_object_id(facility)
 
             attr_names_map = self._ATTRIBUTE_UTILS.get_rpc_attr_names(
                 attr_names
             )
             perun_attrs = (
                 attributes_api_instance.get_facility_attributes_by_names(
-                    facility.id, list(attr_names_map.keys())
+                    facility_id, list(attr_names_map.keys())
                 )
             )
             facility_attrs = self._get_attributes(perun_attrs, attr_names_map)
@@ -362,9 +380,9 @@ class PerunRpcAdapter(AdapterInterface):
             return UserExtSource(ext_source_id, name, login, user)
 
     def update_user_ext_source_last_access(
-            self, user_ext_source: UserExtSource
+            self, user_ext_source: Union[UserExtSource, int]
     ) -> None:
-        user_ext_source_id = user_ext_source.id
+        user_ext_source_id = AdapterInterface.get_object_id(user_ext_source)
 
         with ApiClient(self._CONFIG) as api_client:
             users_api_instance = UsersManagerApi(api_client)
@@ -374,24 +392,26 @@ class PerunRpcAdapter(AdapterInterface):
             )
 
     def get_user_ext_source_attributes(
-            self, user_ext_source: UserExtSource, attr_names: List[str]
+            self, user_ext_source: Union[UserExtSource, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
+
+            user_ext_source_id = AdapterInterface.get_object_id(user_ext_source)
 
             attr_names_map = self._ATTRIBUTE_UTILS.get_rpc_attr_names(
                 attr_names
             )
             perun_attrs = \
                 attributes_api_instance.get_user_ext_source_attributes_by_names(  # noqa E501
-                    user_ext_source=user_ext_source.id,
+                    user_ext_source=user_ext_source_id,
                     attr_names=list(attr_names_map.keys()),
                 )
             return self._get_attributes(perun_attrs, attr_names_map)
 
     def set_user_ext_source_attributes(
             self,
-            user_ext_source: UserExtSource,
+            user_ext_source: Union[UserExtSource, int],
             attributes: List[
                 dict[
                     str, Union[
@@ -402,12 +422,13 @@ class PerunRpcAdapter(AdapterInterface):
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            user_ext_source_id = AdapterInterface.get_object_id(user_ext_source)
             attributes_api_instance.set_user_ext_source_attributes(
-                InputSetUserExtSourceAttributes(user_ext_source.id, attributes)
+                InputSetUserExtSourceAttributes(user_ext_source_id, attributes)
             )
 
     def get_member_status_by_user_and_vo(
-            self, user: User, vo: VO
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> Optional[str]:
 
         member = self.get_member_by_user(user, vo)
@@ -417,8 +438,9 @@ class PerunRpcAdapter(AdapterInterface):
 
         return None
 
-    def is_user_in_vo(self, user: User, vo_short_name: str) -> bool:
-        if not user.id:
+    def is_user_in_vo_by_short_name(self, user: Union[User, int], vo_short_name: str) -> bool:
+        user_id = AdapterInterface.get_object_id(user)
+        if not user_id:
             raise ValueError("User's ID is empty")
 
         if not vo_short_name:
@@ -436,13 +458,16 @@ class PerunRpcAdapter(AdapterInterface):
 
         return user_status == valid_status
 
-    def get_member_by_user(self, user: User, vo: VO) -> Optional[Member]:
+    def get_member_by_user(self, user: Union[User, int], vo: Union[VO, int]) -> Optional[Member]:
         with ApiClient(self._CONFIG) as api_client:
             members_api_instance = MembersManagerApi(api_client)
 
+            user_id = AdapterInterface.get_object_id(user)
+            vo_id = AdapterInterface.get_object_id(vo)
+
             try:
-                member = members_api_instance.get_member_by_user(vo.id,
-                                                                 user.id)
+                member = members_api_instance.get_member_by_user(vo_id,
+                                                                 user_id)
                 return Member(member["id"], vo, member["status"])
             except ApiException as ex:
                 user_not_found = '"name":"UserNotExistsException"' in ex.body
@@ -452,18 +477,18 @@ class PerunRpcAdapter(AdapterInterface):
 
                 if user_not_found:
                     self._logger.warning(
-                        f'User with name "{user.name}" does not exist in '
+                        f'User with id "{user_id}" does not exist in '
                         f'Perun.'
                     )
                 if vo_not_found:
                     self._logger.warning(
-                        f'VO with short_name "{vo.short_name}" does not '
+                        f'VO with id "{vo_id}" does not '
                         f'exist in Perun.'
                     )
                 if member_not_exists:
                     self._logger.warning(
-                        f'Member with VO "{vo.short_name}" and name "'
-                        f'{user.name}" does not exist in Perun.'
+                        f'Member with VO "{vo_id}" and user id "'
+                        f'{user_id}" does not exist in Perun.'
                     )
 
                 if user_not_found or vo_not_found or member_not_exists:
@@ -471,8 +496,8 @@ class PerunRpcAdapter(AdapterInterface):
 
                 raise ex
 
-    def get_resource_capabilities(
-            self, facility: Facility, user_groups: List[Group]
+    def get_resource_capabilities_by_facility(
+            self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
     ) -> List[str]:
         capabilities = []
         if facility is None:
@@ -483,12 +508,13 @@ class PerunRpcAdapter(AdapterInterface):
             resources_api_instance = ResourcesManagerApi(api_client)
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            facility_id = AdapterInterface.get_object_id(facility)
             resources = (
                 facilities_api_instance.get_assigned_resources_for_facility(
-                    facility.id
+                    facility_id
                 )
             )
-            user_groups_ids = [user_group.id for user_group in user_groups]
+            user_groups_ids = [AdapterInterface.get_object_id(user_group) for user_group in user_groups]
             for resource in resources:
                 resource_groups = resources_api_instance.get_assigned_groups(
                     resource["id"]
@@ -509,23 +535,35 @@ class PerunRpcAdapter(AdapterInterface):
                         break
         return capabilities
 
-    def get_facility_capabilities(self, facility: Facility) -> List[str]:
+    def get_resource_capabilities_by_rp_id(
+            self, rp_identifier: str, user_groups: List[Union[Group, int]]
+    ) -> List[str]:
+        facility = self.get_facility_by_rp_identifier(rp_identifier)
+        return self.get_resource_capabilities_by_facility(facility, user_groups)
+
+    def get_facility_capabilities_by_facility(self, facility: Union[Facility, int]) -> List[str]:
         if facility is None:
             return []
 
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            facility_id = AdapterInterface.get_object_id(facility)
+
             facility_capabilities = attributes_api_instance.get_attribute(
-                facility=facility.id,
+                facility=facility_id,
                 attribute_name="urn:perun:facility:attribute-def:def"
                                ":capabilities",
             )["value"]
 
             return facility_capabilities
 
+    def get_facility_capabilities_by_rp_id(self, rp_identifier: str) -> List[str]:
+        facility = self.get_facility_by_rp_identifier(rp_identifier)
+        return self.get_facility_capabilities_by_facility(facility)
+
     def get_user_attributes(
-            self, user: User, attr_names: List[str]
+            self, user: Union[User, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         default_attribute_name = "perunUserAttribute_loa"
         if not attr_names:
@@ -534,12 +572,14 @@ class PerunRpcAdapter(AdapterInterface):
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            user_id = AdapterInterface.get_object_id(user)
+
             attr_names_map = self._ATTRIBUTE_UTILS.get_rpc_attr_names(
                 attr_names
             )
 
             perun_attrs = attributes_api_instance.get_user_attributes_by_names(
-                user.id, list(attr_names_map.keys())
+                user_id, list(attr_names_map.keys())
             )
 
             user_attrs = self._get_attributes(perun_attrs, attr_names_map)
@@ -574,7 +614,7 @@ class PerunRpcAdapter(AdapterInterface):
             return dict(zip(perun_attr_keys, perun_attr_values))
 
     def get_vo_attributes(
-            self, vo: VO, attr_names: List[str]
+            self, vo: Union[VO, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         default_attribute_name = "perunVoAttribute_id"
         if not attr_names:
@@ -583,12 +623,14 @@ class PerunRpcAdapter(AdapterInterface):
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            vo_id = AdapterInterface.get_object_id(vo)
+
             attr_names_map = self._ATTRIBUTE_UTILS.get_rpc_attr_names(
                 attr_names
             )
 
             perun_attrs = attributes_api_instance.get_vo_attributes_by_names(
-                vo.id, list(attr_names_map.keys())
+                vo_id, list(attr_names_map.keys())
             )
 
             vo_attrs = self._get_attributes(perun_attrs, attr_names_map)
@@ -599,14 +641,16 @@ class PerunRpcAdapter(AdapterInterface):
             }
 
     def get_facility_attribute(
-            self, facility: Facility, attr_name: str
+            self, facility: Union[Facility, int], attr_name: str
     ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
 
+            facility_id = AdapterInterface.get_object_id(facility)
+
             attr_name = self._ATTRIBUTE_UTILS.get_rpc_attr_name(attr_name)
             perun_attr = attributes_api_instance.get_attribute(
-                facility=facility.id, attribute_name=attr_name
+                facility=facility_id, attribute_name=attr_name
             )
 
             return perun_attr["value"]

@@ -3,6 +3,7 @@ from typing import List, Union, Optional
 
 from models.Facility import Facility
 from models.Group import Group
+from models.HasIdAbstract import HasIdAbstract
 from models.User import User
 from models.UserExtSource import UserExtSource
 from models.VO import VO
@@ -20,8 +21,10 @@ class AdapterInterface(metaclass=abc.ABCMeta):
                 and callable(subclass.get_vo)
                 and hasattr(subclass, "get_member_groups")
                 and callable(subclass.get_member_groups)
-                and hasattr(subclass, "get_sp_groups")
-                and callable(subclass.get_sp_groups)
+                and hasattr(subclass, "get_sp_groups_by_facility")
+                and callable(subclass.get_sp_groups_by_facility)
+                and hasattr(subclass, "get_sp_groups_by_rp_id")
+                and callable(subclass.get_sp_groups_by_rp_id)
                 and hasattr(subclass, "get_user_attributes")
                 and callable(subclass.get_user_attributes)
                 and hasattr(subclass, "get_entityless_attribute")
@@ -34,6 +37,8 @@ class AdapterInterface(metaclass=abc.ABCMeta):
                 and callable(subclass.get_facility_by_rp_identifier)
                 and hasattr(subclass, "get_users_groups_on_facility")
                 and callable(subclass.get_users_groups_on_facility)
+                and hasattr(subclass, "get_users_groups_on_facility_by_rp_id")
+                and callable(subclass.get_users_groups_on_facility_by_rp_id)
                 and hasattr(subclass, "get_facilities_by_attribute_value")
                 and callable(subclass.get_facilities_by_attribute_value)
                 and hasattr(subclass, "get_facility_attributes")
@@ -48,12 +53,16 @@ class AdapterInterface(metaclass=abc.ABCMeta):
                 and callable(subclass.set_user_ext_source_attributes)
                 and hasattr(subclass, "get_member_status_by_user_and_vo")
                 and callable(subclass.get_member_status_by_user_and_vo)
-                and hasattr(subclass, "is_user_in_vo")
-                and callable(subclass.is_user_in_vo)
-                and hasattr(subclass, "get_resource_capabilities")
-                and callable(subclass.get_resource_capabilities)
-                and hasattr(subclass, "get_facility_capabilities")
-                and callable(subclass.get_facility_capabilities)
+                and hasattr(subclass, "is_user_in_vo_by_short_name")
+                and callable(subclass.is_user_in_vo_by_short_name)
+                and hasattr(subclass, "get_resource_capabilities_by_facility")
+                and callable(subclass.get_resource_capabilities_by_facility)
+                and hasattr(subclass, "get_resource_capabilities_by_rp_id")
+                and callable(subclass.get_resource_capabilities_by_rp_id)
+                and hasattr(subclass, "get_facility_capabilities_by_facility")
+                and callable(subclass.get_facility_capabilities_by_facility)
+                and hasattr(subclass, "get_facility_capabilities_by_rp_id")
+                and callable(subclass.get_facility_capabilities_by_rp_id)
                 or NotImplemented
         )
 
@@ -63,28 +72,33 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_group_by_name(self, vo: VO, name: str) -> Group:
+    def get_group_by_name(self, vo: Union[VO, int], name: str) -> Group:
         """Get Group based on its name"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_vo(self, short_name: str, id: int) -> VO:
+    def get_vo(self, short_name: str, vo_id: int) -> Optional[VO]:
         """Get VO by either its id or short name"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_member_groups(self, user: User, vo: VO) -> List[Group]:
+    def get_member_groups(self, user: Union[User, int], vo: Union[VO, int]) -> List[Group]:
         """Get member groups of given user"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_sp_groups(self, facility: Facility) -> List[Group]:
+    def get_sp_groups_by_facility(self, facility: Union[Facility, int]) -> List[Group]:
+        """Get groups associated withs given Facility"""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_sp_groups_by_rp_id(self, rp_id: str) -> List[Group]:
         """Get groups associated withs given SP entity"""
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_user_attributes(
-            self, user: User, attr_names: List[str]
+            self, user: Union[User, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         """Get specified attributes of given user"""
         raise NotImplementedError
@@ -98,14 +112,14 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def get_vo_attributes(
-            self, vo: VO, attr_names: List[str]
+            self, vo: Union[VO, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         """Get specified attributes of given VO"""
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_facility_attribute(
-            self, facility: Facility, attr_name: str
+            self, facility: Union[Facility, int], attr_name: str
     ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
         """Get specified attribute of given facility"""
         raise NotImplementedError
@@ -113,15 +127,21 @@ class AdapterInterface(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_facility_by_rp_identifier(
             self, rp_identifier: str
-    ) -> Facility:
+    ) -> Optional[Facility]:
         """Get specified facility based on given rp_identifier"""
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_users_groups_on_facility(
-            self, facility: Facility, user: User
+            self, facility: Union[Facility, int], user: Union[User, int]
     ) -> List[Group]:
         """Get groups of specified user on given facility"""
+        raise NotImplementedError
+
+    def get_users_groups_on_facility_by_rp_id(
+            self, rp_identifier: str, user: Union[User, int]
+    ) -> List[Group]:
+        """Get groups of specified user on given facility by rp_id"""
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -133,7 +153,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def get_facility_attributes(
-            self, facility: Facility, attr_names: List[str]
+            self, facility: Union[Facility, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         """Get specified attributes of given facility"""
         raise NotImplementedError
@@ -148,14 +168,14 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def update_user_ext_source_last_access(
-            self, user_ext_source: UserExtSource
+            self, user_ext_source: Union[UserExtSource, int]
     ) -> None:
         """Update user's last access of external source"""
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_user_ext_source_attributes(
-            self, user_ext_source: UserExtSource,
+            self, user_ext_source: Union[UserExtSource, int],
             attributes: List[dict[str, str]]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         """Get attributes of user's external source"""
@@ -163,31 +183,51 @@ class AdapterInterface(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def set_user_ext_source_attributes(
-            self, user_ext_source: UserExtSource,
+            self, user_ext_source: Union[UserExtSource, int],
             attributes: List[dict[str, str]]
     ) -> None:
         """Set attributes of user's external source"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_member_status_by_user_and_vo(self, user: User, vo: VO) -> str:
+    def get_member_status_by_user_and_vo(self, user: Union[User, int], vo: Union[VO, int]) -> str:
         """Get member's status based on given User and VO"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def is_user_in_vo(self, user: User, vo_short_name: str) -> bool:
+    def is_user_in_vo_by_short_name(self, user: Union[User, int], vo_short_name: str) -> bool:
         """Verifies whether given User is in given VO"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_resource_capabilities(
-            self, facility: Facility, user_groups: List[Group]
+    def get_resource_capabilities_by_facility(
+            self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
+    ) -> List[str]:
+        """Obtains resource capabilities of groups linked to the facility
+        with given facility or facility id"""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_resource_capabilities_by_rp_id(
+            self, rp_identifier: str, user_groups: List[Union[Group, int]]
     ) -> List[str]:
         """Obtains resource capabilities of groups linked to the facility
         with given entity ID"""
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_facility_capabilities(self, facility: Facility) -> List[str]:
-        """Obtains facility capabilities of facility with given entity ID"""
+    def get_facility_capabilities_by_facility(self, facility: Union[Facility, int]) -> List[str]:
+        """Obtains facility capabilities of facility with given facility or facility id"""
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_facility_capabilities_by_rp_id(self, rp_identifier: str) -> List[str]:
+        """Obtains facility capabilities of facility with given rp identifier"""
+        raise NotImplementedError
+
+    @staticmethod
+    def get_object_id(object_or_id: Union[HasIdAbstract, int]):
+        if isinstance(object_or_id, HasIdAbstract):
+            return object_or_id.id
+        else:
+            return object_or_id
