@@ -223,7 +223,7 @@ def test_group_does_not_exist_in_vo(mock_request):
     )
 
     expected_error_message = 'Group with name: grp in VO: ' \
-                             'fake does not exists in Perun LDAP.'
+                             '2 does not exists in Perun LDAP.'
 
     with pytest.raises(Exception) as error:
         _ = ADAPTER.get_group_by_name(TEST_FALSE_VO, 'grp')
@@ -329,7 +329,7 @@ def test_get_sp_groups(mock_request, mock_request2, mock_request3):
         side_effect=[GROUP_1, GROUP_2, GROUP_3]
     )
 
-    groups = ADAPTER.get_sp_groups(FACILITY)
+    groups = ADAPTER.get_sp_groups_by_facility(FACILITY)
     expected_groups = [INITIALIZED_GROUP_1, INITIALIZED_GROUP_2, INITIALIZED_GROUP_3]
     assert expected_groups.sort(key=lambda x: x.id) == groups.sort(key=lambda x: x.id)
 
@@ -356,7 +356,7 @@ def test_get_sp_groups_repeated_groups(mock_request,
         side_effect=[GROUP_1, GROUP_1, GROUP_2, GROUP_3]
     )
 
-    groups = ADAPTER.get_sp_groups(FACILITY)
+    groups = ADAPTER.get_sp_groups_by_facility(FACILITY)
     expected_groups = [INITIALIZED_GROUP_1, INITIALIZED_GROUP_2, INITIALIZED_GROUP_3]
     assert expected_groups.sort(key=lambda x: x.id) == groups.sort(key=lambda x: x.id)
 
@@ -375,7 +375,7 @@ def test_get_sp_groups_not_assigned_groups(mock_request, mock_request2):
         return_value=RESOURCES_NOT_GROUPS
     )
 
-    groups = ADAPTER.get_sp_groups(FACILITY)
+    groups = ADAPTER.get_sp_groups_by_facility(FACILITY)
     assert groups == []
 
 
@@ -393,7 +393,7 @@ def test_get_sp_groups_empty_resources(mock_request, mock_request2):
         return_value=RESOURCES_EMPTY
     )
 
-    groups = ADAPTER.get_sp_groups(FACILITY)
+    groups = ADAPTER.get_sp_groups_by_facility(FACILITY)
     assert groups == []
 
 
@@ -544,7 +544,7 @@ def test_is_user_in_vo_no_short_name():
     expected_error_message = 'voShortName is empty'
 
     with pytest.raises(Exception) as error:
-        _ = ADAPTER.is_user_in_vo(USER, '')
+        _ = ADAPTER.is_user_in_vo_by_short_name(USER, '')
 
     assert str(error.value.args[0]) == expected_error_message
 
@@ -553,7 +553,7 @@ def test_is_user_in_vo_user_without_id():
     expected_error_message = 'userId is empty'
 
     with pytest.raises(Exception) as error:
-        _ = ADAPTER.is_user_in_vo(USER_WITHOUT_ID, 'org')
+        _ = ADAPTER.is_user_in_vo_by_short_name(USER_WITHOUT_ID, 'org')
 
     assert str(error.value.args[0]) == expected_error_message
 
@@ -565,7 +565,7 @@ def test_is_user_in_vo_vo_not_found(mock_request):
     ADAPTER.get_vo = MagicMock(
         return_value=None
     )
-    user_in_vo = ADAPTER.is_user_in_vo(USER, 'fake_short_name')
+    user_in_vo = ADAPTER.is_user_in_vo_by_short_name(USER, 'fake_short_name')
     assert not user_in_vo
 
 
@@ -582,7 +582,7 @@ def test_is_not_user_in_vo(mock_request, mock_request2):
     ADAPTER.get_member_status_by_user_and_vo = MagicMock(
         return_value=MemberStatusEnum.INVALID
     )
-    user_in_vo = ADAPTER.is_user_in_vo(USER, 'org')
+    user_in_vo = ADAPTER.is_user_in_vo_by_short_name(USER, 'org')
     assert not user_in_vo
 
 
@@ -599,7 +599,7 @@ def test_is_user_in_vo(mock_request, mock_request2):
     ADAPTER.get_member_status_by_user_and_vo = MagicMock(
         return_value=MemberStatusEnum.VALID
     )
-    user_in_vo = ADAPTER.is_user_in_vo(USER, 'org')
+    user_in_vo = ADAPTER.is_user_in_vo_by_short_name(USER, 'org')
     assert user_in_vo
 
 
@@ -611,7 +611,7 @@ def test_resource_capabilities_no_facility(mock_request):
         return_value=FACILITY_EMPTY
     )
     resource_capabilities = \
-        ADAPTER.get_resource_capabilities(FACILITY_EMPTY, INITIALIZED_GROUPS)
+        ADAPTER.get_resource_capabilities_by_facility(FACILITY_EMPTY, INITIALIZED_GROUPS)
     assert resource_capabilities == []
 
 
@@ -629,7 +629,7 @@ def test_resource_capabilities_empty(mock_request, mock_request2):
         return_value=RESOURCES_EMPTY
     )
     resource_capabilities = \
-        ADAPTER.get_resource_capabilities(FACILITY, INITIALIZED_GROUPS)
+        ADAPTER.get_resource_capabilities_by_facility(FACILITY, INITIALIZED_GROUPS)
     assert resource_capabilities == []
 
 
@@ -647,7 +647,7 @@ def test_resource_capabilities(mock_request, mock_request2):
         return_value=RESOURCES_REPEATED
     )
     resource_capabilities = \
-        ADAPTER.get_resource_capabilities(FACILITY, INITIALIZED_GROUPS)
+        ADAPTER.get_resource_capabilities_by_facility(FACILITY, INITIALIZED_GROUPS)
 
     assert len(resource_capabilities) == 2
     assert "capability1, capability2" in resource_capabilities
@@ -660,7 +660,7 @@ def test_facility_capabilities_empty(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
         return_value=None
     )
-    facility_capabilities = ADAPTER.get_facility_capabilities(FACILITY)
+    facility_capabilities = ADAPTER.get_facility_capabilities_by_facility(FACILITY)
     assert facility_capabilities == []
 
 
@@ -671,5 +671,5 @@ def test_facility_capabilities(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
         return_value=FACILITY_DATA
     )
-    facility_capabilities = ADAPTER.get_facility_capabilities(FACILITY)
+    facility_capabilities = ADAPTER.get_facility_capabilities_by_facility(FACILITY)
     assert facility_capabilities == FACILITY_DATA['capabilities']

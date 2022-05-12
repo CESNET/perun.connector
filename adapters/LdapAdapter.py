@@ -1,7 +1,10 @@
+from typing import List, Union, Optional
+
 from connectors.LdapConnector import LdapConnector
 from models.Facility import Facility
 from models.Group import Group
 from models.User import User
+from models.UserExtSource import UserExtSource
 from models.VO import VO
 from models.MemberStatusEnum import MemberStatusEnum
 from utils.AttributeUtils import AttributeUtils
@@ -22,8 +25,9 @@ class LdapAdapter(AdapterInterface):
         self._ldap_base = loaded_config['base_dn']
         self.connector = LdapConnector(loaded_config)
         self._attribute_utils = AttributeUtils()
+        self._RP_ID_ATTR = "perunFacilityAttr_rpID"
 
-    def get_perun_user(self, idp_id, uids):
+    def get_perun_user(self, idp_id: str, uids: List[str]) -> Optional[User]:
         query = ''
         for uid in uids:
             query += '(eduPersonPrincipalNames=' + uid + ')'
@@ -47,20 +51,21 @@ class LdapAdapter(AdapterInterface):
 
         return User(user['perunUserId'], name)
 
-    def get_group_by_name(self, vo, name):
+    def get_group_by_name(self, vo: Union[VO, int], name: str) -> Group:
+        vo_id = AdapterInterface.get_object_id(vo)
         group = self.connector.search_for_entity(
-            'perunVoId=' + str(vo.id) + ',' + self._ldap_base,
+            'perunVoId=' + str(vo_id) + ',' + self._ldap_base,
             '(&(objectClass=perunGroup)(perunUniqueGroupName=' +
             name + '))', ['perunGroupId', 'cn', 'perunUniqueGroupName',
                           'perunVoId', 'uuid', 'description']
         )
         if not group:
-            raise Exception('Group with name: ' + name + ' in VO: ' + vo.name +
+            raise Exception('Group with name: ' + name + ' in VO: ' + str(vo_id) +
                             ' does not exists in Perun LDAP.')
 
         return self._create_internal_representation_group(group)
 
-    def get_vo(self, short_name=None, id=None):
+    def get_vo(self, short_name=None, vo_id=None) -> Optional[VO]:
         if short_name:
             vo = self.connector.search_for_entity(
                 self._ldap_base,
@@ -74,27 +79,29 @@ class LdapAdapter(AdapterInterface):
         else:
             vo = self.connector.search_for_entity(
                 self._ldap_base,
-                '(&(objectClass=perunVo)(perunVoId=' + str(id) + '))',
+                '(&(objectClass=perunVo)(perunVoId=' + str(vo_id) + '))',
                 ['o', 'description']
             )
             if not vo:
-                raise Exception('Vo with id: ' + str(id) +
+                raise Exception('Vo with id: ' + str(vo_id) +
                                 ' does not exists in Perun LDAP.')
 
         return VO(
-            id or int(vo['perunVoId']),
+            vo_id or int(vo['perunVoId']),
             vo['description'][0],
             vo['o'][0]
         )
 
-    def get_member_groups(self, user, vo):
+    def get_member_groups(self, user: Union[User, int], vo: Union[VO, int]) -> List[Group]:
+        user_id = AdapterInterface.get_object_id(user)
+        vo_id = AdapterInterface.get_object_id(vo)
         user_with_membership = self.connector.search_for_entity(
-            'perunUserId=' + str(user.id) + ',ou=People,' + self._ldap_base,
+            'perunUserId=' + str(user_id) + ',ou=People,' + self._ldap_base,
             '(objectClass=perunUser)', ['perunUserId', 'memberOf'])
         groups = []
         for group_dn in user_with_membership['memberOf']:
-            vo_id = group_dn.split(',')[1].split('=', 2)[1]
-            if vo_id != str(vo.id):
+            group_vo_id = group_dn.split(',')[1].split('=', 2)[1]
+            if group_vo_id != str(vo_id):
                 continue
             group = self.connector.search_for_entity(
                 group_dn, '(objectClass=perunGroup)',
@@ -106,14 +113,14 @@ class LdapAdapter(AdapterInterface):
 
         return groups
 
-    def get_sp_groups(self, facility):
+    def get_sp_groups_by_facility(self, facility: Union[Facility, int]) -> List[Group]:
         if not facility:
             return []
-
+        facility_id = AdapterInterface.get_object_id(facility)
         resources = self.connector.search_for_entities(
             self._ldap_base,
             '(&(objectClass=perunResource)(perunFacilityDn=perunFacilityId=' +
-            str(facility.id) + ',' + self._ldap_base + '))',
+            str(facility_id) + ',' + self._ldap_base + '))',
             ['perunResourceId', 'assignedGroupId', 'perunVoId']
         )
         groups = []
@@ -137,27 +144,41 @@ class LdapAdapter(AdapterInterface):
                         unique_ids.append(group['perunGroupId'])
         return groups
 
-    def get_user_attributes(self, user, attr_names):
+    def get_sp_groups_by_rp_id(self, rp_id: str) -> List[Group]:
+        facility = self.get_facility_by_rp_identifier(rp_id)
+        return self.get_sp_groups_by_facility(facility)
+
+    def get_user_attributes(
+            self, user: Union[User, int], attr_names: List[str]
+    ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
+        user_id = AdapterInterface.get_object_id(user)
         return self.connector.search_for_entity(
-            'perunUserId=' + str(user.id) + ',ou=People,' + self._ldap_base,
+            'perunUserId=' + str(user_id) + ',ou=People,' + self._ldap_base,
             '(objectClass=perunUser)',
             attr_names
         )
 
-    def get_entityless_attribute(self, attr_name):
+    def get_entityless_attribute(
+            self, attr_name: str
+    ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
         raise AdapterSkipException()
 
-    def get_vo_attributes(self, vo, attributes):
+    def get_vo_attributes(
+            self, vo: Union[VO, int], attr_names: List[str]
+    ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         raise AdapterSkipException()
 
-    def get_facility_attribute(self, facility, attr_name):
+    def get_facility_attribute(
+            self, facility: Union[Facility, int], attr_name: str
+    ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
         raise AdapterSkipException()
 
     def get_facility_by_rp_identifier(
-            self, rp_identifier,
-            rp_identifier_attr='perunFacilityAttr_entityID'):
+            self,
+            rp_identifier: str,
+    ) -> Optional[Facility]:
         attr_name = \
-            self._attribute_utils.get_ldap_attr_name(rp_identifier_attr) \
+            self._attribute_utils.get_ldap_attr_name(self._RP_ID_ATTR) \
             or "entityID"
         ldap_result = self.connector.search_for_entity(
             self._ldap_base,
@@ -178,23 +199,28 @@ class LdapAdapter(AdapterInterface):
             rp_identifier
         )
 
-    def get_users_groups_on_facility(self, facility, user):
+    def get_users_groups_on_facility(
+            self, facility: Union[Facility, int], user: Union[User, int]
+    ) -> List[Group]:
 
         if not facility:
             return []
+
+        facility_id = AdapterInterface.get_object_id(facility)
+        user_id = AdapterInterface.get_object_id(user)
 
         resources = self.connector.search_for_entities(
             self._ldap_base,
             '(&(objectClass=perunResource)(perunFacilityDn='
             'perunFacilityId=' +
-            str(facility.id) + ',' + self._ldap_base + '))',
+            str(facility_id) + ',' + self._ldap_base + '))',
             ['perunResourceId']
         )
 
         self._logger.debug('Resources - ' + str(resources))
 
         if not resources:
-            raise Exception('Service with spEntityId: ' + str(facility.id) +
+            raise Exception('Service with spEntityId: ' + str(facility_id) +
                             ' hasn\'t assigned any resource.')
         resources_string = '(|'
         for resource in resources:
@@ -205,7 +231,7 @@ class LdapAdapter(AdapterInterface):
         unique_ids = []
         groups = self.connector.search_for_entities(
             self._ldap_base,
-            '(&(uniqueMember=perunUserId=' + str(user.id) + ', ou=People,' +
+            '(&(uniqueMember=perunUserId=' + str(user_id) + ', ou=People,' +
             self._ldap_base + ')' + resources_string + ')',
             ['perunGroupId', 'cn', 'perunUniqueGroupName',
              'perunVoId', 'uuid', 'description']
@@ -221,29 +247,39 @@ class LdapAdapter(AdapterInterface):
 
         return result_groups
 
-    def get_facilities_by_attribute_value(self, attribute):
+    def get_users_groups_on_facility_by_rp_id(self, rp_identifier: str, user: Union[User, int]):
+        facility = self.get_facility_by_rp_identifier(rp_identifier)
+        return self.get_users_groups_on_facility(facility, user)
+
+    def get_facilities_by_attribute_value(self, attribute: dict[str, str]):
         raise AdapterSkipException()
 
-    def get_facility_attributes(self, facility, attributes):
+    def get_facility_attributes(self, facility: Union[Facility, int], attr_names: List[str]):
         raise AdapterSkipException()
 
-    def get_user_ext_source(self, ext_source_name, ext_source_login):
+    def get_user_ext_source(self, ext_source_name: str, ext_source_login: str):
         raise AdapterSkipException()
 
-    def update_user_ext_source_last_access(self, user_ext_source):
+    def update_user_ext_source_last_access(self, user_ext_source: Union[UserExtSource, int]):
         raise AdapterSkipException()
 
-    def get_user_ext_source_attributes(self, user_ext_source, attr_names):
+    def get_user_ext_source_attributes(self, user_ext_source: Union[UserExtSource, int], attr_names: List[str]):
         raise AdapterSkipException()
 
-    def set_user_ext_source_attributes(self, user_ext_source, attr_names):
+    def set_user_ext_source_attributes(self,
+                                       user_ext_source: Union[UserExtSource, int],
+                                       attributes: List[
+                                           dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]]
+                                       ):
         raise AdapterSkipException()
 
-    def get_member_status_by_user_and_vo(self, user, vo):
+    def get_member_status_by_user_and_vo(self, user: Union[User, int], vo: Union[VO, int]):
+        user_id = AdapterInterface.get_object_id(user)
+        vo_id = AdapterInterface.get_object_id(vo)
         group_id = self.connector.search_for_entity(
             self._ldap_base,
-            '(&(objectClass=perunGroup)(cn=members)(perunVoId=' + str(vo.id) +
-            ')(uniqueMember=perunUserId=' + str(user.id) + ', ou=People,' +
+            '(&(objectClass=perunGroup)(cn=members)(perunVoId=' + str(vo_id) +
+            ')(uniqueMember=perunUserId=' + str(user_id) + ', ou=People,' +
             self._ldap_base + '))',
             ['perunGroupId']
         )
@@ -254,8 +290,9 @@ class LdapAdapter(AdapterInterface):
 
         return MemberStatusEnum.VALID
 
-    def is_user_in_vo(self, user, vo_short_name):
-        if not user.id:
+    def is_user_in_vo_by_short_name(self, user: Union[User, int], vo_short_name: str) -> bool:
+        user_id = AdapterInterface.get_object_id(user)
+        if not user_id:
             raise Exception('userId is empty')
         if vo_short_name == '':
             raise Exception('voShortName is empty')
@@ -268,20 +305,23 @@ class LdapAdapter(AdapterInterface):
 
         return MemberStatusEnum.VALID == self.get_member_status_by_user_and_vo(user, vo)
 
-    def get_resource_capabilities(self, facility, user_groups):
+    def get_resource_capabilities_by_facility(
+            self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
+    ) -> List[str]:
         if not facility:
             return []
 
+        facility_id = AdapterInterface.get_object_id(facility)
         resources = self.connector.search_for_entities(
             self._ldap_base,
             '(&(objectClass=perunResource)(perunFacilityDn=perunFacilityId=' +
-            str(facility.id) + ',' + self._ldap_base + '))',
+            str(facility_id) + ',' + self._ldap_base + '))',
             ['capabilities', 'assignedGroupId']
         )
 
         user_groups_ids = []
         for user_group in user_groups:
-            user_groups_ids.append(str(user_group.id))
+            user_groups_ids.append(str(AdapterInterface.get_object_id(user_group)))
 
         resource_capabilities = []
         for resource in resources:
@@ -297,11 +337,20 @@ class LdapAdapter(AdapterInterface):
 
         return resource_capabilities
 
-    def get_facility_capabilities(self, facility):
+    def get_resource_capabilities_by_rp_id(
+            self, rp_identifier: str, user_groups: List[Union[Group, int]]
+    ) -> List[str]:
+        facility = self.get_facility_by_rp_identifier(rp_identifier)
+        return self.get_resource_capabilities_by_facility(facility, user_groups)
+
+    def get_facility_capabilities_by_facility(self, facility: Union[Facility, int]) -> List[str]:
+        if facility is None:
+            return []
+        facility_id = AdapterInterface.get_object_id(facility)
         facility_capabilities = self.connector.search_for_entity(
             self._ldap_base,
             '(&(objectClass=perunFacility)(entityID=' +
-            str(facility.id) + '))',
+            str(facility_id) + '))',
             ['capabilities']
         )
 
@@ -310,12 +359,16 @@ class LdapAdapter(AdapterInterface):
 
         return facility_capabilities['capabilities']
 
+    def get_facility_capabilities_by_rp_id(self, rp_identifier: str) -> List[str]:
+        facility = self.get_facility_by_rp_identifier(rp_identifier)
+        return self.get_facility_capabilities_by_facility(facility)
+
     def _create_internal_representation_group(
             self, group: dict[str, str]
     ) -> Group:
         return Group(
             int(group['perunGroupId']),
-            self.get_vo(None, group['perunVoId']),
+            self.get_vo(vo_id=int(group['perunVoId'])),
             group['uuid'],
             group['cn'][0],
             group['perunUniqueGroupName'],

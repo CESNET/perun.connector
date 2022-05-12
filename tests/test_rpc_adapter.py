@@ -397,7 +397,7 @@ def test_get_sp_groups_found_sp_groups(
         return_value=TEST_VO
     )
 
-    result_groups = ADAPTER.get_sp_groups(TEST_INTERNAL_FACILITY_1)
+    result_groups = ADAPTER.get_sp_groups_by_facility(TEST_INTERNAL_FACILITY_1)
 
     assert [
         TEST_GROUP_INTERNAL_REPRESENTATION_1,
@@ -406,7 +406,7 @@ def test_get_sp_groups_found_sp_groups(
 
 
 def test_get_sp_groups_no_input_facility():
-    result_groups = ADAPTER.get_sp_groups(None)
+    result_groups = ADAPTER.get_sp_groups_by_facility(None)
     assert result_groups == []
 
 
@@ -419,7 +419,7 @@ def test_get_sp_groups_no_resources_found(mock_request_1):
         return_value=[]
     )
 
-    result_groups = ADAPTER.get_sp_groups(TEST_INTERNAL_FACILITY_1)
+    result_groups = ADAPTER.get_sp_groups_by_facility(TEST_INTERNAL_FACILITY_1)
     assert result_groups == []
 
 
@@ -462,7 +462,7 @@ def test_get_vo_correct_arguments(mock_request_1, mock_request_2):
         MagicMock(return_value=test_vo)
     )
 
-    obtained_vo_by_id = ADAPTER.get_vo(id=test_vo_id)
+    obtained_vo_by_id = ADAPTER.get_vo(vo_id=test_vo_id)
     obtained_vo_by_short_name = ADAPTER.get_vo(short_name=test_vo_short_name)
 
     assert test_vo == obtained_vo_by_id
@@ -488,7 +488,7 @@ def test_get_vo_too_many_arguments():
     )
 
     with pytest.raises(ValueError) as error:
-        _ = ADAPTER.get_vo(id=1, short_name="sample short name")
+        _ = ADAPTER.get_vo(vo_id=1, short_name="sample short name")
     assert str(error.value.args[0]) == too_many_args_error_message
 
 
@@ -868,7 +868,7 @@ def test_is_user_in_vo_valid_member(mock_request_1, mock_request_2):
         return_value=test_valid_member_external_representation
     )
 
-    user_is_valid_member = ADAPTER.is_user_in_vo(TEST_USER, TEST_VO.short_name)
+    user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(TEST_USER, TEST_VO.short_name)
     assert user_is_valid_member
 
 
@@ -894,7 +894,7 @@ def test_is_user_in_vo_invalid_member(mock_request_1, mock_request_2):
         return_value=test_valid_member_external_representation
     )
 
-    user_is_valid_member = ADAPTER.is_user_in_vo(TEST_USER, TEST_VO.short_name)
+    user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(TEST_USER, TEST_VO.short_name)
     assert not user_is_valid_member
 
 
@@ -916,7 +916,7 @@ def test_is_user_in_vo_non_existing_vo(mock_request_1, caplog):
     )
 
     with caplog.at_level(logging.DEBUG):
-        user_is_valid_member = ADAPTER.is_user_in_vo(
+        user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(
             TEST_USER, non_existing_short_name
         )
 
@@ -929,7 +929,7 @@ def test_is_user_in_vo_user_without_id():
     user_without_id = User(None, "He, who shall not be named")
 
     with pytest.raises(ValueError) as error:
-        _ = ADAPTER.is_user_in_vo(user_without_id, "some short name")
+        _ = ADAPTER.is_user_in_vo_by_short_name(user_without_id, "some short name")
     assert str(error.value.args[0]) == user_without_id_msg
 
 
@@ -938,7 +938,7 @@ def test_is_user_in_vo_no_short_name_given():
     missing_short_name = None
 
     with pytest.raises(ValueError) as error:
-        _ = ADAPTER.is_user_in_vo(TEST_USER, missing_short_name)
+        _ = ADAPTER.is_user_in_vo_by_short_name(TEST_USER, missing_short_name)
     assert str(error.value.args[0]) == short_name_missing_msg
 
 
@@ -968,7 +968,7 @@ def test_get_member_by_user_get_non_existing_user(mock_request_1, caplog):
     )
 
     invalid_user_error_msg = (
-        f' User with name "{TEST_USER.name}" does not exist in Perun.'
+        f' User with id "{TEST_USER.id}" does not exist in Perun.'
     )
 
     with caplog.at_level(logging.WARNING):
@@ -990,7 +990,7 @@ def test_get_member_by_user_with_non_existing_vo(mock_request_1, caplog):
     )
 
     invalid_vo_error_msg = (
-        f'VO with short_name "{TEST_VO.short_name}" does not exist in Perun.'
+        f'VO with id "{TEST_VO.id}" does not exist in Perun.'
     )
 
     with caplog.at_level(logging.WARNING):
@@ -1012,7 +1012,7 @@ def test_get_member_by_user_user_not_member_in_vo(mock_request_1, caplog):
     )
 
     invalid_vo_error_msg = (
-        f'Member with VO "{TEST_VO.short_name}" and name "{TEST_USER.name}" '
+        f'Member with VO "{TEST_VO.id}" and user id "{TEST_USER.id}" '
         f"does not "
         f"exist in Perun."
     )
@@ -1082,7 +1082,7 @@ def test_get_resource_capabilities(
     )
 
     expected_capabilities = ["test capability 1", "test capability 2"]
-    result_capabilities = ADAPTER.get_resource_capabilities(
+    result_capabilities = ADAPTER.get_resource_capabilities_by_facility(
         TEST_INTERNAL_FACILITY_1, test_user_groups
     )
 
@@ -1090,7 +1090,7 @@ def test_get_resource_capabilities(
 
 
 def test_get_resource_capabilities_no_input_facility():
-    result_capabilities = ADAPTER.get_resource_capabilities(None, [])
+    result_capabilities = ADAPTER.get_resource_capabilities_by_facility(None, [])
     assert result_capabilities == []
 
 
@@ -1107,14 +1107,14 @@ def test_get_facility_capabilities(mock_request_1):
     )
 
     expected_capabilities = facility_capabilities["value"]
-    result_capabilities = ADAPTER.get_facility_capabilities(
+    result_capabilities = ADAPTER.get_facility_capabilities_by_facility(
         TEST_INTERNAL_FACILITY_1
     )
     assert sorted(result_capabilities) == sorted(expected_capabilities)
 
 
 def test_get_facility_capabilities_no_input_facility():
-    result_capabilities = ADAPTER.get_facility_capabilities(None)
+    result_capabilities = ADAPTER.get_facility_capabilities_by_facility(None)
     assert result_capabilities == []
 
 
