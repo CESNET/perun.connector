@@ -176,7 +176,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_user_ext_source_attributes(
             self, user_ext_source: Union[UserExtSource, int],
-            attributes: List[dict[str, str]]
+            attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         """Get attributes of user's external source"""
         raise NotImplementedError
@@ -184,7 +184,8 @@ class AdapterInterface(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def set_user_ext_source_attributes(
             self, user_ext_source: Union[UserExtSource, int],
-            attributes: List[dict[str, str]]
+            attributes: List[
+                dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]]
     ) -> None:
         """Set attributes of user's external source"""
         raise NotImplementedError

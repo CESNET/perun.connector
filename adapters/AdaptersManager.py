@@ -191,7 +191,7 @@ class AdaptersManager(AdapterInterface):
 
     def get_user_ext_source_attributes(
             self, user_ext_source: Union[int, UserExtSource],
-            attributes: List[dict[str, str]]
+            attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         return self._execute_method_by_priority(
             self._get_caller_name(), user_ext_source
@@ -199,18 +199,19 @@ class AdaptersManager(AdapterInterface):
 
     def set_user_ext_source_attributes(
             self, user_ext_source: Union[int, UserExtSource],
-            attributes: List[dict[str, str]]
+            attributes: List[
+                dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]]
     ) -> None:
         return self._execute_method_by_priority(
             self._get_caller_name(), user_ext_source
         )
 
-    def get_member_status_by_user_and_vo(self, user: Union[int, User], vo:  Union[int, VO]) -> str:
+    def get_member_status_by_user_and_vo(self, user: Union[int, User], vo: Union[int, VO]) -> str:
         return self._execute_method_by_priority(
             self._get_caller_name(), user, vo
         )
 
-    def is_user_in_vo_by_short_name(self, user:  Union[int, User], vo_short_name: str) -> bool:
+    def is_user_in_vo_by_short_name(self, user: Union[int, User], vo_short_name: str) -> bool:
         return self._execute_method_by_priority(
             self._get_caller_name(), user, vo_short_name
         )
