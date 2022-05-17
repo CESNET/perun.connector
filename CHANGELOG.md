@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/CESNET/perun.connector/compare/v1.0.0...v1.0.1) (2022-05-17)
+
+
+### Bug Fixes
+
+* publish to pypi ([350c2ac](https://github.com/CESNET/perun.connector/commit/350c2ace261a5f335cef74fdaffba0b4d878eec5))
+
 # 1.0.0 (2022-05-16)
 
 
