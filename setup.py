@@ -11,7 +11,6 @@ setup(
         "urllib3>=1.26.9,<2",
         "python-dateutil>=2.8.2,<3",
         "PyYAML>=6.0,<7",
-        "pytest>=7.1.1,<8",
         "ldap3>=2.9.1,<3",
         "pycurl>=7.45.1,<8",
         "jsonpatch>=1.22,<2",

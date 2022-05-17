@@ -1,0 +1,14 @@
+coverage
+node_modules
+web-build
+.expo
+.expo-shared
+.git
+package-lock.json
+app.json
+*.svg
+faviconData.json
+CHANGELOG.md
+renovate.json
+composer.lock
+vendor
