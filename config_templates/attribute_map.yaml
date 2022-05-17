@@ -234,6 +234,6 @@
   # ENTITYLESS ATTRIBUTES
 
 "perunEntitylessAttribute_orgAups":
-    "rpc": "urn:perun:entityless:attribute-def:def:orgAups"
-    "ldap": "orgAups"
-    "type": "dictionary"
+  "rpc": "urn:perun:entityless:attribute-def:def:orgAups"
+  "ldap": "orgAups"
+  "type": "dictionary"

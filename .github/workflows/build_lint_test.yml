@@ -1,42 +1,60 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: Python application
 
 on:
-  [push, pull_request]
+  - push
+  - pull_request
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.9]
+        python-version:
+          - "3.9"
+          - "3.10"
 
     steps:
-    - name: Install curllib dependencies
-      run: sudo apt update && sudo apt install libcurl4-openssl-dev libssl-dev
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --show-source --statistics --exclude=perun_openapi --max-line-length=121
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-    - name: Test with pytest
-      run: |
-        pytest
+      - name: Install curllib dependencies
+        run: sudo apt update && sudo apt install libcurl4-openssl-dev libssl-dev
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install -r requirements.txt
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --show-source --statistics --exclude=perun_openapi --max-line-length=121
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      - name: Test with pytest
+        run: |
+          pytest
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install npm modules
+        run: npm ci
+      - name: Check with prettier
+        run: npx prettier --check .
   release:
     name: Release
-    needs: [ build ]
+    needs:
+      - build
+      - prettier
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,7 +66,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install npm modules
+        run: npm ci
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install setuptools
+        run: pip install -r requirements-dev.txt
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm install && npx semantic-release
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: npx semantic-release
