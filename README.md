@@ -1,3 +1,11 @@
-# proxyaai_perun_connection_manager
+# perun.connector
 
-Module for comunication with Perun.
+Module for communication with Perun IAM system.
+
+## Installation
+
+Use pip:
+
+```
+pip install perun.connector
+```
