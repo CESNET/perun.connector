@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/CESNET/perun.connector/compare/v1.0.1...v1.0.2) (2022-05-23)
+
+
+### Bug Fixes
+
+* directories changed to packages ([a6372c1](https://github.com/CESNET/perun.connector/commit/a6372c15e74bab090abe87a21bbbdc1e510c3c82))
+
 ## [1.0.1](https://github.com/CESNET/perun.connector/compare/v1.0.0...v1.0.1) (2022-05-17)
 
 
