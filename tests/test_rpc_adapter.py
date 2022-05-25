@@ -4,18 +4,18 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-import perun_openapi
-from adapters.PerunRpcAdapter import PerunRpcAdapter
-from models.MemberStatusEnum import MemberStatusEnum
-from models.Facility import Facility
-from models.Group import Group
-from models.Member import Member
-from models.Resource import Resource
-from models.User import User
-from models.UserExtSource import UserExtSource
-from models.VO import VO
-from perun_openapi import ApiException
-from utils.ConfigStore import ConfigStore
+from perun.connector import perun_openapi
+from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
+from perun.connector.models.MemberStatusEnum import MemberStatusEnum
+from perun.connector.models.Facility import Facility
+from perun.connector.models.Group import Group
+from perun.connector.models.Member import Member
+from perun.connector.models.Resource import Resource
+from perun.connector.models.User import User
+from perun.connector.models.UserExtSource import UserExtSource
+from perun.connector.models.VO import VO
+from perun.connector.perun_openapi import ApiException
+from perun.connector.utils.ConfigStore import ConfigStore
 
 
 class HttpResponse:
@@ -28,7 +28,7 @@ class HttpResponse:
         return "headers"
 
 
-ADAPTER = PerunRpcAdapter(ConfigStore.get_openapi_config())
+ADAPTER = PerunRpcAdapter(ConfigStore.get_openapi_config(), ConfigStore.get_attribute_map())
 
 # sample groups - external representation (Devel)
 TEST_GROUP_EXTERNAL_REPRESENTATION_1 = {
@@ -177,7 +177,7 @@ def get_entity_specific_attributes(attribute_type: str):
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_user_by_ext_source_name_and_ext_login"
 )
 def test_get_perun_user_with_middle_name_and_title_before_after(
@@ -202,7 +202,7 @@ def test_get_perun_user_with_middle_name_and_title_before_after(
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_user_by_ext_source_name_and_ext_login"
 )
 def test_get_perun_user_without_middle_name_and_title_before_after(
@@ -227,7 +227,7 @@ def test_get_perun_user_without_middle_name_and_title_before_after(
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_user_by_ext_source_name_and_ext_login"
 )
 def test_user_without_middle_name_and_title_before(mock_request_1):
@@ -251,7 +251,7 @@ def test_user_without_middle_name_and_title_before(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_user_by_ext_source_name_and_ext_login"
 )
 def test_user_without_middle_name_and_title_after(mock_request_1):
@@ -275,7 +275,7 @@ def test_user_without_middle_name_and_title_after(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_user_by_ext_source_name_and_ext_login"
 )
 def test_user_without_middle_name_and_titles(mock_request_1):
@@ -300,18 +300,18 @@ def test_user_without_middle_name_and_titles(mock_request_1):
 
 # get_get_member_groups tests
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
 @patch(
-    "perun_openapi.api.groups_manager_api.GroupsManagerApi"
+    "perun.connector.perun_openapi.api.groups_manager_api.GroupsManagerApi"
     ".get_all_member_groups"
 )
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
 def test_get_member_groups_found_member_groups(
     mock_request_1, mock_request_2, mock_request_3, mock_request_4
 ):
@@ -343,7 +343,7 @@ def test_get_member_groups_found_member_groups(
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_groups_member_not_found(mock_request_1):
@@ -356,18 +356,18 @@ def test_get_member_groups_member_not_found(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
 @patch(
-    "perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
+    "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_assigned_resources_for_facility"
 )
 @patch(
-    "perun_openapi.api.resources_manager_api.ResourcesManagerApi"
+    "perun.connector.perun_openapi.api.resources_manager_api.ResourcesManagerApi"
     ".get_assigned_groups"
 )
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
 def test_get_sp_groups_found_sp_groups(
     mock_request_1,
     mock_request_2,
@@ -411,7 +411,7 @@ def test_get_sp_groups_no_input_facility():
 
 
 @patch(
-    "perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
+    "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_assigned_resources_for_facility"
 )
 def test_get_sp_groups_no_resources_found(mock_request_1):
@@ -423,13 +423,13 @@ def test_get_sp_groups_no_resources_found(mock_request_1):
     assert result_groups == []
 
 
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
 @patch(
-    "perun_openapi.api.groups_manager_api.GroupsManagerApi.get_group_by_name"
+    "perun.connector.perun_openapi.api.groups_manager_api.GroupsManagerApi.get_group_by_name"
 )
 def test_get_group_by_name(mock_request_1, mock_request_2, mock_request_3):
     perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
@@ -448,8 +448,8 @@ def test_get_group_by_name(mock_request_1, mock_request_2, mock_request_3):
     assert result == TEST_GROUP_INTERNAL_REPRESENTATION_1
 
 
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name")
 def test_get_vo_correct_arguments(mock_request_1, mock_request_2):
     test_vo_id = 1
     test_vo_short_name = "sample short name"
@@ -493,7 +493,7 @@ def test_get_vo_too_many_arguments():
 
 
 @patch(
-    "perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
+    "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_facilities_by_attribute"
 )
 def test_get_facility_by_rp_identifier_found_facility(mock_request_1):
@@ -509,7 +509,7 @@ def test_get_facility_by_rp_identifier_found_facility(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
+    "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_facilities_by_attribute"
 )
 def test_get_facility_by_rp_identifier_no_perun_attr_found(
@@ -528,7 +528,7 @@ def test_get_facility_by_rp_identifier_no_perun_attr_found(
 
 
 @patch(
-    "perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
+    "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_facilities_by_attribute"
 )
 def test_get_facility_by_rp_identifier_multiple_perun_attrs_found(
@@ -547,14 +547,14 @@ def test_get_facility_by_rp_identifier_multiple_perun_attrs_found(
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_groups_for_facility_where_user_is_active"
 )
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
 def test_get_users_groups_on_facility_multiple_groups_found(
     mock_request_1, mock_request_2, mock_request_3
 ):
@@ -596,14 +596,14 @@ def test_get_users_groups_on_facility_no_input_facility():
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_groups_for_facility_where_user_is_active"
 )
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
-@patch("perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
 def test_get_users_groups_on_facility_no_groups_found(
     mock_request_1, mock_request_2, mock_request_3
 ):
@@ -629,10 +629,10 @@ def test_get_users_groups_on_facility_no_groups_found(
 # TODO add tests for more attributes when correct OpenAPI is generated
 #  and make the tests work with searcher
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_facility_attributes_by_names"
 )
-@patch("perun_openapi.api.searcher_api.SearcherApi" ".get_facilities")
+@patch("perun.connector.perun_openapi.api.searcher_api.SearcherApi" ".get_facilities")
 def test_get_facilities_by_attribute_value_correct_attribute(
     mock_request_1, mock_request_2
 ):
@@ -700,10 +700,10 @@ def test_get_facilities_by_attribute_value_too_many_attributes(caplog):
 
 
 @patch(
-    "perun_openapi.api.users_manager_api.UsersManagerApi"
+    "perun.connector.perun_openapi.api.users_manager_api.UsersManagerApi"
     ".get_user_by_ext_source_name_and_ext_login"
 )
-@patch("adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user")
+@patch("perun.connector.adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user")
 def test_get_user_ext_source(mock_request_1, mock_request_2):
     source_id = 1
     source_login = "john@src"
@@ -729,7 +729,7 @@ def test_get_user_ext_source(mock_request_1, mock_request_2):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_user_ext_source_attributes_by_names"
 )
 def test_get_user_ext_source_attributes_multiple_attributes(mock_request_1):
@@ -780,7 +780,7 @@ def test_get_user_ext_source_attributes_multiple_attributes(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_user_ext_source_attributes_by_names"
 )
 def test_get_user_ext_source_attributes_no_attributes(mock_request_1):
@@ -795,7 +795,7 @@ def test_get_user_ext_source_attributes_no_attributes(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_status_by_user_and_vo_valid_member(mock_request_1):
@@ -812,7 +812,7 @@ def test_get_member_status_by_user_and_vo_valid_member(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_status_by_user_and_vo_invalid_member(mock_request_1):
@@ -829,7 +829,7 @@ def test_get_member_status_by_user_and_vo_invalid_member(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_status_by_user_and_vo_invalid_status(mock_request_1):
@@ -847,11 +847,11 @@ def test_get_member_status_by_user_and_vo_invalid_status(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 @patch(
-    "perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
 )
 def test_is_user_in_vo_valid_member(mock_request_1, mock_request_2):
     valid_status_name = "VALID"
@@ -873,11 +873,11 @@ def test_is_user_in_vo_valid_member(mock_request_1, mock_request_2):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 @patch(
-    "perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
 )
 def test_is_user_in_vo_invalid_member(mock_request_1, mock_request_2):
     invalid_status_name = "INVALID"
@@ -899,7 +899,7 @@ def test_is_user_in_vo_invalid_member(mock_request_1, mock_request_2):
 
 
 @patch(
-    "perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
 )
 def test_is_user_in_vo_non_existing_vo(mock_request_1, caplog):
     perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = (
@@ -943,7 +943,7 @@ def test_is_user_in_vo_no_short_name_given():
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_by_user_existing_user(mock_request_1):
@@ -957,7 +957,7 @@ def test_get_member_by_user_existing_user(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_by_user_get_non_existing_user(mock_request_1, caplog):
@@ -979,7 +979,7 @@ def test_get_member_by_user_get_non_existing_user(mock_request_1, caplog):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_by_user_with_non_existing_vo(mock_request_1, caplog):
@@ -1001,7 +1001,7 @@ def test_get_member_by_user_with_non_existing_vo(mock_request_1, caplog):
 
 
 @patch(
-    "perun_openapi.api.members_manager_api.MembersManagerApi"
+    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
 def test_get_member_by_user_user_not_member_in_vo(mock_request_1, caplog):
@@ -1025,15 +1025,15 @@ def test_get_member_by_user_user_not_member_in_vo(mock_request_1, caplog):
 
 
 @patch(
-    "perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
+    "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_assigned_resources_for_facility"
 )
 @patch(
-    "perun_openapi.api.resources_manager_api.ResourcesManagerApi"
+    "perun.connector.perun_openapi.api.resources_manager_api.ResourcesManagerApi"
     ".get_assigned_groups"
 )
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
 def test_get_resource_capabilities(
@@ -1095,7 +1095,7 @@ def test_get_resource_capabilities_no_input_facility():
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
 def test_get_facility_capabilities(mock_request_1):
@@ -1119,7 +1119,7 @@ def test_get_facility_capabilities_no_input_facility():
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_user_attributes_by_names"
 )
 def test_get_user_attributes_multiple_attributes(mock_request_1):
@@ -1139,7 +1139,7 @@ def test_get_user_attributes_multiple_attributes(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_user_attributes_by_names"
 )
 def test_get_user_attributes_no_attributes(mock_request_1):
@@ -1165,11 +1165,11 @@ def test_get_user_attributes_no_attributes(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_entityless_attributes_by_name"
 )
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_entityless_keys"
 )
 def test_get_entityless_attribute_valid_attribute(
@@ -1195,7 +1195,7 @@ def test_get_entityless_attribute_valid_attribute(
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_entityless_attributes_by_name"
 )
 def test_get_entityless_attribute_attr_id_missing(mock_request_1):
@@ -1223,7 +1223,7 @@ def test_get_entityless_attribute_attr_id_missing(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_vo_attributes_by_names"
 )
 def test_get_vo_attributes_single_attribute(mock_request_1):
@@ -1243,7 +1243,7 @@ def test_get_vo_attributes_single_attribute(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_vo_attributes_by_names"
 )
 def test_get_vo_attributes_no_attributes(mock_request_1):
@@ -1269,7 +1269,7 @@ def test_get_vo_attributes_no_attributes(mock_request_1):
 
 
 @patch(
-    "perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
 def test_get_facility_attribute_valid_attribute(mock_request_1):

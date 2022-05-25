@@ -1,5 +1,5 @@
 {
-  "name": "perun-connector",
+  "name": "perun.connector",
   "license": "BSD-2-Clause",
   "private": true,
   "engines": {
@@ -9,14 +9,14 @@
   "devDependencies": {
     "@semantic-release/changelog": "6.0.1",
     "@semantic-release/git": "10.0.1",
-    "cz-conventional-changelog": "3.3.0",
+    "cz-conventional-changelog": "^3.0.1",
     "prettier": "^2.6.2",
     "semantic-release": "19.0.2",
     "semantic-release-pypi": "^2.5.0"
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "cz-conventional-changelog"
     }
   }
 }

@@ -4,12 +4,13 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-import adapters
-from adapters.AdaptersManager import AdaptersManager
-from adapters.LdapAdapter import LdapAdapter, AdapterSkipException
-from adapters.PerunRpcAdapter import PerunRpcAdapter
-from models.User import User
-from perun_openapi import ApiException
+import perun
+from perun.connector.adapters.AdaptersManager import AdaptersManager
+from perun.connector.adapters.LdapAdapter import LdapAdapter, AdapterSkipException
+from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
+from perun.connector.models.User import User
+from perun.connector.perun_openapi import ApiException
+from perun.connector.utils.ConfigStore import ConfigStore
 
 
 class HttpResponse:
@@ -34,7 +35,7 @@ LDAP_CONFIG_DATA = {'type': 'ldap', 'priority': LDAP_PRIORITY,
                     'start_tls': True,
                     'servers': [{'hostname': 'ldap://openldap', 'port': 389},
                                 {'hostname': 'ldap://openldap2', 'port': 389}]}
-LDAP_ADAPTER = LdapAdapter(LDAP_CONFIG_DATA)
+LDAP_ADAPTER = LdapAdapter(LDAP_CONFIG_DATA, ConfigStore.get_attribute_map())
 
 RPC_PRIORITY = 2
 RPC_CONFIG_DATA = {'type': 'openApi', 'priority': RPC_PRIORITY,
@@ -73,7 +74,7 @@ def test_create_manager_with_ldap_adapter():
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'].append(LDAP_CONFIG_DATA)
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     assert len(manager.adapters) == 1
     assert is_present_ldap_adapter(manager)
@@ -83,7 +84,7 @@ def test_create_manager_with_rpc_adapter():
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'].append(RPC_CONFIG_DATA)
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     assert len(manager.adapters) == 1
     assert is_present_rpc_adapter(manager)
@@ -93,7 +94,7 @@ def test_create_manager_with_all_supported_adapters():
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'] = SUPPORTED_CONFIG_DATA
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     assert len(manager.adapters) == len(SUPPORTED_CONFIG_DATA)
     for validator in SUPPORTED_ADAPTERS_VALIDATORS:
@@ -110,7 +111,7 @@ def test_create_manager_with_unsupported_adapter(caplog):
                                   f'type "{unsupported_adapter_type}"'
 
     with caplog.at_level(logging.WARNING):
-        manager = AdaptersManager(config)
+        manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
         assert unsupported_adapter_warning in caplog.text
         assert len(manager.adapters) == len(SUPPORTED_CONFIG_DATA)
@@ -118,15 +119,15 @@ def test_create_manager_with_unsupported_adapter(caplog):
             assert validator(manager)
 
 
-@patch("adapters.LdapAdapter.LdapAdapter.get_perun_user")
+@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
 def test_find_method_on_first_adapter_successfully_execute(mock_request_1):
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'] = SUPPORTED_CONFIG_DATA
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     test_user = User(1, "John Doe")
-    adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         return_value=test_user
     )
 
@@ -135,25 +136,25 @@ def test_find_method_on_first_adapter_successfully_execute(mock_request_1):
     assert result == test_user
 
 
-@patch("adapters.LdapAdapter.LdapAdapter.get_perun_user")
-@patch("adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user")
+@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
+@patch("perun.connector.adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user")
 def test_find_method_on_second_adapter_successfully_execute(mock_request_1,
                                                             mock_request_2,
                                                             caplog):
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'] = SUPPORTED_CONFIG_DATA
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     unsupported_method_call_warning = 'Method "get_perun_user" is not ' \
                                       'supported by ldap_adapter. Going to '\
                                       'try another adapter if available.'
-    adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         side_effect=AdapterSkipException
     )
 
     test_user = User(1, "John Doe")
-    adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user = MagicMock(
         return_value=test_user
     )
 
@@ -164,14 +165,14 @@ def test_find_method_on_second_adapter_successfully_execute(mock_request_1,
         assert result == test_user
 
 
-@patch("adapters.LdapAdapter.LdapAdapter.get_perun_user")
+@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
 def test_found_method_fail_on_api_exception(mock_request_1, caplog):
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'] = SUPPORTED_CONFIG_DATA
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
-    adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         side_effect=ApiException(
             http_resp=HttpResponse('"name":"UserNotExistsException"'))
     )
@@ -192,16 +193,16 @@ def test_found_method_fail_on_api_exception(mock_request_1, caplog):
         _ = manager.get_perun_user("1", ["John Doe"])
 
 
-@patch("adapters.LdapAdapter.LdapAdapter.get_perun_user")
+@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
 def test_found_method_fail_on_unknown_exception(mock_request_1, caplog):
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'] = SUPPORTED_CONFIG_DATA
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     error_message = "Some error has occurred"
     unknown_error = ValueError(error_message)
-    adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         side_effect=unknown_error
     )
 
@@ -224,23 +225,23 @@ def test_found_method_fail_on_unknown_exception(mock_request_1, caplog):
         assert str(error.value.args[0]) == error_message
 
 
-@patch("adapters.LdapAdapter.LdapAdapter.get_perun_user")
-@patch("adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user")
+@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
+@patch("perun.connector.adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user")
 def test_method_not_found_on_any_adapter(mock_request_1, mock_request_2):
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config['adapters'] = SUPPORTED_CONFIG_DATA
 
-    manager = AdaptersManager(config)
+    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     unsupported_method_call_message = "'LdapAdapter' object has no attribute" \
                                       " 'unsupported_method'"
     unsupported_method_error = AttributeError(unsupported_method_call_message)
 
-    adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         side_effect=unsupported_method_error
     )
 
-    adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user = MagicMock(
+    perun.connector.adapters.PerunRpcAdapter.PerunRpcAdapter.get_perun_user = MagicMock(
         side_effect=unsupported_method_error
     )
 
