@@ -1,13 +1,13 @@
-from adapters.LdapAdapter import LdapAdapter
-from models.Facility import Facility
-from models.Group import Group
-from models.User import User
-from models.VO import VO
-from models.MemberStatusEnum import MemberStatusEnum
+from perun.connector.adapters.LdapAdapter import LdapAdapter
+from perun.connector.models.Facility import Facility
+from perun.connector.models.Group import Group
+from perun.connector.models.User import User
+from perun.connector.models.VO import VO
+from perun.connector.models.MemberStatusEnum import MemberStatusEnum
 import pytest
 from unittest.mock import patch, MagicMock
 
-from utils.ConfigStore import ConfigStore
+from perun.connector.utils.ConfigStore import ConfigStore
 
 adapters_cfg = ConfigStore.get_adapters_manager_config().get('adapters')
 ldapAdapterCfg = None
@@ -16,7 +16,7 @@ for adapter in adapters_cfg:
         ldapAdapterCfg = adapter
         break
 
-ADAPTER = LdapAdapter(ldapAdapterCfg)
+ADAPTER = LdapAdapter(ldapAdapterCfg, ConfigStore.get_attribute_map())
 
 # USER
 USER_WITH_ALL = {
@@ -149,7 +149,7 @@ RESOURCES = [RESOURCE_2]
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_user_with_all(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -160,7 +160,7 @@ def test_user_with_all(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_user_with_dn(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -171,7 +171,7 @@ def test_user_with_dn(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_user_with_cn(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -182,7 +182,7 @@ def test_user_with_cn(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_user_without_name(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -193,7 +193,7 @@ def test_user_without_name(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_user_not_found(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -204,7 +204,7 @@ def test_user_not_found(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_group_exist_in_vo(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -215,7 +215,7 @@ def test_group_exist_in_vo(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_group_does_not_exist_in_vo(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -232,7 +232,7 @@ def test_group_does_not_exist_in_vo(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_vo_by_short_name_that_exists(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -243,7 +243,7 @@ def test_get_vo_by_short_name_that_exists(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_vo_by_id_that_exist(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -254,7 +254,7 @@ def test_get_vo_by_id_that_exist(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_vo_by_non_existent_short_name(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -270,7 +270,7 @@ def test_get_vo_by_non_existent_short_name(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_vo_by_non_existent_id(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -286,7 +286,7 @@ def test_get_vo_by_non_existent_id(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_member_groups(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -299,7 +299,7 @@ def test_get_member_groups(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_member_groups_empty(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -310,13 +310,13 @@ def test_get_member_groups_empty(mock_request):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_sp_groups(mock_request, mock_request2, mock_request3):
     ADAPTER.get_vo = MagicMock(
@@ -335,13 +335,13 @@ def test_get_sp_groups(mock_request, mock_request2, mock_request3):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_sp_groups_repeated_groups(mock_request,
                                        mock_request2,
@@ -362,10 +362,10 @@ def test_get_sp_groups_repeated_groups(mock_request,
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_get_sp_groups_not_assigned_groups(mock_request, mock_request2):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(
@@ -380,10 +380,10 @@ def test_get_sp_groups_not_assigned_groups(mock_request, mock_request2):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_get_sp_groups_empty_resources(mock_request, mock_request2):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(
@@ -398,7 +398,7 @@ def test_get_sp_groups_empty_resources(mock_request, mock_request2):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 def test_user_attributes(mock_request):
     empty_user_attributes = []
@@ -416,7 +416,7 @@ def test_user_attributes(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_get_facility_by_rp_id(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -427,7 +427,7 @@ def test_get_facility_by_rp_id(mock_request):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 def test_users_group_on_facility_facility_not_found(mock_request):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(
@@ -438,10 +438,10 @@ def test_users_group_on_facility_facility_not_found(mock_request):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_users_group_on_facility_resources_not_found(mock_request,
                                                      mock_request2):
@@ -461,10 +461,10 @@ def test_users_group_on_facility_resources_not_found(mock_request,
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_users_group_on_facility_groups_not_found(mock_request,
                                                   mock_request2):
@@ -480,10 +480,10 @@ def test_users_group_on_facility_groups_not_found(mock_request,
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_users_group_on_facility_repeated_groups(mock_request, mock_request2):
     ADAPTER.get_vo = MagicMock(
@@ -498,10 +498,10 @@ def test_users_group_on_facility_repeated_groups(mock_request, mock_request2):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_users_group_on_facility_not_repeated_groups(mock_request,
                                                      mock_request2):
@@ -517,7 +517,7 @@ def test_users_group_on_facility_not_repeated_groups(mock_request,
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_member_status_invalid(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -530,7 +530,7 @@ def test_member_status_invalid(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_member_status_valid(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -559,7 +559,7 @@ def test_is_user_in_vo_user_without_id():
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 def test_is_user_in_vo_vo_not_found(mock_request):
     ADAPTER.get_vo = MagicMock(
@@ -570,10 +570,10 @@ def test_is_user_in_vo_vo_not_found(mock_request):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_member_status_by_user_and_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_member_status_by_user_and_vo"
 )
 def test_is_not_user_in_vo(mock_request, mock_request2):
     ADAPTER.get_vo = MagicMock(
@@ -587,10 +587,10 @@ def test_is_not_user_in_vo(mock_request, mock_request2):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo"
 )
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_member_status_by_user_and_vo"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_member_status_by_user_and_vo"
 )
 def test_is_user_in_vo(mock_request, mock_request2):
     ADAPTER.get_vo = MagicMock(
@@ -604,7 +604,7 @@ def test_is_user_in_vo(mock_request, mock_request2):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 def test_resource_capabilities_no_facility(mock_request):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(
@@ -616,10 +616,10 @@ def test_resource_capabilities_no_facility(mock_request):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_resource_capabilities_empty(mock_request, mock_request2):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(
@@ -634,10 +634,10 @@ def test_resource_capabilities_empty(mock_request, mock_request2):
 
 
 @patch(
-    "adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
+    "perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier"
 )
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entities"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entities"
 )
 def test_resource_capabilities(mock_request, mock_request2):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(
@@ -654,7 +654,7 @@ def test_resource_capabilities(mock_request, mock_request2):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_facility_capabilities_empty(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
@@ -665,7 +665,7 @@ def test_facility_capabilities_empty(mock_request):
 
 
 @patch(
-    "connectors.LdapConnector.LdapConnector.search_for_entity"
+    "perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity"
 )
 def test_facility_capabilities(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(
