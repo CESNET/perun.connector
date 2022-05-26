@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/CESNET/perun.connector/compare/v1.1.0...v1.1.1) (2022-05-26)
+
+
+### Bug Fixes
+
+* hide implementation files in package ([d8f0921](https://github.com/CESNET/perun.connector/commit/d8f0921fe039b993c6e98dfd1adb1ad2c415ac6c))
+
 # [1.1.0](https://github.com/CESNET/perun.connector/compare/v1.0.2...v1.1.0) (2022-05-26)
 
 
