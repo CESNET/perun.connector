@@ -1,3 +1,15 @@
+## [1.1.2](https://github.com/CESNET/perun.connector/compare/v1.1.1...v1.1.2) (2022-05-26)
+
+
+### Bug Fixes
+
+* moved CurlConnector to satosacontrib.perun ([e5ab8bd](https://github.com/CESNET/perun.connector/commit/e5ab8bdf53ea544608d79b12f63e237415e3a999))
+
+
+### Reverts
+
+* put back __init__.py files ([f7f142d](https://github.com/CESNET/perun.connector/commit/f7f142d9b0ae60ee6585cbd17c8b3ef291b414c1))
+
 ## [1.1.1](https://github.com/CESNET/perun.connector/compare/v1.1.0...v1.1.1) (2022-05-26)
 
 
