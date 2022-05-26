@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/CESNET/perun.connector/compare/v1.0.2...v1.1.0) (2022-05-26)
+
+
+### Features
+
+* packages tree, configs changes - attrs_map now has to be passed to Adapters constructor ([efdc828](https://github.com/CESNET/perun.connector/commit/efdc828b44ef863e53a99c3786769bb1abe30539))
+
 ## [1.0.2](https://github.com/CESNET/perun.connector/compare/v1.0.1...v1.0.2) (2022-05-23)
 
 
