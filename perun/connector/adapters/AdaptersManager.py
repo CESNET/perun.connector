@@ -56,23 +56,24 @@ class AdaptersManager(AdapterInterface):
             adapter_impl = current_adapter["adapter"]
             try:
                 return getattr(adapter_impl, method_name)(*args)
-            except AdapterSkipException:
+            except AdapterSkipException as e:
                 self._logger.warning(
-                    f'Method "{method_name}" is not supported by '
-                    f'{current_adapter["name"]}. Going to try another '
-                    f'adapter if available.')
+                    f'Method "{method_name}" cannot be performed by'
+                    f'{current_adapter["name"]}. {e.message} Going to try another '
+                    f"adapter if available."
+                )
                 current_priority += 1
                 current_adapter = self.adapters.get(current_priority)
             except ApiException as ex:
                 if 'notexistsexception"' in ex.body.lower():
-                    self._logger.warning(
-                        "Requested entity doesn't exist in Perun")
+                    self._logger.warning("Requested entity doesn't exist in Perun")
                 raise
             except Exception as ex:
                 self._logger.warning(
                     f'Method "{method_name}" could not be executed '
                     f'successfully by {current_adapter["name"]}, exception '
-                    f'occurred: "{ex}"')
+                    f'occurred: "{ex}"'
+                )
                 raise
 
         raise Exception(
@@ -84,100 +85,73 @@ class AdaptersManager(AdapterInterface):
         return inspect.stack()[1].function
 
     def get_perun_user(self, idp_id: str, uids: List[str]) -> Optional[User]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), idp_id, uids
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), idp_id, uids)
 
     def get_group_by_name(self, vo: Union[int, VO], name: str) -> Group:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), vo, name
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), vo, name)
 
     def get_vo(self, short_name: str, vo_id: int) -> VO:
         return self._execute_method_by_priority(
             self._get_caller_name(), short_name, vo_id
         )
 
-    def get_member_groups(self, user: Union[int, User], vo: Union[int, VO]) -> List[Group]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), user, vo
-        )
+    def get_member_groups(
+        self, user: Union[int, User], vo: Union[int, VO]
+    ) -> List[Group]:
+        return self._execute_method_by_priority(self._get_caller_name(), user, vo)
 
     def get_sp_groups_by_facility(self, facility: Union[Facility, int]) -> List[Group]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), facility
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), facility)
 
     def get_sp_groups_by_rp_id(self, rp_id: str) -> List[Group]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), rp_id
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), rp_id)
 
     def get_user_attributes(
-            self, user: Union[int, User], attr_names: List[str]
+        self, user: Union[int, User], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         return self._execute_method_by_priority(
             self._get_caller_name(), user, attr_names
         )
 
     def get_entityless_attribute(
-            self, attr_name: str
+        self, attr_name: str
     ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), attr_name
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), attr_name)
 
     def get_vo_attributes(
-            self, vo: Union[int, VO], attr_names: List[str]
+        self, vo: Union[int, VO], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), vo, attr_names
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), vo, attr_names)
 
-    def get_facility_attribute(
-            self, facility: Union[int, Facility], attr_name: str
-    ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), facility, attr_name
-        )
-
-    def get_facility_by_rp_identifier(
-            self, rp_identifier: str
-    ) -> Facility:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), rp_identifier
-        )
+    def get_facility_by_rp_identifier(self, rp_identifier: str) -> Facility:
+        return self._execute_method_by_priority(self._get_caller_name(), rp_identifier)
 
     def get_users_groups_on_facility_by_rp_id(
-            self, rp_identifier: str, user: Union[User, int]
+        self, rp_identifier: str, user: Union[User, int]
     ) -> List[Group]:
         return self._execute_method_by_priority(
             self._get_caller_name(), rp_identifier, user
         )
 
     def get_users_groups_on_facility(
-            self, facility: Union[Facility, int], user: Union[User, int]
+        self, facility: Union[Facility, int], user: Union[User, int]
     ) -> List[Group]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), facility, user
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), facility, user)
 
     def get_facilities_by_attribute_value(
-            self, attribute: dict[str, str]
+        self, attribute: dict[str, str]
     ) -> List[Facility]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), attribute
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), attribute)
 
     def get_facility_attributes(
-            self, facility: Union[int, Facility], attr_names: List[str]
+        self, facility: Union[int, Facility], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         return self._execute_method_by_priority(
             self._get_caller_name(), facility, attr_names
         )
 
     def get_user_ext_source(
-            self, ext_source_name: str, ext_source_login: str
+        self, ext_source_name: str, ext_source_login: str
     ) -> UserExtSource:
         return self._execute_method_by_priority(
             self._get_caller_name(), ext_source_name, ext_source_login
@@ -189,52 +163,53 @@ class AdaptersManager(AdapterInterface):
         )
 
     def get_user_ext_source_attributes(
-            self, user_ext_source: Union[int, UserExtSource],
-            attr_names: List[str]
+        self, user_ext_source: Union[int, UserExtSource], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         return self._execute_method_by_priority(
             self._get_caller_name(), user_ext_source
         )
 
     def set_user_ext_source_attributes(
-            self, user_ext_source: Union[int, UserExtSource],
-            attributes: List[
-                dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]]
+        self,
+        user_ext_source: Union[int, UserExtSource],
+        attributes: dict[
+            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+        ],
     ) -> None:
         return self._execute_method_by_priority(
             self._get_caller_name(), user_ext_source
         )
 
-    def get_member_status_by_user_and_vo(self, user: Union[int, User], vo: Union[int, VO]) -> str:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), user, vo
-        )
+    def get_member_status_by_user_and_vo(
+        self, user: Union[int, User], vo: Union[int, VO]
+    ) -> str:
+        return self._execute_method_by_priority(self._get_caller_name(), user, vo)
 
-    def is_user_in_vo_by_short_name(self, user: Union[int, User], vo_short_name: str) -> bool:
+    def is_user_in_vo_by_short_name(
+        self, user: Union[int, User], vo_short_name: str
+    ) -> bool:
         return self._execute_method_by_priority(
             self._get_caller_name(), user, vo_short_name
         )
 
     def get_resource_capabilities_by_facility(
-            self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
+        self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
     ) -> List[str]:
         return self._execute_method_by_priority(
             self._get_caller_name(), facility, user_groups
         )
 
     def get_resource_capabilities_by_rp_id(
-            self, rp_identifier: str, user_groups: List[Union[Group, int]]
+        self, rp_identifier: str, user_groups: List[Union[Group, int]]
     ) -> List[str]:
         return self._execute_method_by_priority(
             self._get_caller_name(), rp_identifier, user_groups
         )
 
     def get_facility_capabilities_by_rp_id(self, rp_identifier: str) -> List[str]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), rp_identifier
-        )
+        return self._execute_method_by_priority(self._get_caller_name(), rp_identifier)
 
-    def get_facility_capabilities_by_facility(self, facility: Union[Facility, int]) -> List[str]:
-        return self._execute_method_by_priority(
-            self._get_caller_name(), facility
-        )
+    def get_facility_capabilities_by_facility(
+        self, facility: Union[Facility, int]
+    ) -> List[str]:
+        return self._execute_method_by_priority(self._get_caller_name(), facility)
