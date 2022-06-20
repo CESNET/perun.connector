@@ -10,7 +10,9 @@ class ConfigStore(object):
     _OPENAPI_CFG_FILE = "perun/connector/config_templates/openapi_cfg.yaml"
     _OPENAPI_CFG = None
 
-    _ADAPTERS_MANAGER_CFG_FILE = "perun/connector/config_templates/adapters_manager_cfg.yaml"
+    _ADAPTERS_MANAGER_CFG_FILE = (
+        "perun/connector/config_templates/adapters_manager_cfg.yaml"
+    )
     _ADAPTERS_MANAGER_CFG = None
 
     _ATTR_MAP_FILE = "perun/connector/config_templates/attribute_map.yaml"
@@ -32,9 +34,7 @@ class ConfigStore(object):
     @staticmethod
     def get_openapi_config():
         if ConfigStore._OPENAPI_CFG is None:
-            ConfigStore._load_cfg(
-                ConfigStore._OPENAPI_CFG_FILE, "_OPENAPI_CFG"
-            )
+            ConfigStore._load_cfg(ConfigStore._OPENAPI_CFG_FILE, "_OPENAPI_CFG")
         return ConfigStore._OPENAPI_CFG
 
     @staticmethod
