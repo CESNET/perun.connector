@@ -9,7 +9,7 @@ from perun.connector.adapters.AdaptersManager import AdaptersManager
 from perun.connector.adapters.LdapAdapter import LdapAdapter, AdapterSkipException
 from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
 from perun.connector.models.User import User
-from perun.connector.perun_openapi import ApiException
+from perun.connector.perun_openapi.exceptions import NotFoundException
 from perun.connector.utils.ConfigStore import ConfigStore
 
 
@@ -156,9 +156,8 @@ def test_find_method_on_second_adapter_successfully_execute(
 
     manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
-    unsupported_method_call_warning = 'Method "get_perun_user" cannot be performed byldap_adapter. ' \
-                                      'Adapter not able to execute given action Going to try another ' \
-                                      'adapter if available.'
+    unsupported_method_call_warning = 'Adapter not able to execute given action. Method: "get_perun_user" ' \
+                                      'Adapter: ldap_adapter Going to try another adapter if available.'
     perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         side_effect=AdapterSkipException
     )
@@ -176,14 +175,14 @@ def test_find_method_on_second_adapter_successfully_execute(
 
 
 @patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
-def test_found_method_fail_on_api_exception(mock_request_1, caplog):
+def test_found_method_fail_on_not_found_exception(mock_request_1, caplog):
     config = copy.deepcopy(BASE_MANAGER_CONFIG)
     config["adapters"] = SUPPORTED_CONFIG_DATA
 
     manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
-        side_effect=ApiException(
+        side_effect=NotFoundException(
             http_resp=HttpResponse('"name":"UserNotExistsException"')
         )
     )
@@ -192,16 +191,9 @@ def test_found_method_fail_on_api_exception(mock_request_1, caplog):
 
     # test logging of the exception
     with caplog.at_level(logging.WARNING):
-        try:
-            _ = manager.get_perun_user("1", ["John Doe"])
-        except ApiException:
-            pass
-
+        user = manager.get_perun_user("1", ["John Doe"])
         assert entity_not_found_warning in caplog.text
-
-    # test re-raising the exception
-    with pytest.raises(ApiException):
-        _ = manager.get_perun_user("1", ["John Doe"])
+        assert user is None
 
 
 @patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
