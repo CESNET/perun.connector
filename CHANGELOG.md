@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/CESNET/perun.connector/compare/v2.0.0...v2.0.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* adapters manager now return None if no object found. Exceptions handling should work properly. ([182ba1c](https://github.com/CESNET/perun.connector/commit/182ba1c6b48503cb841a555143a4d0d512d8b219))
+
 # [2.0.0](https://github.com/CESNET/perun.connector/compare/v1.1.2...v2.0.0) (2022-06-23)
 
 
