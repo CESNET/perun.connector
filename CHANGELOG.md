@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/CESNET/perun.connector/compare/v1.1.2...v2.0.0) (2022-06-23)
+
+
+### Features
+
+* attributes are now parsed into format: dict[namespace + friendly_name, value] ([5f16677](https://github.com/CESNET/perun.connector/commit/5f16677a0d3c6492ec2959b355ce77c8af80cc4b))
+
+
+### BREAKING CHANGES
+
+* parsing attributes changed, attributes_map changed
+
 ## [1.1.2](https://github.com/CESNET/perun.connector/compare/v1.1.1...v1.1.2) (2022-05-26)
 
 
