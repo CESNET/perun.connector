@@ -1,9 +1,12 @@
 import inspect
 from typing import List, Union, Optional
 
+from ldap3.core.exceptions import LDAPException
+
 from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
 from perun.connector.adapters.LdapAdapter import LdapAdapter
 from perun.connector.adapters.LdapAdapter import AdapterSkipException
+from perun.connector.perun_openapi.exceptions import NotFoundException
 from perun.connector.utils.Logger import Logger
 
 from perun.connector.adapters.AdapterInterface import AdapterInterface
@@ -58,16 +61,27 @@ class AdaptersManager(AdapterInterface):
                 return getattr(adapter_impl, method_name)(*args)
             except AdapterSkipException as e:
                 self._logger.warning(
-                    f'Method "{method_name}" cannot be performed by'
-                    f'{current_adapter["name"]}. {e.message} Going to try another '
+                    f'{e.message} Method: "{method_name}" Adapter: '
+                    f'{current_adapter["name"]} Going to try another '
                     f"adapter if available."
                 )
                 current_priority += 1
                 current_adapter = self.adapters.get(current_priority)
-            except ApiException as ex:
-                if 'notexistsexception"' in ex.body.lower():
-                    self._logger.warning("Requested entity doesn't exist in Perun")
-                raise
+            except NotFoundException as ex:
+                self._logger.warning(
+                    "Requested entity doesn't exist in Perun. ApiException: "
+                    + str(ex.body)
+                )
+                return None
+            except ApiException or LDAPException as ex:
+                self._logger.warning(
+                    f'Method "{method_name}" could not be executed '
+                    f'successfully by {current_adapter["name"]}, exception '
+                    f'occurred: "{ex}" Going to try another '
+                    f"adapter if available."
+                )
+                current_priority += 1
+                current_adapter = self.adapters.get(current_priority)
             except Exception as ex:
                 self._logger.warning(
                     f'Method "{method_name}" could not be executed '

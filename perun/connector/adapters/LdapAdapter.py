@@ -13,7 +13,7 @@ from perun.connector.adapters.AdapterInterface import AdapterInterface
 
 
 class AdapterSkipException(Exception):
-    def __init__(self, message="Adapter not able to execute given action"):
+    def __init__(self, message="Adapter not able to execute given action."):
         self.message = message
         super().__init__(self.message)
 
