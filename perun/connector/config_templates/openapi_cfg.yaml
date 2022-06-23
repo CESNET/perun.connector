@@ -12,3 +12,5 @@ api_key: your_api_key
 
 #BearerAuth
 access_token: your_bearer_token
+
+rp_id_attribute: urn:perun:facility:attribute-def:def:rpIdentifier

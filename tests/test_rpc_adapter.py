@@ -6,10 +6,10 @@ import pytest
 
 from perun.connector import perun_openapi
 from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
-from perun.connector.models.MemberStatusEnum import MemberStatusEnum
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
 from perun.connector.models.Member import Member
+from perun.connector.models.MemberStatusEnum import MemberStatusEnum
 from perun.connector.models.Resource import Resource
 from perun.connector.models.User import User
 from perun.connector.models.UserExtSource import UserExtSource
@@ -28,7 +28,9 @@ class HttpResponse:
         return "headers"
 
 
-ADAPTER = PerunRpcAdapter(ConfigStore.get_openapi_config(), ConfigStore.get_attribute_map())
+ADAPTER = PerunRpcAdapter(
+    ConfigStore.get_openapi_config(), ConfigStore.get_attribute_map()
+)
 
 # sample groups - external representation (Devel)
 TEST_GROUP_EXTERNAL_REPRESENTATION_1 = {
@@ -60,8 +62,7 @@ TEST_GROUP_INTERNAL_REPRESENTATION_1 = Group(
     TEST_VO,
     TEST_GROUP_EXTERNAL_REPRESENTATION_1["uuid"],
     TEST_GROUP_EXTERNAL_REPRESENTATION_1["name"],
-    f"{SAMPLE_SHORT_GROUP_NAME}:"
-    f'{TEST_GROUP_EXTERNAL_REPRESENTATION_1["name"]}',
+    f"{SAMPLE_SHORT_GROUP_NAME}:" f'{TEST_GROUP_EXTERNAL_REPRESENTATION_1["name"]}',
     TEST_GROUP_EXTERNAL_REPRESENTATION_1["description"],
 )
 
@@ -70,8 +71,7 @@ TEST_GROUP_INTERNAL_REPRESENTATION_2 = Group(
     TEST_VO,
     TEST_GROUP_EXTERNAL_REPRESENTATION_2["uuid"],
     TEST_GROUP_EXTERNAL_REPRESENTATION_2["name"],
-    f"{SAMPLE_SHORT_GROUP_NAME}:"
-    f'{TEST_GROUP_EXTERNAL_REPRESENTATION_2["name"]}',
+    f"{SAMPLE_SHORT_GROUP_NAME}:" f'{TEST_GROUP_EXTERNAL_REPRESENTATION_2["name"]}',
     TEST_GROUP_EXTERNAL_REPRESENTATION_2["description"],
 )
 
@@ -191,7 +191,8 @@ def test_get_perun_user_with_middle_name_and_title_before_after(
         "last_name": "Doe",
         "title_after": "Ph.D.",
     }
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(
+        # noqa E501
         return_value=user_with_middle_name_title_before_after
     )
 
@@ -216,7 +217,8 @@ def test_get_perun_user_without_middle_name_and_title_before_after(
         "last_name": "Doe",
         "title_after": "Ph.D.",
     }
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(
+        # noqa E501
         return_value=user_without_middle_name_title_before_after
     )
 
@@ -240,7 +242,8 @@ def test_user_without_middle_name_and_title_before(mock_request_1):
         "title_after": None,
     }
 
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(
+        # noqa E501
         return_value=user_without_middle_name_title_before
     )
 
@@ -264,7 +267,8 @@ def test_user_without_middle_name_and_title_after(mock_request_1):
         "title_after": "Ph.D.",
     }
 
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(
+        # noqa E501
         return_value=user_without_middle_name_title_after
     )
 
@@ -288,7 +292,8 @@ def test_user_without_middle_name_and_titles(mock_request_1):
         "title_after": None,
     }
 
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_by_ext_source_name_and_ext_login = MagicMock(
+        # noqa E501
         return_value=user_without_middle_name_and_titles
     )
 
@@ -315,23 +320,25 @@ def test_user_without_middle_name_and_titles(mock_request_1):
 def test_get_member_groups_found_member_groups(
     mock_request_1, mock_request_2, mock_request_3, mock_request_4
 ):
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value={"value": SAMPLE_SHORT_GROUP_NAME}
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value={"value": SAMPLE_SHORT_GROUP_NAME})  # noqa E501
     )
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
         return_value=TEST_VO
+    )  # noqa E501
+
+    perun_openapi.api.groups_manager_api.GroupsManagerApi.get_all_member_groups = (
+        MagicMock(  # noqa E501
+            return_value=[
+                TEST_GROUP_EXTERNAL_REPRESENTATION_1,
+                TEST_GROUP_EXTERNAL_REPRESENTATION_2,
+            ]
+        )
     )
 
-    perun_openapi.api.groups_manager_api.GroupsManagerApi.get_all_member_groups = MagicMock(  # noqa E501
-        return_value=[
-            TEST_GROUP_EXTERNAL_REPRESENTATION_1,
-            TEST_GROUP_EXTERNAL_REPRESENTATION_2,
-        ]
-    )
-
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=TEST_MEMBER_INTERNAL_REPRESENTATION
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_member_by_user = (
+        MagicMock(return_value=TEST_MEMBER_INTERNAL_REPRESENTATION)  # noqa E501
     )
 
     result_groups = ADAPTER.get_member_groups(user=TEST_USER, vo=TEST_VO)
@@ -347,8 +354,8 @@ def test_get_member_groups_found_member_groups(
     ".get_member_by_user"
 )
 def test_get_member_groups_member_not_found(mock_request_1):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=None
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(return_value=None)  # noqa E501
     )
 
     result_groups = ADAPTER.get_member_groups(user=TEST_USER, vo=TEST_VO)
@@ -376,26 +383,29 @@ def test_get_sp_groups_found_sp_groups(
 ):
     test_resources = [Resource(1, None, None, None)]
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value={"value": SAMPLE_SHORT_GROUP_NAME}
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value={"value": SAMPLE_SHORT_GROUP_NAME})  # noqa E501
     )
 
-    perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_assigned_resources_for_facility = MagicMock(  # noqa E501
+    perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_assigned_resources_for_facility = MagicMock(
+        # noqa E501
         return_value=test_resources
     )
 
-    perun_openapi.api.resources_manager_api.ResourcesManagerApi.get_assigned_groups = MagicMock(  # noqa E501
-        return_value=[
-            TEST_GROUP_EXTERNAL_REPRESENTATION_1,
-            TEST_GROUP_EXTERNAL_REPRESENTATION_1,
-            TEST_GROUP_EXTERNAL_REPRESENTATION_2,
-            TEST_GROUP_EXTERNAL_REPRESENTATION_2,
-        ]
+    perun_openapi.api.resources_manager_api.ResourcesManagerApi.get_assigned_groups = (
+        MagicMock(  # noqa E501
+            return_value=[
+                TEST_GROUP_EXTERNAL_REPRESENTATION_1,
+                TEST_GROUP_EXTERNAL_REPRESENTATION_1,
+                TEST_GROUP_EXTERNAL_REPRESENTATION_2,
+                TEST_GROUP_EXTERNAL_REPRESENTATION_2,
+            ]
+        )
     )
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
         return_value=TEST_VO
-    )
+    )  # noqa E501
 
     result_groups = ADAPTER.get_sp_groups_by_facility(TEST_INTERNAL_FACILITY_1)
 
@@ -415,7 +425,8 @@ def test_get_sp_groups_no_input_facility():
     ".get_assigned_resources_for_facility"
 )
 def test_get_sp_groups_no_resources_found(mock_request_1):
-    perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_assigned_resources_for_facility = MagicMock(  # noqa E501
+    perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_assigned_resources_for_facility = MagicMock(
+        # noqa E501
         return_value=[]
     )
 
@@ -432,16 +443,16 @@ def test_get_sp_groups_no_resources_found(mock_request_1):
     "perun.connector.perun_openapi.api.groups_manager_api.GroupsManagerApi.get_group_by_name"
 )
 def test_get_group_by_name(mock_request_1, mock_request_2, mock_request_3):
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
         return_value=TEST_VO
+    )  # noqa E501
+
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value={"value": SAMPLE_SHORT_GROUP_NAME})  # noqa E501
     )
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value={"value": SAMPLE_SHORT_GROUP_NAME}
-    )
-
-    perun_openapi.api.groups_manager_api.GroupsManagerApi.get_group_by_name = (
-        MagicMock(return_value=TEST_GROUP_EXTERNAL_REPRESENTATION_1)
+    perun_openapi.api.groups_manager_api.GroupsManagerApi.get_group_by_name = MagicMock(
+        return_value=TEST_GROUP_EXTERNAL_REPRESENTATION_1
     )
 
     result = ADAPTER.get_group_by_name(TEST_VO, "sample name")
@@ -449,17 +460,19 @@ def test_get_group_by_name(mock_request_1, mock_request_2, mock_request_3):
 
 
 @patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
-@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name")
+@patch(
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name"
+)
 def test_get_vo_correct_arguments(mock_request_1, mock_request_2):
     test_vo_id = 1
     test_vo_short_name = "sample short name"
     test_vo = VO(test_vo_id, "sample name", test_vo_short_name)
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
         return_value=test_vo
-    )
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = (
-        MagicMock(return_value=test_vo)
+    )  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = MagicMock(
+        return_value=test_vo
     )
 
     obtained_vo_by_id = ADAPTER.get_vo(vo_id=test_vo_id)
@@ -501,9 +514,7 @@ def test_get_facility_by_rp_identifier_found_facility(mock_request_1):
         return_value=TEST_SINGLE_PERUN_FACILITY
     )
 
-    result_facility = ADAPTER.get_facility_by_rp_identifier(
-        TEST_RP_IDENTIFIER_1
-    )
+    result_facility = ADAPTER.get_facility_by_rp_identifier(TEST_RP_IDENTIFIER_1)
 
     assert result_facility == TEST_INTERNAL_FACILITY_1
 
@@ -512,17 +523,13 @@ def test_get_facility_by_rp_identifier_found_facility(mock_request_1):
     "perun.connector.perun_openapi.api.facilities_manager_api.FacilitiesManagerApi"
     ".get_facilities_by_attribute"
 )
-def test_get_facility_by_rp_identifier_no_perun_attr_found(
-    mock_request_1, caplog
-):
+def test_get_facility_by_rp_identifier_no_perun_attr_found(mock_request_1, caplog):
     perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_facilities_by_attribute = MagicMock(  # noqa E501
         return_value=None
     )
 
     with caplog.at_level(logging.WARNING):
-        result_facility = ADAPTER.get_facility_by_rp_identifier(
-            TEST_RP_IDENTIFIER_1
-        )
+        result_facility = ADAPTER.get_facility_by_rp_identifier(TEST_RP_IDENTIFIER_1)
         assert result_facility is None
         assert NO_ATTRS_ERROR_TEXT in caplog.text
 
@@ -539,9 +546,7 @@ def test_get_facility_by_rp_identifier_multiple_perun_attrs_found(
     )
 
     with caplog.at_level(logging.WARNING):
-        result_facility = ADAPTER.get_facility_by_rp_identifier(
-            TEST_RP_IDENTIFIER_1
-        )
+        result_facility = ADAPTER.get_facility_by_rp_identifier(TEST_RP_IDENTIFIER_1)
         assert result_facility is None
         assert MULTIPLE_ATTRS_ERROR_TEXT in caplog.text
 
@@ -558,7 +563,8 @@ def test_get_facility_by_rp_identifier_multiple_perun_attrs_found(
 def test_get_users_groups_on_facility_multiple_groups_found(
     mock_request_1, mock_request_2, mock_request_3
 ):
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_groups_for_facility_where_user_is_active = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_groups_for_facility_where_user_is_active = MagicMock(
+        # noqa E501
         return_value=[
             TEST_GROUP_EXTERNAL_REPRESENTATION_1,
             TEST_GROUP_EXTERNAL_REPRESENTATION_2,
@@ -568,13 +574,13 @@ def test_get_users_groups_on_facility_multiple_groups_found(
         ]
     )
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value={"value": SAMPLE_SHORT_GROUP_NAME}
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value={"value": SAMPLE_SHORT_GROUP_NAME})  # noqa E501
     )
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
         return_value=TEST_VO
-    )
+    )  # noqa E501
 
     result_groups = ADAPTER.get_users_groups_on_facility(
         TEST_INTERNAL_FACILITY_1, TEST_USER
@@ -607,17 +613,18 @@ def test_get_users_groups_on_facility_no_input_facility():
 def test_get_users_groups_on_facility_no_groups_found(
     mock_request_1, mock_request_2, mock_request_3
 ):
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_groups_for_facility_where_user_is_active = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_groups_for_facility_where_user_is_active = MagicMock(
+        # noqa E501
         return_value=[]
     )
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value={"value": SAMPLE_SHORT_GROUP_NAME}
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value={"value": SAMPLE_SHORT_GROUP_NAME})  # noqa E501
     )
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(  # noqa E501
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
         return_value=TEST_VO
-    )
+    )  # noqa E501
 
     result_groups = ADAPTER.get_users_groups_on_facility(
         TEST_INTERNAL_FACILITY_1, TEST_USER
@@ -640,7 +647,8 @@ def test_get_facilities_by_attribute_value_correct_attribute(
         return_value=TEST_SINGLE_PERUN_FACILITY
     )
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_facility_attributes_by_names = MagicMock(  # noqa E501
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_facility_attributes_by_names = MagicMock(
+        # noqa E501
         return_value=[
             {
                 "id": "test id",
@@ -649,7 +657,7 @@ def test_get_facilities_by_attribute_value_correct_attribute(
                 "type": "test type",
                 "value": TEST_INTERNAL_FACILITY_1.rp_id,
                 "namespace": "urn:perun:facility:attribute-def:def",
-                "friendly_name": "OIDCClientID",
+                "friendly_name": "rpIdentifier",
             }
         ]
     )
@@ -671,9 +679,7 @@ def test_get_facilities_by_attribute_value_empty_attribute(caplog):
     )
 
     with caplog.at_level(logging.WARNING):
-        result_facilities = ADAPTER.get_facilities_by_attribute_value(
-            empty_attribute
-        )
+        result_facilities = ADAPTER.get_facilities_by_attribute_value(empty_attribute)
         assert result_facilities == []
         assert wrong_number_of_attrs_error_text in caplog.text
 
@@ -718,7 +724,8 @@ def test_get_user_ext_source(mock_request_1, mock_request_2):
         source_id, source_name, source_login, TEST_USER
     )
 
-    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_ext_source_by_ext_login_and_ext_source_name = MagicMock(  # noqa E501
+    perun_openapi.api.users_manager_api.UsersManagerApi.get_user_ext_source_by_ext_login_and_ext_source_name = MagicMock(
+        # noqa E501
         return_value=user_ext_source_external_representation
     )
 
@@ -755,25 +762,25 @@ def test_get_user_ext_source_attributes_multiple_attributes(mock_request_1):
         "friendly_name": "sn",
     }
 
-    attribute_names = [test_attr_1_name, test_attr_2_name]
+    attribute_names = [
+        test_attribute_1["namespace"] + ":" + test_attribute_1["friendly_name"],
+        test_attribute_2["namespace"] + ":" + test_attribute_2["friendly_name"],
+    ]
     ext_source = UserExtSource(1, "sample name", "sample login", None)
 
     expected_attribute_1 = test_attribute_1.copy()
-    expected_attribute_1.pop("namespace")
 
     expected_attribute_2 = test_attribute_2.copy()
-    expected_attribute_2.pop("namespace")
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_user_ext_source_attributes_by_names = MagicMock(  # noqa E501
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_user_ext_source_attributes_by_names = MagicMock(
+        # noqa E501
         return_value=[test_attribute_1, test_attribute_2]
     )
 
-    result_attrs = ADAPTER.get_user_ext_source_attributes(
-        ext_source, attribute_names
-    )
+    result_attrs = ADAPTER.get_user_ext_source_attributes(ext_source, attribute_names)
     expected_attrs = {
-        test_attr_1_name: expected_attribute_1,
-        test_attr_2_name: expected_attribute_2,
+        attribute_names[0]: expected_attribute_1["value"],
+        attribute_names[1]: expected_attribute_2["value"],
     }
 
     assert result_attrs == expected_attrs
@@ -784,7 +791,8 @@ def test_get_user_ext_source_attributes_multiple_attributes(mock_request_1):
     ".get_user_ext_source_attributes_by_names"
 )
 def test_get_user_ext_source_attributes_no_attributes(mock_request_1):
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_user_ext_source_attributes_by_names = MagicMock(  # noqa E501
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_user_ext_source_attributes_by_names = MagicMock(
+        # noqa E501
         return_value=[]
     )
 
@@ -801,13 +809,11 @@ def test_get_user_ext_source_attributes_no_attributes(mock_request_1):
 def test_get_member_status_by_user_and_vo_valid_member(mock_request_1):
     expected_status = "VALID"
     test_member_external_representation = {"id": 1, "status": expected_status}
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=test_member_external_representation
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(return_value=test_member_external_representation)  # noqa E501
     )
 
-    result_status = ADAPTER.get_member_status_by_user_and_vo(
-        TEST_USER, TEST_VO
-    )
+    result_status = ADAPTER.get_member_status_by_user_and_vo(TEST_USER, TEST_VO)
     assert result_status == MemberStatusEnum(expected_status)
 
 
@@ -816,15 +822,15 @@ def test_get_member_status_by_user_and_vo_valid_member(mock_request_1):
     ".get_member_by_user"
 )
 def test_get_member_status_by_user_and_vo_invalid_member(mock_request_1):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        side_effect=ApiException(
-            http_resp=HttpResponse('"name":"MemberNotExistsException"')
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(  # noqa E501
+            side_effect=ApiException(
+                http_resp=HttpResponse('"name":"MemberNotExistsException"')
+            )
         )
     )
 
-    result_status = ADAPTER.get_member_status_by_user_and_vo(
-        TEST_USER, TEST_VO
-    )
+    result_status = ADAPTER.get_member_status_by_user_and_vo(TEST_USER, TEST_VO)
     assert result_status is None
 
 
@@ -837,8 +843,8 @@ def test_get_member_status_by_user_and_vo_invalid_status(mock_request_1):
     invalid_status_error_msg = f'"{invalid_status}" is not a valid state.'
     test_member_external_representation = {"id": 1, "status": invalid_status}
 
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=test_member_external_representation
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(return_value=test_member_external_representation)  # noqa E501
     )
 
     with pytest.raises(ValueError) as error:
@@ -851,7 +857,8 @@ def test_get_member_status_by_user_and_vo_invalid_status(mock_request_1):
     ".get_member_by_user"
 )
 @patch(
-    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi"
+    ".get_vo_by_short_name"
 )
 def test_is_user_in_vo_valid_member(mock_request_1, mock_request_2):
     valid_status_name = "VALID"
@@ -860,15 +867,17 @@ def test_is_user_in_vo_valid_member(mock_request_1, mock_request_2):
         "status": valid_status_name,
     }
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = (
-        MagicMock(E501return_value=TEST_VO)
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = MagicMock(
+        E501return_value=TEST_VO
     )
 
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=test_valid_member_external_representation
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(return_value=test_valid_member_external_representation)  # noqa E501
     )
 
-    user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(TEST_USER, TEST_VO.short_name)
+    user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(
+        TEST_USER, TEST_VO.short_name
+    )
     assert user_is_valid_member
 
 
@@ -877,7 +886,8 @@ def test_is_user_in_vo_valid_member(mock_request_1, mock_request_2):
     ".get_member_by_user"
 )
 @patch(
-    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi"
+    ".get_vo_by_short_name"
 )
 def test_is_user_in_vo_invalid_member(mock_request_1, mock_request_2):
     invalid_status_name = "INVALID"
@@ -886,20 +896,23 @@ def test_is_user_in_vo_invalid_member(mock_request_1, mock_request_2):
         "status": invalid_status_name,
     }
 
-    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = (
-        MagicMock(return_value=TEST_VO)
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = MagicMock(
+        return_value=TEST_VO
     )
 
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=test_valid_member_external_representation
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(return_value=test_valid_member_external_representation)  # noqa E501
     )
 
-    user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(TEST_USER, TEST_VO.short_name)
+    user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(
+        TEST_USER, TEST_VO.short_name
+    )
     assert not user_is_valid_member
 
 
 @patch(
-    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi" ".get_vo_by_short_name"
+    "perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi"
+    ".get_vo_by_short_name"
 )
 def test_is_user_in_vo_non_existing_vo(mock_request_1, caplog):
     perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = (
@@ -911,9 +924,7 @@ def test_is_user_in_vo_non_existing_vo(mock_request_1, caplog):
     )
 
     non_existing_short_name = "non_existing_short_name"
-    vo_not_found_msg = (
-        f'No VO with short name "{non_existing_short_name}" found'
-    )
+    vo_not_found_msg = f'No VO with short name "{non_existing_short_name}" found'
 
     with caplog.at_level(logging.DEBUG):
         user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(
@@ -947,8 +958,8 @@ def test_is_user_in_vo_no_short_name_given():
     ".get_member_by_user"
 )
 def test_get_member_by_user_existing_user(mock_request_1):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        return_value=TEST_MEMBER_EXTERNAL_REPRESENTATION
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(return_value=TEST_MEMBER_EXTERNAL_REPRESENTATION)  # noqa E501
     )
 
     result_member = ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
@@ -961,15 +972,15 @@ def test_get_member_by_user_existing_user(mock_request_1):
     ".get_member_by_user"
 )
 def test_get_member_by_user_get_non_existing_user(mock_request_1, caplog):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        side_effect=ApiException(
-            http_resp=HttpResponse('"name":"UserNotExistsException"')
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(  # noqa E501
+            side_effect=ApiException(
+                http_resp=HttpResponse('"name":"UserNotExistsException"')
+            )
         )
     )
 
-    invalid_user_error_msg = (
-        f' User with id "{TEST_USER.id}" does not exist in Perun.'
-    )
+    invalid_user_error_msg = f' User with id "{TEST_USER.id}" does not exist in Perun.'
 
     with caplog.at_level(logging.WARNING):
         result_member = ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
@@ -983,15 +994,15 @@ def test_get_member_by_user_get_non_existing_user(mock_request_1, caplog):
     ".get_member_by_user"
 )
 def test_get_member_by_user_with_non_existing_vo(mock_request_1, caplog):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        side_effect=ApiException(
-            http_resp=HttpResponse('"name":"VoNotExistsException"')
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(  # noqa E501
+            side_effect=ApiException(
+                http_resp=HttpResponse('"name":"VoNotExistsException"')
+            )
         )
     )
 
-    invalid_vo_error_msg = (
-        f'VO with id "{TEST_VO.id}" does not exist in Perun.'
-    )
+    invalid_vo_error_msg = f'VO with id "{TEST_VO.id}" does not exist in Perun.'
 
     with caplog.at_level(logging.WARNING):
         result_member = ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
@@ -1005,9 +1016,11 @@ def test_get_member_by_user_with_non_existing_vo(mock_request_1, caplog):
     ".get_member_by_user"
 )
 def test_get_member_by_user_user_not_member_in_vo(mock_request_1, caplog):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = MagicMock(  # noqa E501
-        side_effect=ApiException(
-            http_resp=HttpResponse('"name":"MemberNotExistsException"')
+    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
+        MagicMock(  # noqa E501
+            side_effect=ApiException(
+                http_resp=HttpResponse('"name":"MemberNotExistsException"')
+            )
         )
     )
 
@@ -1036,9 +1049,7 @@ def test_get_member_by_user_user_not_member_in_vo(mock_request_1, caplog):
     "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_attribute"
 )
-def test_get_resource_capabilities(
-    mock_request_1, mock_request_2, mock_request_3
-):
+def test_get_resource_capabilities(mock_request_1, mock_request_2, mock_request_3):
     group_without_resource = Group(-2, None, "", "", "", "")
     test_user_groups = [
         TEST_GROUP_INTERNAL_REPRESENTATION_1,
@@ -1057,12 +1068,13 @@ def test_get_resource_capabilities(
 
     test_facility_resources = [{"id": 5}, {"id": 6}, {"id": 7}]
 
-    perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_assigned_resources_for_facility = MagicMock(  # noqa E501
+    perun_openapi.api.facilities_manager_api.FacilitiesManagerApi.get_assigned_resources_for_facility = MagicMock(
+        # noqa E501
         return_value=test_facility_resources
     )
 
-    perun_openapi.api.resources_manager_api.ResourcesManagerApi.get_assigned_groups = MagicMock(  # noqa E501
-        side_effect=test_resource_groups
+    perun_openapi.api.resources_manager_api.ResourcesManagerApi.get_assigned_groups = (
+        MagicMock(side_effect=test_resource_groups)  # noqa E501
     )
 
     resource_capabilities_of_groups = [
@@ -1077,8 +1089,8 @@ def test_get_resource_capabilities(
         {"value": absent_capabilities},
     ]
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        side_effect=external_capabilities
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(side_effect=external_capabilities)  # noqa E501
     )
 
     expected_capabilities = ["test capability 1", "test capability 2"]
@@ -1099,11 +1111,9 @@ def test_get_resource_capabilities_no_input_facility():
     ".get_attribute"
 )
 def test_get_facility_capabilities(mock_request_1):
-    facility_capabilities = {
-        "value": ["test capability 1", "test capability 2"]
-    }
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value=facility_capabilities
+    facility_capabilities = {"value": ["test capability 1", "test capability 2"]}
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value=facility_capabilities)  # noqa E501
     )
 
     expected_capabilities = facility_capabilities["value"]
@@ -1131,7 +1141,8 @@ def test_get_user_attributes_multiple_attributes(mock_request_1):
     )
 
     expected_attributes = {
-        attr.get("name"): attr.get("value") for attr in test_user_attributes
+        attr.get("namespace") + ":" + attr.get("friendly_name"): attr.get("value")
+        for attr in test_user_attributes
     }
 
     result_attributes = ADAPTER.get_user_attributes(TEST_USER, attr_names)
@@ -1158,7 +1169,11 @@ def test_get_user_attributes_no_attributes(mock_request_1):
         return_value=[default_attr]
     )
 
-    expected_attribute = {default_attr["name"]: default_attr["value"]}
+    expected_attribute = {
+        default_attr["namespace"]
+        + ":"
+        + default_attr["friendly_name"]: default_attr["value"]
+    }
 
     result_attributes = ADAPTER.get_user_attributes(TEST_USER, [])
     assert result_attributes == expected_attribute
@@ -1172,14 +1187,17 @@ def test_get_user_attributes_no_attributes(mock_request_1):
     "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
     ".get_entityless_keys"
 )
-def test_get_entityless_attribute_valid_attribute(
-    mock_request_1, mock_request_2
-):
+def test_get_entityless_attribute_valid_attribute(mock_request_1, mock_request_2):
     test_entityless_attrs = get_entity_specific_attributes("entityless")
-    test_entityless_attr_name = test_entityless_attrs[0].get("name")
+    test_entityless_attr_name = (
+        test_entityless_attrs[0].get("namespace")
+        + ":"
+        + test_entityless_attrs[0].get("friendly_name")
+    )
     test_entityless_keys = ["entityless key 1", "entityless_key_2"]
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_entityless_attributes_by_name = MagicMock(  # noqa E501
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_entityless_attributes_by_name = MagicMock(
+        # noqa E501
         return_value=test_entityless_attrs
     )
 
@@ -1187,10 +1205,10 @@ def test_get_entityless_attribute_valid_attribute(
         return_value=test_entityless_keys
     )
 
-    expected_attrs = dict(zip(test_entityless_keys, test_entityless_attrs))
-    result_attributes = ADAPTER.get_entityless_attribute(
-        test_entityless_attr_name
-    )
+    expected_attrs = {}
+    for i in range(len(test_entityless_attrs)):
+        expected_attrs[test_entityless_keys[i]] = test_entityless_attrs[i]["value"]
+    result_attributes = ADAPTER.get_entityless_attribute(test_entityless_attr_name)
     assert result_attributes == expected_attrs
 
 
@@ -1211,13 +1229,12 @@ def test_get_entityless_attribute_attr_id_missing(mock_request_1):
         "friendly_name": "orgAups",
     }
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_entityless_attributes_by_name = MagicMock(  # noqa E501
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_entityless_attributes_by_name = MagicMock(
+        # noqa E501
         return_value=[test_entityless_attr_without_id]
     )
 
-    result_attributes = ADAPTER.get_entityless_attribute(
-        test_entityless_attr_name
-    )
+    result_attributes = ADAPTER.get_entityless_attribute(test_entityless_attr_name)
 
     assert result_attributes == {}
 
@@ -1235,7 +1252,8 @@ def test_get_vo_attributes_single_attribute(mock_request_1):
     )
 
     expected_attribute = {
-        attr.get("name"): attr.get("value") for attr in test_vo_attributes
+        attr.get("namespace") + ":" + attr.get("friendly_name"): attr.get("value")
+        for attr in test_vo_attributes
     }
 
     result_attribute = ADAPTER.get_vo_attributes(TEST_VO, attr_names)
@@ -1262,7 +1280,11 @@ def test_get_vo_attributes_no_attributes(mock_request_1):
         return_value=[default_attr]
     )
 
-    expected_attribute = {default_attr["name"]: default_attr["value"]}
+    expected_attribute = {
+        default_attr["namespace"]
+        + ":"
+        + default_attr["friendly_name"]: default_attr["value"]
+    }
 
     result_attribute = ADAPTER.get_vo_attributes(TEST_VO, [])
     assert result_attribute == expected_attribute
@@ -1270,44 +1292,41 @@ def test_get_vo_attributes_no_attributes(mock_request_1):
 
 @patch(
     "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
-    ".get_attribute"
+    ".get_facility_attributes_by_names"
 )
 def test_get_facility_attribute_valid_attribute(mock_request_1):
     test_facility_attribute = get_entity_specific_attributes("facility")[0]
-    test_attr_name = test_facility_attribute.get("name")
+    test_attr_name = (
+        test_facility_attribute.get("namespace")
+        + ":"
+        + test_facility_attribute.get("friendly_name")
+    )
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = MagicMock(  # noqa E501
-        return_value=test_facility_attribute
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_facility_attributes_by_names = MagicMock(  # noqa E501
+        return_value=[test_facility_attribute]
     )
 
     expected_attribute = test_facility_attribute.get("value")
-    result_attribute = ADAPTER.get_facility_attribute(
-        TEST_INTERNAL_FACILITY_1, test_attr_name
+    result_attribute = ADAPTER.get_facility_attributes(
+        TEST_INTERNAL_FACILITY_1, [test_attr_name]
     )
 
-    assert result_attribute == expected_attribute
+    assert result_attribute[test_attr_name] == expected_attribute
 
 
 def test_get_attributes_multiple_attributes():
     test_perun_attrs = get_entity_specific_attributes("user")
-    test_attr_names_map = {
-        attr["namespace"] + ":" + attr["friendly_name"]: attr["name"]
-        for attr in test_perun_attrs
-    }
     processed_attributes = copy.deepcopy(test_perun_attrs)
-    for attr in processed_attributes:
-        attr.pop("namespace")
 
     expected_attributes = {
-        attr.get("name"): attr for attr in processed_attributes
+        attr.get("namespace") + ":" + attr.get("friendly_name"): attr["value"]
+        for attr in processed_attributes
     }
 
-    result_attributes = ADAPTER._get_attributes(
-        test_perun_attrs, test_attr_names_map
-    )
+    result_attributes = ADAPTER._get_attributes(test_perun_attrs)
     assert result_attributes == expected_attributes
 
 
 def test_get_attributes_empty_attributes():
-    result_attributes = ADAPTER._get_attributes([], {})
+    result_attributes = ADAPTER._get_attributes([])
     assert result_attributes == {}

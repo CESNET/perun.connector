@@ -2,6 +2,7 @@ username: cn=admin,dc=muni,dc=cz
 base_dn: dc=muni,dc=cz
 password: mypassword
 start_tls: True
+rp_id_attribute: urn:perun:facility:attribute-def:def:rpIdentifier
 servers:
   - hostname: ldap://openldap
     port: 389

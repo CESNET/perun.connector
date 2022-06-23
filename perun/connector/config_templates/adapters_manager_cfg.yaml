@@ -6,6 +6,7 @@ adapters:
     base_dn: dc=muni,dc=cz
     password: mypassword
     start_tls: True
+    rp_id_attribute: urn:perun:facility:attribute-def:def:rpIdentifier
     servers:
       - hostname: ldap://openldap
         port: 389
@@ -24,3 +25,4 @@ adapters:
     api_key: your_api_key
     #BearerAuth
     access_token: your_bearer_token
+    rp_id_attribute: urn:perun:facility:attribute-def:def:rpIdentifier

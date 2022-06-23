@@ -1,239 +1,2584 @@
-"perunFacilityAttr_checkGroupMembership":
-  "rpc": "urn:perun:facility:attribute-def:def:checkGroupMembership"
-  "ldap": "checkGroupMembership"
-  "type": "bool"
+urn:perun:entityless:attribute-def:def:namespace-maxUID:
+  id: 301
+  type: java.lang.Integer
+  ldap:
 
-"perunFacilityAttr_voShortNames":
-  "rpc": "urn:perun:facility:attribute-def:virt:voShortNames"
-  "ldap": "voShortNames"
-  "type": "list"
+urn:perun:entityless:attribute-def:def:namespace-minUID:
+  id: 300
+  type: java.lang.Integer
+  ldap:
 
-"perunFacilityAttr_dynamicRegistration":
-  "rpc": "urn:perun:facility:attribute-def:def:dynamicRegistration"
-  "ldap": "dynamicRegistration"
-  "type": "bool"
+urn:perun:entityless:attribute-def:def:namespace-uid-policy:
+  id: 2080
+  type: java.lang.String
+  ldap:
 
-"perunFacilityAttr_rpID":
-  "rpc": "urn:perun:facility:attribute-def:def:OIDCClientID"
-  "ldap": "OIDCClientID"
-  "type": "string"
+urn:perun:entityless:attribute-def:def:usedGids:
+  id: 2880
+  type: java.util.LinkedHashMap
+  ldap:
 
-"perunFacilityAttr_registerUrl":
-  "rpc": "urn:perun:facility:attribute-def:def:registerUrl"
-  "ldap": "registrationURL"
-  "type": "string"
+urn:perun:facility:attribute-def:core:id:
+  id: 41
+  type: java.lang.Integer
+  ldap:
 
-"perunFacilityAttr_allowRegistration":
-  "rpc": "urn:perun:facility:attribute-def:def:allowRegistration"
-  "ldap": "allowRegistration"
-  "type": "bool"
+urn:perun:facility:attribute-def:core:name:
+  id: 1
+  type: java.lang.String
+  ldap:
 
-"perunFacilityAttr_registrationURL":
-  "rpc": "urn:perun:facility:attribute-def:def:registrationURL"
-  "ldap": "registrationURL"
-  "type": "string"
+urn:perun:facility:attribute-def:def:afsCell:
+  id: 1368
+  type: java.lang.String
+  ldap:
 
-"perunFacilityAttr_wayfFilter":
-  "rpc": "urn:perun:facility:attribute-def:def:wayfFilter"
-  "ldap": "wayfFilter"
-  "type": "string"
+urn:perun:facility:attribute-def:def:afsPartition:
+  id: 1371
+  type: java.lang.String
+  ldap:
 
-"perunFacilityAttr_wayfEFilter":
-  "rpc": "urn:perun:facility:attribute-def:def:wayfEFilter"
-  "ldap": "wayfEFilter"
-  "type": "string"
+urn:perun:facility:attribute-def:def:afsServer:
+  id: 1370
+  type: java.lang.String
+  ldap:
 
-"perunFacilityAttr_reqAups":
-  "rpc": "urn:perun:facility:attribute-def:def:reqAups"
-  "ldap": "requiredAups"
-  "type": "list"
+urn:perun:facility:attribute-def:def:comment:
+  id: 1607
+  type: java.util.LinkedHashMap
+  ldap:
 
-"perunFacilityAttr_capabilities":
-  "rpc": "urn:perun:facility:attribute-def:def:capabilities"
-  "ldap": "capabilities"
-  "type": "list"
+urn:perun:facility:attribute-def:def:desc:
+  id: 1481
+  type: java.util.LinkedHashMap
+  ldap:
 
-"perunFacilityAttr_spname":
-  "rpc": "urn:perun:facility:attribute-def:def:serviceName"
-  "ldap": "serviceName"
-  "type": "list"
+urn:perun:facility:attribute-def:def:disk:
+  id: 1605
+  type: java.util.LinkedHashMap
+  ldap:
 
-  # USER ATTRIBUTES
+urn:perun:facility:attribute-def:def:displayName:
+  id: 2640
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_einfraid-persistent":
-  "rpc": "urn:perun:user:attribute-def:virt:login-namespace:einfraid-persistent"
-  "ldap": "einfraid-persistent"
-  "type": "bool"
+urn:perun:facility:attribute-def:def:excludeNonValidUsersFromUnixGroups:
+  id: 3220
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_einfra":
-  "rpc": "urn:perun:user:attribute-def:def:login-namespace:einfra"
-  "ldap": "einfra"
-  "type": "bool"
+urn:perun:facility:attribute-def:def:fsScratchLocalMountPoint:
+  id: 2000
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_id":
-  "rpc": "urn:perun:user:attribute-def:core:id"
-  "ldap": "perunUserId"
-  "type": "int"
+urn:perun:facility:attribute-def:def:fsScratchMountPoint:
+  id: 460
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_firstName":
-  "rpc": "urn:perun:user:attribute-def:core:firstName"
-  "ldap": "firstName"
-  "type": "string"
+urn:perun:facility:attribute-def:def:homeDirUmask:
+  id: 1200
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_middleName":
-  "rpc": "urn:perun:user:attribute-def:core:middleName"
-  "ldap": "middleName"
-  "type": "string"
+urn:perun:facility:attribute-def:def:entityID:
+  id: 3395
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_lastName":
-  "rpc": "urn:perun:user:attribute-def:core:lastName"
-  "ldap": "lastName"
-  "type": "string"
+urn:perun:facility:attribute-def:def:cpu:
+  id: 1603
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_cn":
-  "rpc": "urn:perun:ues:attribute-def:def:cn"
-  "ldap": "cn"
-  "type": "string"
+urn:perun:facility:attribute-def:def:homeMountPoint_passwd-scp:
+  id: 623
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_displayName":
-  "rpc": "urn:perun:ues:attribute-def:def:displayName"
-  "ldap": "displayName"
-  "type": "string"
+urn:perun:facility:attribute-def:def:homeMountPoints:
+  id: 14
+  type: java.util.ArrayList
+  ldap:
 
-"perunUserAttribute_mail":
-  "rpc": "urn:perun:ues:attribute-def:def:mail"
-  "ldap": "mail"
-  "type": "string"
+urn:perun:facility:attribute-def:def:hostCoresNumber:
+  id: 401
+  type: java.lang.Integer
+  ldap:
 
-"perunUserAttribute_timezone":
-  "rpc": "urn:perun:user:attribute-def:def:timezone"
-  "ldap": "timezone"
-  "type": "string"
+urn:perun:facility:attribute-def:def:hostName:
+  id: 380
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_preferredLanguage":
-  "rpc": "urn:perun:user:attribute-def:def:preferredLanguage"
-  "ldap": "preferredLanguage"
-  "type": "string"
+urn:perun:facility:attribute-def:def:isCluster:
+  id: 2660
+  type: java.lang.Integer
+  ldap:
 
-"perunUserAttribute_preferredMail":
-  "rpc": "urn:perun:user:attribute-def:def:preferredMail"
-  "ldap": "preferredMail"
-  "type": "string"
+urn:perun:facility:attribute-def:def:ldapBaseDN:
+  id: 3361
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_phone":
-  "rpc": "urn:perun:user:attribute-def:def:phone"
-  "ldap": "phone"
-  "type": "string"
+urn:perun:facility:attribute-def:def:listingPriority:
+  id: 1660
+  type: java.lang.Integer
+  ldap:
 
-"perunUserAttribute_address":
-  "rpc": "urn:perun:user:attribute-def:def:address"
-  "ldap": "address"
-  "type": "string"
+urn:perun:facility:attribute-def:def:memory:
+  id: 1604
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_aups":
-  "rpc": "urn:perun:user:attribute-def:def:aups"
-  "ldap": "aups"
-  "type": "list"
+urn:perun:facility:attribute-def:def:network:
+  id: 1606
+  type: java.util.LinkedHashMap
+  ldap:
 
-"perunUserAttribute_groupNames":
-  "rpc": "urn:perun:user:attribute-def:virt:groupNames"
-  "ldap": "groupNames"
-  "type": "list"
+urn:perun:facility:attribute-def:def:owner:
+  id: 1608
+  type: java.util.LinkedHashMap
+  ldap:
 
-"perunUserAttribute_eduPersonEntitlement":
-  "rpc": "urn:perun:user:attribute-def:virt:eduPersonEntitlement"
-  "ldap": "eduPersonEntitlement"
-  "type": "list"
+urn:perun:facility:attribute-def:def:passwdScpDestinationFile:
+  id: 1120
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_entitlement":
-  "rpc": "urn:perun:ues:attribute-def:def:entitlement"
-  "ldap": "eduPersonEntitlement"
-  "type": "string"
+urn:perun:facility:attribute-def:def:pbsServer:
+  id: 1080
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_bonaFideStatus":
-  "rpc": "urn:perun:user:attribute-def:def:bonaFideStatus"
-  "ldap": "bonaFideStatus"
-  "type": "list"
+urn:perun:facility:attribute-def:def:pbsmonServer:
+  id: 1580
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_eduPersonScopedAffiliations":
-  "rpc": "urn:perun:user:attribute-def:virt:eduPersonScopedAffiliations"
-  "ldap": "eduPersonScopedAffiliations"
-  "type": "list"
+urn:perun:facility:attribute-def:def:photo:
+  id: 1601
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_affiliation":
-  "rpc": "urn:perun:ues:attribute-def:def:affiliation"
-  "ldap": ""
-  "type": "string"
+urn:perun:facility:attribute-def:def:scratchDirPermissions:
+  id: 2720
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_isCesnetEligibleLastSeen":
-  "rpc": "urn:perun:user:attribute-def:def:isCesnetEligibleLastSeen"
-  "ldap": "isCesnetEligibleLastSeen"
-  "type": "string"
+urn:perun:facility:attribute-def:def:scratchLocalDirPermissions:
+  id: 3020
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_eduPersonPrincipalNames":
-  "rpc": "urn:perun:user:attribute-def:virt:eduPersonPrincipalNames"
-  "ldap": "eduPersonPrincipalNames"
-  "type": "list"
+urn:perun:facility:attribute-def:def:shell_passwd-scp:
+  id: 601
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_cesnet":
-  "rpc": "urn:perun:user:attribute-def:def:login-namespace:cesnet"
-  "ldap": "login;x-ns-einfra"
-  "type": "string"
+urn:perun:facility:attribute-def:def:shells:
+  id: 13
+  type: java.util.ArrayList
+  ldap:
 
-"perunUserAttribute_einfraid-persistent-shadow":
-  "rpc": "urn:perun:user:attribute-def:def:login-namespace:einfraid-persistent-shadow"
-  "ldap": "login;x-ns-einfraid-persistent-shadow"
-  "type": "string"
+urn:perun:facility:attribute-def:def:spec:
+  id: 1480
+  type: java.util.LinkedHashMap
+  ldap:
 
-"perunUserAttribute_o":
-  "rpc": "urn:perun:ues:attribute-def:def:o"
-  "ldap": "o"
-  "type": "string"
+urn:perun:facility:attribute-def:def:thumbnail:
+  id: 1602
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_givenName":
-  "rpc": "urn:perun:ues:attribute-def:def:givenName"
-  "ldap": "givenName"
-  "type": "string"
+urn:perun:user:attribute-def:core:id:
+  id: 49
+  type: java.lang.Integer
+  ldap: perunUserId
 
-"perunUserAttribute_sn":
-  "rpc": "urn:perun:ues:attribute-def:def:sn"
-  "ldap": "sn"
-  "type": "string"
+urn:perun:facility:attribute-def:def:uid-namespace:
+  id: 263
+  type: java.lang.String
+  ldap:
 
-"perunUserAttribute_loa":
-  "rpc": "urn:perun:user:attribute-def:virt:loa"
-  "ldap": "loa"
-  "type": "int"
+urn:perun:facility:attribute-def:def:unixGID-namespace:
+  id: 280
+  type: java.lang.String
+  ldap:
 
-  # GROUP ATTRIBUTES
+urn:perun:facility:attribute-def:def:unixGroupName-namespace:
+  id: 2340
+  type: java.lang.String
+  ldap:
 
-"perunGroupAttribute_groupAffiliations":
-  "rpc": "urn:perun:group:attribute-def:def:groupAffiliations"
-  "ldap": "groupAffiliations"
-  "type": "list"
+urn:perun:facility:attribute-def:def:url:
+  id: 1482
+  type: java.util.LinkedHashMap
+  ldap:
 
-  # VO ATTRIBUTES
+urn:perun:facility:attribute-def:virt:maxUID:
+  id: 360
+  type: java.lang.Integer
+  ldap:
 
-"perunVoAttribute_aup":
-  "rpc": "urn:perun:vo:attribute-def:def:aup"
-  "ldap": "aup"
-  "type": "string"
+urn:perun:facility:attribute-def:virt:minUID:
+  id: 361
+  type: java.lang.Integer
+  ldap:
 
-"perunVoAttribute_id":
-  "rpc": "urn:perun:vo:attribute-def:core:id"
-  "ldap": "perunVoId"
-  "type": "int"
+urn:perun:group:attribute-def:core:description:
+  id: 82
+  type: java.lang.String
+  ldap:
 
-  # RESOURCE ATTRIBUTES
+urn:perun:group:attribute-def:core:id:
+  id: 80
+  type: java.lang.Integer
+  ldap:
 
-"perunResourceAttribute_capabilities":
-  "rpc": "urn:perun:resource:attribute-def:def:capabilities"
-  "ldap": "capabilities"
-  "type": "list"
+urn:perun:group:attribute-def:core:name:
+  id: 81
+  type: java.lang.String
+  ldap:
 
-  # ENTITYLESS ATTRIBUTES
+urn:perun:group:attribute-def:core:parentGroupId:
+  id: 3300
+  type: java.lang.Integer
+  ldap:
 
-"perunEntitylessAttribute_orgAups":
-  "rpc": "urn:perun:entityless:attribute-def:def:orgAups"
-  "ldap": "orgAups"
-  "type": "dictionary"
+urn:perun:group:attribute-def:def:applicationURL:
+  id: 2920
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:authoritativeGroup:
+  id: 2900
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:eduroamIdentities:
+  id: 1060
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:groupExtSource:
+  id: 100
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupMembersExtSource:
+  id: 101
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupMembersQuery:
+  id: 102
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:lastSuccessSynchronizationTimestamp:
+  id: 3260
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:lastSynchronizationState:
+  id: 2960
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:lastSynchronizationTimestamp:
+  id: 2941
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:listOfDestinations:
+  id: 1440
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:notificationsDefLang:
+  id: 2541
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:registrarURL:
+  id: 3161
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:synchronizationEnabled:
+  id: 103
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:synchronizationInterval:
+  id: 104
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:toEmail:
+  id: 2020
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:cerit:
+  id: 1323
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:egi-ui:
+  id: 1826
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:einfra:
+  id: 1324
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:ncbr:
+  id: 3404
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:sitola:
+  id: 1900
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:storage:
+  id: 1325
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:cerit:
+  id: 1320
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:egi-ui:
+  id: 1825
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:einfra:
+  id: 1321
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:metacloud:
+  id: 2561
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:ncbr:
+  id: 3406
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:sitola:
+  id: 1901
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:storage:
+  id: 1322
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:afsGroupName:
+  id: 1980
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:isSystemUnixGroup:
+  id: 1160
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:isUnixGroup:
+  id: 145
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:projectDataLimit:
+  id: 2841
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:projectDataQuota:
+  id: 2842
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:projectDirPermissions:
+  id: 2701
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:projectName:
+  id: 2702
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:projectOwnerLogin:
+  id: 2703
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:systemUnixGID:
+  id: 1161
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:systemUnixGroupName:
+  id: 1162
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:virt:googleGroupName:
+  id: 3385
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:virt:unixGID:
+  id: 341
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:group_resource:attribute-def:virt:unixGroupName:
+  id: 582
+  type: java.lang.String
+  ldap:
+
+urn:perun:host:attribute-def:core:hostname:
+  id: 121
+  type: java.lang.String
+  ldap:
+
+urn:perun:host:attribute-def:core:id:
+  id: 120
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:host:attribute-def:def:coresNumber:
+  id: 400
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:host:attribute-def:def:frontend:
+  id: 1425
+  type: java.lang.String
+  ldap:
+
+urn:perun:host:attribute-def:def:reserved:
+  id: 1424
+  type: java.lang.String
+  ldap:
+
+urn:perun:host:attribute-def:def:sshHostKey:
+  id: 700
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:loa:
+  id: 3461
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:host:attribute-def:opt:metaIsManaged:
+  id: 3140
+  type: java.lang.String
+  ldap:
+
+urn:perun:host:attribute-def:opt:metaIsMonitored:
+  id: 3141
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:core:id:
+  id: 32
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:member:attribute-def:core:status:
+  id: 880
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:address:
+  id: 62
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:uuid:
+  id: 3637
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:mail:
+  id: 60
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:membershipExpiration:
+  id: 860
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:organization:
+  id: 123
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:phone:
+  id: 122
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:mail:
+  id: 3434
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:sponzoredMember:
+  id: 900
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:workplace:
+  id: 343
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:blockManualMemberAdding:
+  id: 3638
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:member:attribute-def:opt:registrationNote:
+  id: 1180
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:opt:researchGroup:
+  id: 421
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:blockManualMemberAdding:
+  id: 3639
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:member_resource:attribute-def:def:dataQuotas:
+  id: 3389
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member_resource:attribute-def:def:fileQuotas:
+  id: 3391
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:group:attribute-def:def:applicationAutoRejectMessages:
+  id: 3640
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:virt:GIDRanges:
+  id: 3473
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member_resource:attribute-def:def:optOutMailingList:
+  id: 1841
+  type: java.lang.String
+  ldap:
+
+urn:perun:member_resource:attribute-def:virt:isBanned:
+  id: 3402
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:resource:attribute-def:core:description:
+  id: 40
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:core:id:
+  id: 38
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:core:name:
+  id: 39
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:core:voId:
+  id: 2480
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:afsDefaultUsersQuota:
+  id: 1375
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:afsDefaultUsersRealm:
+  id: 1372
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:afsUsersMountPoint:
+  id: 1377
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:afsUsersVolume:
+  id: 1373
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:afsVolume:
+  id: 1378
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:apacheAuthzFile:
+  id: 1380
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:apacheSSLAuthzDir:
+  id: 2260
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:appDBContactRole:
+  id: 2822
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:defaultDataQuotas:
+  id: 3388
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:resource:attribute-def:def:defaultFileQuotas:
+  id: 3390
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:vo:attribute-def:def:applicationAutoRejectMessages:
+  id: 3641
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:resource:attribute-def:def:defaultShell:
+  id: 21
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:fairshareGroupName:
+  id: 3396
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:isReplicaSourcePathStandaloneDir:
+  id: 3340
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:resource:attribute-def:def:k5loginTargetUser:
+  id: 2860
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:mailaliasesTargetUser:
+  id: 3241
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:mailingListAllowInvalidUsers:
+  id: 1880
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:mailingListManagerMail:
+  id: 2520
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:mailingListName:
+  id: 1840
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:mailingListUsesLangVariants:
+  id: 1860
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:projectsBasePath:
+  id: 2700
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:quotaFileSystem:
+  id: 820
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:replicaDestination:
+  id: 3280
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:homeMountPoints:
+  id: 20
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:resource:attribute-def:def:defaultHomeMountPoint:
+  id: 23
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:replicaDestinationPath:
+  id: 3281
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:replicaSourcePath:
+  id: 3282
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:shells:
+  id: 19
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:cerit:
+  id: 589
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:egi-ui:
+  id: 1822
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:einfra:
+  id: 590
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:ncbr:
+  id: 3403
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:sitola:
+  id: 1902
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:storage:
+  id: 661
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:cerit:
+  id: 586
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:egi-ui:
+  id: 1824
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:einfra:
+  id: 588
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:metacloud:
+  id: 2560
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:ncbr:
+  id: 3405
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:sitola:
+  id: 1903
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:storage:
+  id: 662
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:vomsRoles:
+  id: 3398
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:resource:attribute-def:virt:unixGID:
+  id: 581
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:virt:unixGroupName:
+  id: 580
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:virt:voShortName:
+  id: 1720
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:userSettingsDescription:
+  id: 1400
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:displayName:
+  id: 1140
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:firstName:
+  id: 50
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:lastName:
+  id: 51
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:middleName:
+  id: 52
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:serviceUser:
+  id: 3380
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:core:titleAfter:
+  id: 54
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:core:titleBefore:
+  id: 53
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:address:
+  id: 1364
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:altPasswords:einfra:
+  id: 2780
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:altPasswords:samba-du:
+  id: 3200
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:kerberosAdminPrincipal:
+  id: 2040
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:kerberosLogins:
+  id: 800
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:libraryIDs:
+  id: 3381
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:cesnet:
+  id: 660
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:virt:autoRegistrationEnabled:
+  id: 3643
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:egi-sso:
+  id: 3382
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:egi-ui:
+  id: 780
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:einfra:
+  id: 146
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:einfra-services:
+  id: 2060
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:meta:
+  id: 55
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:mu:
+  id: 61
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:sitola:
+  id: 1905
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:mailaliasesGenericMail:
+  id: 3240
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpEnableEnsureVoFiltering:
+  id: 3644
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:def:organization:
+  id: 1363
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:phone:
+  id: 1362
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredEduPersonPrincipalName:
+  id: 3360
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredLanguage:
+  id: 1365
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredMail:
+  id: 1361
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredShells:
+  id: 2680
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:cerit:
+  id: 2981
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:egi-ui:
+  id: 3000
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:einfra:
+  id: 2983
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:metacloud:
+  id: 3060
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:ncbr:
+  id: 3407
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:sitola:
+  id: 2984
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:storage:
+  id: 2985
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:priorityCoeficient:
+  id: 2240
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:publications:
+  id: 1800
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:sshPublicAdminKey:
+  id: 2220
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:sshPublicKey:
+  id: 1520
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:timezone:
+  id: 2460
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:cerit:
+  id: 1040
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:cesnet:
+  id: 2221
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:egi-ui:
+  id: 1821
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:fedcloud:
+  id: 2100
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:ics:
+  id: 222
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:ruk:
+  id: 221
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:shongo:
+  id: 1960
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:sitola:
+  id: 1904
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:storage:
+  id: 667
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:zcu:
+  id: 220
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:userCertDNs:
+  id: 441
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:userCertificates:
+  id: 440
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:userPreferredCertDN:
+  id: 2120
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:workplace:
+  id: 1366
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:opt:bigProjects:
+  id: 2580
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:opt:researchGroup:
+  id: 1369
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:eduPersonPrincipalNames:
+  id: 2300
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:virt:kerberosLogins:
+  id: 1941
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:virt:logins-namespace:google:
+  id: 3386
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:vo:attribute-def:core:id:
+  id: 43
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:virt:organizationsWithLoa:cs:
+  id: 1920
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:virt:organizationsWithLoa:en:
+  id: 1921
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:virt:shibbolethExtSources:
+  id: 2380
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:virt:userCertDNs:
+  id: 2400
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:virt:userCertExpirations:
+  id: 2061
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user_facility:attribute-def:def:afsUserQuota:
+  id: 1376
+  type: java.lang.String
+  ldap:
+
+urn:perun:user_facility:attribute-def:def:basicDefaultGID:
+  id: 2980
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user_facility:attribute-def:def:defaultUnixGID:
+  id: 342
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user_facility:attribute-def:def:homeMountPoint:
+  id: 24
+  type: java.lang.String
+  ldap:
+
+urn:perun:user_facility:attribute-def:def:shell:
+  id: 22
+  type: java.lang.String
+  ldap:
+
+urn:perun:user_facility:attribute-def:def:shell_passwd-scp:
+  id: 622
+  type: java.lang.String
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:UID:
+  id: 262
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:blacklisted:
+  id: 3387
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:dataQuotas:
+  id: 3392
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:defaultUnixGID:
+  id: 2988
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:fileQuotas:
+  id: 3393
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:login:
+  id: 260
+  type: java.lang.String
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:preferredUnixGroupName:
+  id: 2989
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user_facility:attribute-def:virt:shell:
+  id: 2620
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:core:createdAt:
+  id: 2820
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:core:name:
+  id: 44
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:core:shortName:
+  id: 45
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:RTVoQueue:
+  id: 1780
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:applicationURL:
+  id: 1460
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:contactEmail:
+  id: 1500
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:vo:attribute-def:def:dashboardLink:
+  id: 1341
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:description:
+  id: 2821
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:mailFooter:
+  id: 1680
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:membershipExpirationRules:
+  id: 1540
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:vo:attribute-def:def:notificationsDefLang:
+  id: 2540
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:registrarURL:
+  id: 3160
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:toEmail:
+  id: 1743
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:vo:attribute-def:def:userManualsLink:
+  id: 1340
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpEnsureVoDefinition:
+  id: 3645
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:optionalLogin-namespace:mu:
+  id: 3408
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:vomsDiracNickname:
+  id: 3409
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:mailFooter:
+  id: 3410
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:fromEmail:
+  id: 1740
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:fromEmail:
+  id: 2140
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:cn:
+  id: 3435
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:statisticGroupAutoFill:
+  id: 3413
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:def:photos:
+  id: 3414
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:group:attribute-def:def:statisticGroup:
+  id: 3412
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGID-namespace:uloziste-mu:
+  id: 3416
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGID-namespace:uloziste-mu:
+  id: 3417
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:ues:attribute-def:def:o:
+  id: 3436
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:dn:
+  id: 3437
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:cadn:
+  id: 3438
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:identityAlertsTemplates:
+  id: 3642
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:ues:attribute-def:def:schacHomeOrganization:
+  id: 3449
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:cesnet-eduroam:
+  id: 3451
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:mobileNumbers:
+  id: 3452
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:member:attribute-def:def:telephoneNumbers:
+  id: 3453
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:virt:eduPersonScopedAffiliations:
+  id: 3454
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:entityless:attribute-def:def:cesnetEduroamIdsCounter:
+  id: 3455
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:einfraid-persistent-shadow:
+  id: 3458
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:login-namespace:einfraid-persistent:
+  id: 3459
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:schacHomeOrganizations:
+  id: 3460
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:elixirBonaFideStatusREMS:
+  id: 3463
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:def:gdprApproval:
+  id: 3466
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:dnsStateMapping:
+  id: 3467
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:maxUserDataQuotas:
+  id: 3468
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:resource:attribute-def:def:maxUserFileQuotas:
+  id: 3469
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:preferredUnixGroupName-namespace:uloziste-mu:
+  id: 3418
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:unixGroupName-namespace:uloziste-mu:
+  id: 3419
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:unixGroupName-namespace:uloziste-mu:
+  id: 3420
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:uloziste-mu:
+  id: 3415
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:resource:attribute-def:def:o365-assignedLicense:
+  id: 3421
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:o365-domainName:
+  id: 3422
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:o365-usageLocation:
+  id: 3423
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:country:
+  id: 3424
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupMembersFilter:
+  id: 3425
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:researchGroupStatistic:
+  id: 3426
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:fedcloud:
+  id: 3427
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:sn:
+  id: 3440
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:sshkeysTargetUser:
+  id: 3431
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:givenName:
+  id: 3441
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:ou:
+  id: 3442
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:eppn:
+  id: 3443
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:affiliation:
+  id: 3444
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:displayName:
+  id: 3445
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:uid:
+  id: 3446
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:epuid:
+  id: 3447
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:epuids:
+  id: 3450
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:member_resource:attribute-def:def:dataQuotasOverride:
+  id: 3470
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member_resource:attribute-def:def:fileQuotasOverride:
+  id: 3471
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:virt:groupNames:
+  id: 3472
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:entityless:attribute-def:def:namespace-GIDRanges:
+  id: 3474
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member_resource:attribute-def:virt:dataQuotas:
+  id: 3475
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member_resource:attribute-def:virt:fileQuotas:
+  id: 3476
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:virt:institutionsCountries:
+  id: 3477
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:virt:eduPersonORCID:
+  id: 3478
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:vo:attribute-def:def:aupLink:
+  id: 3479
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:firewallRules:
+  id: 3480
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:IPAddresses:
+  id: 3481
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:resource:attribute-def:def:userSettingsName:
+  id: 3484
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:googleTeamDriveName:
+  id: 3485
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:mails-namespace:google:
+  id: 3486
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:userAupTest:
+  id: 3487
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:core:commonName:
+  id: 3492
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCClientID:
+  id: 3482
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:orgAups:
+  id: 3493
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:reqAups:
+  id: 3495
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:virt:voShortNames:
+  id: 3496
+  type: java.util.ArrayList
+  ldap: voShortNames
+
+urn:perun:user:attribute-def:def:approvedAups:
+  id: 3497
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:resource:attribute-def:def:foremanGroupName:
+  id: 3498
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:isForemanAdminGroup:
+  id: 3499
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCCheckGroupMembership:
+  id: 3500
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:checkGroupMembership:
+  id: 3501
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:def:isCesnetEligibleLastSeen:
+  id: 3502
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:aup:
+  id: 3494
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpLoginURL:
+  id: 3647
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:googleGroupsDomain:
+  id: 3383
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:googleGroupName-namespace:einfra-cesnet-cz:
+  id: 3384
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:dynamicRegistration:
+  id: 3504
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:registerUrl:
+  id: 3505
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:quotaEnabled:
+  id: 2840
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:facility:attribute-def:def:allowRegistration:
+  id: 3506
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:showOnServiceList:
+  id: 3507
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:proxyIdentifiers:
+  id: 3508
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:virt:voShortName:
+  id: 3509
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:yubikeys:
+  id: 3510
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:ues:attribute-def:def:alternativeLoginName:
+  id: 3511
+  type: java.lang.String
+  ldap:
+
+urn:perun:host:attribute-def:opt:automaticallyCreated:
+  id: 3512
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:privacyPolicyURL:
+  id: 3513
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:isTestSp:
+  id: 3515
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:vomsGroupName:
+  id: 3516
+  type: java.lang.String
+  ldap:
+
+urn:perun:group_resource:attribute-def:def:vomsRoles:
+  id: 3517
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:groupMembershipExpirationRules:
+  id: 3518
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member_group:attribute-def:def:groupMembershipExpiration:
+  id: 3519
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:isCesnetEligibleLastSeen:
+  id: 3520
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:loginURL:
+  id: 3521
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:IdPOrganizationName:
+  id: 3522
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:sourceIdPName:
+  id: 3523
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:changedPassMeta:
+  id: 3525
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:rtGroupName:
+  id: 3528
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:rtPreferredMail:
+  id: 3529
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:eduPersonScopedAffiliationsManuallyAssigned:
+  id: 3530
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:administratorContact:
+  id: 3533
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:serviceDescription:
+  id: 3535
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:informationURL:
+  id: 3536
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:organizationName:
+  id: 3537
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:member:attribute-def:def:suspensionInfo:
+  id: 3538
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:entityless:attribute-def:def:preferredMailChangeMailSubject:
+  id: 3539
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:serviceName:
+  id: 3534
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:resource:attribute-def:def:allowInactiveMembers:
+  id: 3648
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:wayfFilter:
+  id: 3542
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:wayfEFilter:
+  id: 3543
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:registrationURL:
+  id: 3544
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:userOrganizations:
+  id: 3545
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:ues:attribute-def:def:eduPersonEntitlement:
+  id: 3548
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupAffiliations:
+  id: 3532
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetMailTemplate:einfra:
+  id: 3526
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetMailSubject:einfra:
+  id: 3527
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:preferredMailChangeMailTemplate:
+  id: 3540
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCAuthorizationCodeFlowType:
+  id: 3649
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCFlowTypes:
+  id: 3650
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCCodeChallengeType:
+  id: 3651
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:RaS:
+  id: 3552
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:organizationURL:
+  id: 3553
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:CoCo:
+  id: 3554
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:assertionConsumerService:
+  id: 3555
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:singleLogoutService:
+  id: 3556
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:requiredAttributes:
+  id: 3557
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:metadataURL:
+  id: 3559
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCAllowIntrospection:
+  id: 3564
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:serviceIdInMitre:
+  id: 3560
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCRedirectURIs:
+  id: 3562
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:requiredScopes:
+  id: 3565
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCLogoUrl:
+  id: 3566
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:lastGroupStructureSynchronizationState:
+  id: 3567
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:lastGroupStructureSynchronizationTimestamp:
+  id: 3568
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupsQuery:
+  id: 3569
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupStructureSynchronizationInterval:
+  id: 3570
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:entitlement:
+  id: 3549
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:assurance:
+  id: 3551
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:certData:
+  id: 3558
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:projectNamespace:
+  id: 3652
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:oouEinfraSignedV1:
+  id: 3653
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:member:attribute-def:def:metaUsedServices:
+  id: 3654
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:flatGroupStructureEnabled:
+  id: 3571
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:group:attribute-def:def:groupStructureSynchronizationEnabled:
+  id: 3572
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:group:attribute-def:def:lastSuccessGroupStructureSynchronizationTimestamp:
+  id: 3573
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:startOfLastSuccessfulSynchronization:
+  id: 3574
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupStructureSynchronizationTimes:
+  id: 3575
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:groupSynchronizationTimes:
+  id: 3576
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:rtOutputFileName:
+  id: 3577
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:masterProxyIdentifier:
+  id: 3578
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:fsVolume:
+  id: 2160
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:fsHomeMountPoint:
+  id: 500
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:eduPersonOrcid:
+  id: 3579
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupTrigger:
+  id: 3580
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:ues:attribute-def:def:organizationURL:
+  id: 3581
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:orgAups2:
+  id: 3582
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpOrganizationServiceGarant:
+  id: 3655
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCClientSecret:
+  id: 3584
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:capabilities:
+  id: 3585
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:isOidcFacility:
+  id: 3586
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:isSamlFacility:
+  id: 3587
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:def:gdprAdminApprovedVersions:
+  id: 3588
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:ues:attribute-def:def:voPersonExternalAffiliation:
+  id: 3462
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:eIDASPersonIdentifier:
+  id: 3589
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:europeanStudentID:
+  id: 3590
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:fromNameEmail:
+  id: 3591
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:fromNameEmail:
+  id: 3592
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpServiceGrantTermsUrl:
+  id: 3656
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:capabilities:
+  id: 3594
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpServiceIsNonEinfraUserEnabled:
+  id: 3657
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:resource:attribute-def:def:isAssignedWithSubgroups:
+  id: 3596
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpServiceAccessTerms:
+  id: 3658
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:it4iImportStatus:
+  id: 3659
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetConfirmMailSubject:egi-ui:
+  id: 3599
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetMailSubject:egi-ui:
+  id: 3601
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetConfirmMailTemplate:einfra:
+  id: 3547
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetConfirmMailSubject:einfra:
+  id: 3546
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:disableMailingListOptOut:
+  id: 3604
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:sponsorOrganizationIdentifier:
+  id: 3605
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:sponsoredMembershipInOrganizations:
+  id: 3606
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:group:attribute-def:def:groupStructureLoginPrefix:
+  id: 3607
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:groupStructureResources:
+  id: 3608
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:group:attribute-def:def:groupStructureLogin:
+  id: 3609
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:lightweightSynchronization:
+  id: 3394
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:group:attribute-def:def:startOfLastSynchronization:
+  id: 3611
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:virt:isSuspended:
+  id: 3612
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpManagersGroupId:
+  id: 3613
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:user:attribute-def:def:it4iImportRecord:
+  id: 3660
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:user:attribute-def:def:uid-namespace:skurut-ui:
+  id: 3615
+  type: java.lang.Integer
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpInformationURL:
+  id: 3616
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpPrivacyPolicyURL:
+  id: 3617
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:assertionConsumerServices:
+  id: 3618
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:singleLogoutServices:
+  id: 3619
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpConsentDisable:
+  id: 3622
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpForceAuthn:
+  id: 3623
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpIdentifier:
+  id: 3624
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpAdminContact:
+  id: 3625
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:rpSupportContact:
+  id: 3626
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCIssueRefreshTokens:
+  id: 3628
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:user:attribute-def:def:aups:
+  id: 3629
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:vo:attribute-def:def:applicationExpirationRules:
+  id: 3630
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:group:attribute-def:def:applicationExpirationRules:
+  id: 3631
+  type: java.util.LinkedHashMap
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCPostLogoutRedirectUris:
+  id: 3633
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:note:
+  id: 3634
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:lastPwdChangeTimestamp:einfra:
+  id: 3635
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:core:uuid:
+  id: 3636
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:certificate:
+  id: 3439
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:signingCert:
+  id: 3620
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:encryptionCert:
+  id: 3621
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:entityless:attribute-def:def:randomPwdResetTemplate:
+  id: 3524
+  type: java.lang.String
+  ldap:
+
+urn:perun:vo:attribute-def:def:voLogoURL:
+  id: 1560
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetMailTemplate:egi-ui:
+  id: 3602
+  type: java.lang.String
+  ldap:
+
+urn:perun:entityless:attribute-def:def:nonAuthzPwdResetConfirmMailTemplate:egi-ui:
+  id: 3603
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:eduPersonEntitlement:
+  id: 3550
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:resource:attribute-def:virt:assignedGroups:
+  id: 3595
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:it4iBlockCollision:
+  id: 3661
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:ues:attribute-def:def:authentication-authority:
+  id: 3662
+  type: java.lang.String
+  ldap:
+
+urn:perun:resource:attribute-def:def:kerberosPrincipalsFileSuffix:
+  id: 3663
+  type: java.lang.String
+  ldap:
+
+urn:perun:member_resource:attribute-def:virt:groupStatus:
+  id: 3664
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:cscaleCompany:
+  id: 3665
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:cscaleUserCategory:
+  id: 3666
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:cscaleAcceptEmail:
+  id: 3667
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:ues:attribute-def:def:additionalIdentifiers:
+  id: 3668
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:virt:additionalIdentifiers:
+  id: 3669
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:member:attribute-def:def:memberOrganizations:
+  id: 3670
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCGrantTypes:
+  id: 3671
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:facility:attribute-def:def:OIDCResponseTypes:
+  id: 3672
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:def:cscaleResearchField:
+  id: 3673
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:cscaleUserFunction:
+  id: 3674
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:userAup:lifescience:
+  id: 3675
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:cscaleCountry:
+  id: 3676
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:elixir:
+  id: 3677
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:lifescienceid-username:
+  id: 3678
+  type: java.lang.String
+  ldap:
+
+urn:perun:member:attribute-def:virt:isLifecycleAlterable:
+  id: 3679
+  type: java.lang.Boolean
+  ldap:
+
+urn:perun:group:attribute-def:def:organizationNamespace:
+  id: 3681
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:organizationScope:
+  id: 3682
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:organizationPersonalCodeScope:
+  id: 3683
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:test-cz:
+  id: 3685
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:studentIdentifiers:
+  id: 3686
+  type: java.lang.String
+  ldap:
+
+urn:perun:ues:attribute-def:def:schacPersonalUniqueCode:
+  id: 3687
+  type: java.util.ArrayList
+  ldap:
+
+urn:perun:user:attribute-def:virt:unscopedLogin-namespace:einfra:
+  id: 3690
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:virt:unscopedLogin-namespace:einfraid-persistent-shadow:
+  id: 3691
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:Test:
+  id: 3704
+  type: java.lang.String
+  ldap:
+
+urn:perun:group:attribute-def:def:AttributePolicyTest:
+  id: 3707
+  type: java.lang.String
+  ldap:
+
+urn:perun:facility:attribute-def:def:login-namespace:
+  id: 261
+  type: java.lang.String
+  ldap:
+
+urn:perun:user:attribute-def:def:login-namespace:ceitec:
+  id: 3708
+  type: java.lang.String
+  ldap:

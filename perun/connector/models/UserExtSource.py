@@ -11,8 +11,7 @@ class UserExtSource(HasIdAbstract):
 
     def __str__(self):
         return (
-            f"id: {self.id} name: {self.name} login: {self.login} "
-            f"user: {self.user}"
+            f"id: {self.id} name: {self.name} login: {self.login} " f"user: {self.user}"
         )
 
     def __eq__(self, other):
