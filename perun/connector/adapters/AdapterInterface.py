@@ -75,7 +75,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_vo(self, short_name: str, vo_id: int) -> Optional[VO]:
+    def get_vo(self, short_name="", vo_id=None) -> Optional[VO]:
         """Get VO by either its id or short name"""
         raise NotImplementedError
 

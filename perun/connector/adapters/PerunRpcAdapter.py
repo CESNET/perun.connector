@@ -200,7 +200,7 @@ class PerunRpcAdapter(AdapterInterface):
             )
             return converted_group[0]
 
-    def get_vo(self, short_name=None, vo_id=None) -> Optional[VO]:
+    def get_vo(self, short_name="", vo_id=None) -> Optional[VO]:
         with ApiClient(self._CONFIG) as api_client:
             vos_api_instance = VosManagerApi(api_client)
 

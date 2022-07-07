@@ -87,7 +87,7 @@ class LdapAdapter(AdapterInterface):
 
         return self._create_internal_representation_group(group)
 
-    def get_vo(self, short_name=None, vo_id=None) -> Optional[VO]:
+    def get_vo(self, short_name="", vo_id=None) -> Optional[VO]:
         if short_name:
             vo = self.connector.search_for_entity(
                 self._ldap_base,

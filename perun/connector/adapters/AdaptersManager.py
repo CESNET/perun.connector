@@ -104,7 +104,7 @@ class AdaptersManager(AdapterInterface):
     def get_group_by_name(self, vo: Union[int, VO], name: str) -> Group:
         return self._execute_method_by_priority(self._get_caller_name(), vo, name)
 
-    def get_vo(self, short_name: str, vo_id: int) -> VO:
+    def get_vo(self, short_name="", vo_id=None) -> VO:
         return self._execute_method_by_priority(
             self._get_caller_name(), short_name, vo_id
         )
