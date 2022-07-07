@@ -32,12 +32,10 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.auditable import Auditable
-    from perun.connector.perun_openapi.model.destination_all_of import DestinationAllOf
     from perun.connector.perun_openapi.model.destination_propagation_type import DestinationPropagationType
     from perun.connector.perun_openapi.model.destination_type import DestinationType
     from perun.connector.perun_openapi.model.rich_destination import RichDestination
     globals()['Auditable'] = Auditable
-    globals()['DestinationAllOf'] = DestinationAllOf
     globals()['DestinationPropagationType'] = DestinationPropagationType
     globals()['DestinationType'] = DestinationType
     globals()['RichDestination'] = RichDestination
@@ -101,12 +99,6 @@ class Destination(ModelComposed):
             'destination': (str,),  # noqa: E501
             'type': (DestinationType,),  # noqa: E501
             'propagation_type': (DestinationPropagationType,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -125,12 +117,6 @@ class Destination(ModelComposed):
         'destination': 'destination',  # noqa: E501
         'type': 'type',  # noqa: E501
         'propagation_type': 'propagationType',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -177,12 +163,6 @@ class Destination(ModelComposed):
             destination (str): [optional]  # noqa: E501
             type (DestinationType): [optional]  # noqa: E501
             propagation_type (DestinationPropagationType): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -194,14 +174,18 @@ class Destination(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -287,12 +271,6 @@ class Destination(ModelComposed):
             destination (str): [optional]  # noqa: E501
             type (DestinationType): [optional]  # noqa: E501
             propagation_type (DestinationPropagationType): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -302,14 +280,18 @@ class Destination(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -359,7 +341,6 @@ class Destination(ModelComposed):
           ],
           'allOf': [
               Auditable,
-              DestinationAllOf,
           ],
           'oneOf': [
           ],

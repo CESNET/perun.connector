@@ -1,5 +1,6 @@
 from typing import List, Union, Optional
 
+from perun.connector.models.Member import Member
 from perun.connector.connectors.LdapConnector import LdapConnector
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
@@ -14,6 +15,12 @@ from perun.connector.adapters.AdapterInterface import AdapterInterface
 
 class AdapterSkipException(Exception):
     def __init__(self, message="Adapter not able to execute given action."):
+        self.message = message
+        super().__init__(self.message)
+
+
+class LDAPNotExistsException(Exception):
+    def __init__(self, message):
         self.message = message
         super().__init__(self.message)
 
@@ -77,7 +84,7 @@ class LdapAdapter(AdapterInterface):
             ],
         )
         if not group:
-            raise Exception(
+            raise LDAPNotExistsException(
                 "Group with name: "
                 + name
                 + " in VO: "
@@ -96,7 +103,7 @@ class LdapAdapter(AdapterInterface):
             )
 
             if not vo:
-                raise Exception(
+                raise LDAPNotExistsException(
                     "Vo with name: " + short_name + " does not exists in Perun LDAP."
                 )
         else:
@@ -106,7 +113,7 @@ class LdapAdapter(AdapterInterface):
                 ["o", "description"],
             )
             if not vo:
-                raise Exception(
+                raise LDAPNotExistsException(
                     "Vo with id: " + str(vo_id) + " does not exists in Perun LDAP."
                 )
 
@@ -262,7 +269,7 @@ class LdapAdapter(AdapterInterface):
         self._logger.debug("Resources - " + str(resources))
 
         if not resources:
-            raise Exception(
+            raise LDAPNotExistsException(
                 "Service with spEntityId: "
                 + str(facility_id)
                 + " hasn't assigned any resource."
@@ -371,9 +378,9 @@ class LdapAdapter(AdapterInterface):
     ) -> bool:
         user_id = AdapterInterface.get_object_id(user)
         if not user_id:
-            raise Exception("userId is empty")
+            raise ValueError("userId is empty")
         if vo_short_name == "":
-            raise Exception("voShortName is empty")
+            raise ValueError("voShortName is empty")
 
         vo = self.get_vo(vo_short_name)
         if not vo:
@@ -517,3 +524,42 @@ class LdapAdapter(AdapterInterface):
                 message="One of requested attributes is not in LDAP."
             )
         return ldap_attr_names
+
+    def get_groups_where_member_is_active(
+        self, member: Union[Member, int]
+    ) -> List[Group]:
+        raise AdapterSkipException()
+
+    def get_groups_where_user_as_member_is_active(
+        self, user: Union[User, int], vo: Union[VO, int]
+    ) -> List[Group]:
+        raise AdapterSkipException()
+
+    def has_registration_form_group(self, group: Union[Group, int]) -> bool:
+        raise AdapterSkipException()
+
+    def has_registration_form_vo(self, vo: Union[VO, int]) -> bool:
+        raise AdapterSkipException()
+
+    def has_registration_form_by_vo_short_name(self, vo_short_name: str) -> bool:
+        raise AdapterSkipException()
+
+    def create_facility(self, name: str, description="") -> Facility:
+        raise AdapterSkipException()
+
+    def set_facility_attributes(
+        self,
+        facility: Union[Facility, int],
+        attributes: dict[
+            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+        ],
+    ) -> None:
+        raise AdapterSkipException()
+
+    def get_attributes_definition(self) -> List[dict[str, Union[str, int, bool]]]:
+        raise AdapterSkipException()
+
+    def get_member_by_user(
+        self, user: Union[User, int], vo: Union[VO, int]
+    ) -> Optional[Member]:
+        raise AdapterSkipException()

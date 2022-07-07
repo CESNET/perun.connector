@@ -15,6 +15,7 @@ from perun.connector.models.Group import Group
 from perun.connector.models.User import User
 from perun.connector.models.UserExtSource import UserExtSource
 from perun.connector.models.VO import VO
+from perun.connector.models.Member import Member
 from perun.connector.perun_openapi import ApiException
 
 
@@ -69,8 +70,8 @@ class AdaptersManager(AdapterInterface):
                 current_adapter = self.adapters.get(current_priority)
             except NotFoundException as ex:
                 self._logger.warning(
-                    "Requested entity doesn't exist in Perun. ApiException: "
-                    + str(ex.body)
+                    f'Method "{method_name}"Requested entity doesn\'t exist in Perun. '
+                    f'NotFoundException: "{str(ex.body)}"'
                 )
                 return None
             except ApiException or LDAPException as ex:
@@ -227,3 +228,46 @@ class AdaptersManager(AdapterInterface):
         self, facility: Union[Facility, int]
     ) -> List[str]:
         return self._execute_method_by_priority(self._get_caller_name(), facility)
+
+    def get_groups_where_member_is_active(
+        self, member: Union[Member, int]
+    ) -> List[Group]:
+        return self._execute_method_by_priority(self._get_caller_name(), member)
+
+    def get_groups_where_user_as_member_is_active(
+        self, user: Union[User, int], vo: Union[VO, int]
+    ) -> List[Group]:
+        return self._execute_method_by_priority(self._get_caller_name(), user, vo)
+
+    def has_registration_form_group(self, group: Union[Group, int]) -> bool:
+        return self._execute_method_by_priority(self._get_caller_name(), group)
+
+    def has_registration_form_vo(self, vo: Union[VO, int]) -> bool:
+        return self._execute_method_by_priority(self._get_caller_name(), vo)
+
+    def has_registration_form_by_vo_short_name(self, vo_short_name: str) -> bool:
+        return self._execute_method_by_priority(self._get_caller_name(), vo_short_name)
+
+    def create_facility(self, name: str, description="") -> Facility:
+        return self._execute_method_by_priority(
+            self._get_caller_name(), name, description
+        )
+
+    def set_facility_attributes(
+        self,
+        facility: Union[Facility, int],
+        attributes: dict[
+            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+        ],
+    ) -> None:
+        return self._execute_method_by_priority(
+            self._get_caller_name(), facility, attributes
+        )
+
+    def get_attributes_definition(self) -> List[dict[str, Union[str, int, bool]]]:
+        return self._execute_method_by_priority(self._get_caller_name())
+
+    def get_member_by_user(
+        self, user: Union[User, int], vo: Union[VO, int]
+    ) -> Optional[Member]:
+        return self._execute_method_by_priority(self._get_caller_name(), user, vo)

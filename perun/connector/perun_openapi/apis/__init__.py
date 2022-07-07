@@ -6,7 +6,7 @@
 # raise a `RecursionError`.
 # In order to avoid this, import only the API that you directly need like:
 #
-#   from .api.attributes_manager_api import AttributesManagerApi
+#   from perun.connector.perun_openapi.api.attributes_manager_api import AttributesManagerApi
 #
 # or import this package, but before doing it, use:
 #

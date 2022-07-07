@@ -24,9 +24,9 @@ from perun.connector.perun_openapi.model_utils import (  # noqa: F401
 )
 from perun.connector.perun_openapi.model.facility import Facility
 from perun.connector.perun_openapi.model.input_get_facilities import InputGetFacilities
+from perun.connector.perun_openapi.model.input_get_match_resources import InputGetMatchResources
 from perun.connector.perun_openapi.model.input_get_members_by_user_attributes import InputGetMembersByUserAttributes
 from perun.connector.perun_openapi.model.input_get_resources import InputGetResources
-from perun.connector.perun_openapi.model.input_get_resources1 import InputGetResources1
 from perun.connector.perun_openapi.model.input_get_users import InputGetUsers
 from perun.connector.perun_openapi.model.member import Member
 from perun.connector.perun_openapi.model.perun_exception import PerunException
@@ -49,7 +49,6 @@ class SearcherApi(object):
             settings={
                 'response_type': ([Resource],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -60,10 +59,10 @@ class SearcherApi(object):
             },
             params_map={
                 'all': [
-                    'input_get_resources1',
+                    'input_get_match_resources',
                 ],
                 'required': [
-                    'input_get_resources1',
+                    'input_get_match_resources',
                 ],
                 'nullable': [
                 ],
@@ -78,13 +77,13 @@ class SearcherApi(object):
                 'allowed_values': {
                 },
                 'openapi_types': {
-                    'input_get_resources1':
-                        (InputGetResources1,),
+                    'input_get_match_resources':
+                        (InputGetMatchResources,),
                 },
                 'attribute_map': {
                 },
                 'location_map': {
-                    'input_get_resources1': 'body',
+                    'input_get_match_resources': 'body',
                 },
                 'collection_format_map': {
                 }
@@ -103,7 +102,6 @@ class SearcherApi(object):
             settings={
                 'response_type': ([Resource],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -157,7 +155,6 @@ class SearcherApi(object):
             settings={
                 'response_type': ([Facility],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -211,7 +208,6 @@ class SearcherApi(object):
             settings={
                 'response_type': ([Member],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -265,7 +261,6 @@ class SearcherApi(object):
             settings={
                 'response_type': ([User],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -318,7 +313,7 @@ class SearcherApi(object):
 
     def get_attributes_match_resources(
         self,
-        input_get_resources1,
+        input_get_match_resources,
         **kwargs
     ):
         """Get list of resources that have attributes with partially matched values if allowPartialMatchForString is set to true, else with exactly matched values.  # noqa: E501
@@ -326,11 +321,11 @@ class SearcherApi(object):
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_attributes_match_resources(input_get_resources1, async_req=True)
+        >>> thread = api.get_attributes_match_resources(input_get_match_resources, async_req=True)
         >>> result = thread.get()
 
         Args:
-            input_get_resources1 (InputGetResources1):
+            input_get_match_resources (InputGetMatchResources):
 
         Keyword Args:
             _return_http_data_only (bool): response data without head status
@@ -348,12 +343,20 @@ class SearcherApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -379,11 +382,15 @@ class SearcherApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
-        kwargs['input_get_resources1'] = \
-            input_get_resources1
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['input_get_match_resources'] = \
+            input_get_match_resources
         return self.get_attributes_match_resources_endpoint.call_with_http_info(**kwargs)
 
     def get_attributes_resources(
@@ -418,12 +425,20 @@ class SearcherApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -449,9 +464,13 @@ class SearcherApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_get_resources'] = \
             input_get_resources
         return self.get_attributes_resources_endpoint.call_with_http_info(**kwargs)
@@ -488,12 +507,20 @@ class SearcherApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -519,9 +546,13 @@ class SearcherApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_get_facilities'] = \
             input_get_facilities
         return self.get_facilities_endpoint.call_with_http_info(**kwargs)
@@ -558,12 +589,20 @@ class SearcherApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -589,9 +628,13 @@ class SearcherApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_get_members_by_user_attributes'] = \
             input_get_members_by_user_attributes
         return self.get_members_by_user_attributes_endpoint.call_with_http_info(**kwargs)
@@ -628,12 +671,20 @@ class SearcherApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -659,9 +710,13 @@ class SearcherApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_get_users'] = \
             input_get_users
         return self.get_users_searcher_endpoint.call_with_http_info(**kwargs)

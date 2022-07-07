@@ -32,16 +32,10 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.destination import Destination
-    from perun.connector.perun_openapi.model.destination_propagation_type import DestinationPropagationType
-    from perun.connector.perun_openapi.model.destination_type import DestinationType
     from perun.connector.perun_openapi.model.facility import Facility
-    from perun.connector.perun_openapi.model.rich_destination_all_of import RichDestinationAllOf
     from perun.connector.perun_openapi.model.service import Service
     globals()['Destination'] = Destination
-    globals()['DestinationPropagationType'] = DestinationPropagationType
-    globals()['DestinationType'] = DestinationType
     globals()['Facility'] = Facility
-    globals()['RichDestinationAllOf'] = RichDestinationAllOf
     globals()['Service'] = Service
 
 
@@ -103,15 +97,6 @@ class RichDestination(ModelComposed):
             'blocked': (bool,),  # noqa: E501
             'service': (Service,),  # noqa: E501
             'facility': (Facility,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
-            'destination': (str,),  # noqa: E501
-            'type': (DestinationType,),  # noqa: E501
-            'propagation_type': (DestinationPropagationType,),  # noqa: E501
         }
 
     @cached_property
@@ -128,15 +113,6 @@ class RichDestination(ModelComposed):
         'blocked': 'blocked',  # noqa: E501
         'service': 'service',  # noqa: E501
         'facility': 'facility',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
-        'destination': 'destination',  # noqa: E501
-        'type': 'type',  # noqa: E501
-        'propagation_type': 'propagationType',  # noqa: E501
     }
 
     read_only_vars = {
@@ -183,15 +159,6 @@ class RichDestination(ModelComposed):
             blocked (bool): [optional]  # noqa: E501
             service (Service): [optional]  # noqa: E501
             facility (Facility): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            destination (str): [optional]  # noqa: E501
-            type (DestinationType): [optional]  # noqa: E501
-            propagation_type (DestinationPropagationType): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -203,14 +170,18 @@ class RichDestination(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -296,15 +267,6 @@ class RichDestination(ModelComposed):
             blocked (bool): [optional]  # noqa: E501
             service (Service): [optional]  # noqa: E501
             facility (Facility): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            destination (str): [optional]  # noqa: E501
-            type (DestinationType): [optional]  # noqa: E501
-            propagation_type (DestinationPropagationType): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -314,14 +276,18 @@ class RichDestination(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -371,7 +337,6 @@ class RichDestination(ModelComposed):
           ],
           'allOf': [
               Destination,
-              RichDestinationAllOf,
           ],
           'oneOf': [
           ],
