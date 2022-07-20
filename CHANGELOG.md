@@ -1,3 +1,15 @@
+# [2.1.0](https://github.com/CESNET/perun.connector/compare/v2.0.1...v2.1.0) (2022-07-20)
+
+
+### Bug Fixes
+
+* get_vo method optional parameters ([2503e54](https://github.com/CESNET/perun.connector/commit/2503e54d5032643afc52e0788f82e7a7cb180108)), closes [#31](https://github.com/CESNET/perun.connector/issues/31)
+
+
+### Features
+
+* implemented missing methods, exceptions handling improvements, regenerated perun_openapi ([3bcce7c](https://github.com/CESNET/perun.connector/commit/3bcce7cbf966baf9c9626bcbdbb64036654ea079))
+
 ## [2.0.1](https://github.com/CESNET/perun.connector/compare/v2.0.0...v2.0.1) (2022-06-23)
 
 
