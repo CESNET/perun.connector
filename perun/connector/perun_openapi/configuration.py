@@ -79,25 +79,6 @@ class Configuration(object):
 
     :Example:
 
-    API Key Authentication Example.
-    Given the following security scheme in the OpenAPI specification:
-      components:
-        securitySchemes:
-          cookieAuth:         # name for the security scheme
-            type: apiKey
-            in: cookie
-            name: JSESSIONID  # cookie name
-
-    You can programmatically set the cookie:
-
-conf = perun.connector.perun_openapi.Configuration(
-    api_key={'cookieAuth': 'abc123'}
-    api_key_prefix={'cookieAuth': 'JSESSIONID'}
-)
-
-    The following cookie will be added to the HTTP request:
-       Cookie: JSESSIONID abc123
-
     HTTP Basic Authentication Example.
     Given the following security scheme in the OpenAPI specification:
       components:
@@ -406,15 +387,6 @@ conf = perun.connector.perun_openapi.Configuration(
         :return: The Auth Settings information dict.
         """
         auth = {}
-        if 'ApiKeyAuth' in self.api_key:
-            auth['ApiKeyAuth'] = {
-                'type': 'api_key',
-                'in': 'header',
-                'key': 'Authorization',
-                'value': self.get_api_key_with_prefix(
-                    'ApiKeyAuth',
-                ),
-            }
         if self.username is not None and self.password is not None:
             auth['BasicAuth'] = {
                 'type': 'basic',
@@ -456,18 +428,18 @@ conf = perun.connector.perun_openapi.Configuration(
                     'server': {
                         'description': "DNS name of a Perun server",
                         'default_value': "perun.cesnet.cz",
-                        },
+                    },
                     'authentication': {
                         'description': "way of authentication",
                         'default_value': "krb",
                         'enum_values': [
                             "krb",
                             "cert",
-                            "oidc",
+                            "oauth",
                             "fed"
                         ]
-                        }
                     }
+                }
             }
         ]
 

@@ -32,7 +32,7 @@ from perun.connector.perun_openapi.model.identity import Identity
 from perun.connector.perun_openapi.model.input_add_application_mail_for_group import InputAddApplicationMailForGroup
 from perun.connector.perun_openapi.model.input_add_application_mail_for_vo import InputAddApplicationMailForVo
 from perun.connector.perun_openapi.model.input_form_item_data import InputFormItemData
-from perun.connector.perun_openapi.model.input_form_item_data1 import InputFormItemData1
+from perun.connector.perun_openapi.model.input_form_items_data import InputFormItemsData
 from perun.connector.perun_openapi.model.input_get_paginated_applications import InputGetPaginatedApplications
 from perun.connector.perun_openapi.model.input_send_message import InputSendMessage
 from perun.connector.perun_openapi.model.input_set_sending_enabled import InputSetSendingEnabled
@@ -61,7 +61,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (int,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -115,7 +114,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (int,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -169,7 +167,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -223,7 +220,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (Application,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -276,7 +272,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([Identity],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -322,7 +317,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([UserExtSource],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -375,7 +369,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -431,7 +424,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -487,7 +479,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -543,7 +534,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -599,7 +589,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -655,7 +644,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -711,7 +699,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -767,7 +754,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -823,7 +809,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -876,7 +861,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -929,7 +913,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -982,7 +965,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1041,7 +1023,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1100,7 +1081,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1154,7 +1134,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (Application,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1207,7 +1186,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationFormItemData],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1260,7 +1238,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationMail],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1313,7 +1290,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationMail],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1366,7 +1342,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([Application],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1435,7 +1410,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([Application],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1493,7 +1467,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([Application],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1562,7 +1535,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (PaginatedRichApplications,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1616,7 +1588,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (str,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1662,7 +1633,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationFormItem],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1715,7 +1685,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationFormItem],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1773,7 +1742,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationFormItem],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1826,7 +1794,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([ApplicationFormItem],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1884,7 +1851,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (ApplicationForm,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1937,7 +1903,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': ([Group],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1990,7 +1955,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (ApplicationForm,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2043,7 +2007,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (Application,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2101,7 +2064,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2170,7 +2132,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2244,7 +2205,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2305,7 +2265,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2361,7 +2320,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2415,7 +2373,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2469,7 +2426,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (Application,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2523,7 +2479,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2577,7 +2532,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (ApplicationForm,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2631,7 +2585,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2685,7 +2638,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2696,10 +2648,10 @@ class RegistrarManagerApi(object):
             },
             params_map={
                 'all': [
-                    'input_form_item_data1',
+                    'input_form_items_data',
                 ],
                 'required': [
-                    'input_form_item_data1',
+                    'input_form_items_data',
                 ],
                 'nullable': [
                 ],
@@ -2714,13 +2666,13 @@ class RegistrarManagerApi(object):
                 'allowed_values': {
                 },
                 'openapi_types': {
-                    'input_form_item_data1':
-                        (InputFormItemData1,),
+                    'input_form_items_data':
+                        (InputFormItemsData,),
                 },
                 'attribute_map': {
                 },
                 'location_map': {
-                    'input_form_item_data1': 'body',
+                    'input_form_items_data': 'body',
                 },
                 'collection_format_map': {
                 }
@@ -2739,7 +2691,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (int,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2793,7 +2744,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (int,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2847,7 +2797,6 @@ class RegistrarManagerApi(object):
             settings={
                 'response_type': (Application,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -2929,12 +2878,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2960,9 +2917,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_add_application_mail_for_group'] = \
             input_add_application_mail_for_group
         return self.add_application_mail_for_group_endpoint.call_with_http_info(**kwargs)
@@ -2999,12 +2960,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3030,9 +2999,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_add_application_mail_for_vo'] = \
             input_add_application_mail_for_vo
         return self.add_application_mail_for_vo_endpoint.call_with_http_info(**kwargs)
@@ -3069,12 +3042,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3100,9 +3081,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['groups'] = \
             groups
         return self.add_groups_to_auto_registration_endpoint.call_with_http_info(**kwargs)
@@ -3140,12 +3125,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3171,9 +3164,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.approve_application_endpoint.call_with_http_info(**kwargs)
@@ -3207,12 +3204,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3238,9 +3243,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.check_for_similar_users_with_auth_info_endpoint.call_with_http_info(**kwargs)
 
     def consolidate_identity_using_token(
@@ -3275,12 +3284,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3306,9 +3323,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['token'] = \
             token
         return self.consolidate_identity_using_token_endpoint.call_with_http_info(**kwargs)
@@ -3344,12 +3365,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3375,9 +3404,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_form_from_group_to_group_endpoint.call_with_http_info(**kwargs)
 
     def copy_form_from_group_to_vo(
@@ -3411,12 +3444,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3442,9 +3483,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_form_from_group_to_vo_endpoint.call_with_http_info(**kwargs)
 
     def copy_form_from_vo_to_group(
@@ -3478,12 +3523,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3509,9 +3562,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_form_from_vo_to_group_endpoint.call_with_http_info(**kwargs)
 
     def copy_form_from_vo_to_vo(
@@ -3545,12 +3602,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3576,9 +3641,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_form_from_vo_to_vo_endpoint.call_with_http_info(**kwargs)
 
     def copy_mails_from_group_to_group(
@@ -3612,12 +3681,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3643,9 +3720,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_mails_from_group_to_group_endpoint.call_with_http_info(**kwargs)
 
     def copy_mails_from_group_to_vo(
@@ -3679,12 +3760,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3710,9 +3799,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_mails_from_group_to_vo_endpoint.call_with_http_info(**kwargs)
 
     def copy_mails_from_vo_to_group(
@@ -3746,12 +3839,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3777,9 +3878,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_mails_from_vo_to_group_endpoint.call_with_http_info(**kwargs)
 
     def copy_mails_from_vo_to_vo(
@@ -3813,12 +3918,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3844,9 +3957,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.copy_mails_from_vo_to_vo_endpoint.call_with_http_info(**kwargs)
 
     def create_application_form_in_group(
@@ -3881,12 +3998,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3912,9 +4037,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         return self.create_application_form_in_group_endpoint.call_with_http_info(**kwargs)
@@ -3951,12 +4080,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -3982,9 +4119,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.create_application_form_in_vo_endpoint.call_with_http_info(**kwargs)
@@ -4021,12 +4162,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4052,9 +4201,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.delete_application_endpoint.call_with_http_info(**kwargs)
@@ -4093,12 +4246,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4124,9 +4285,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         kwargs['id'] = \
@@ -4167,12 +4332,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4198,9 +4371,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         kwargs['id'] = \
@@ -4239,12 +4416,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4270,9 +4455,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['groups'] = \
             groups
         return self.delete_groups_from_auto_registration_endpoint.call_with_http_info(**kwargs)
@@ -4309,12 +4498,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4340,9 +4537,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.get_application_by_id_endpoint.call_with_http_info(**kwargs)
@@ -4379,12 +4580,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4410,9 +4619,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.get_application_data_by_id_endpoint.call_with_http_info(**kwargs)
@@ -4449,12 +4662,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4480,9 +4701,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         return self.get_application_mails_for_group_endpoint.call_with_http_info(**kwargs)
@@ -4519,12 +4744,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4550,9 +4783,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.get_application_mails_for_vo_endpoint.call_with_http_info(**kwargs)
@@ -4592,12 +4829,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4623,9 +4868,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         return self.get_applications_for_group_endpoint.call_with_http_info(**kwargs)
@@ -4663,12 +4912,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4694,9 +4951,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['member'] = \
             member
         return self.get_applications_for_member_endpoint.call_with_http_info(**kwargs)
@@ -4736,12 +4997,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4767,9 +5036,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.get_applications_for_vo_endpoint.call_with_http_info(**kwargs)
@@ -4806,12 +5079,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4837,9 +5118,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_get_paginated_applications'] = \
             input_get_paginated_applications
         return self.get_applications_page_endpoint.call_with_http_info(**kwargs)
@@ -4874,12 +5159,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4905,9 +5198,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.get_consolidator_token_endpoint.call_with_http_info(**kwargs)
 
     def get_form_items_for_group(
@@ -4942,12 +5239,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -4973,9 +5278,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         return self.get_form_items_for_group_endpoint.call_with_http_info(**kwargs)
@@ -5013,12 +5322,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5044,9 +5361,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         return self.get_form_items_for_group_with_type_endpoint.call_with_http_info(**kwargs)
@@ -5083,12 +5404,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5114,9 +5443,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.get_form_items_for_vo_endpoint.call_with_http_info(**kwargs)
@@ -5154,12 +5487,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5185,9 +5526,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.get_form_items_for_vo_with_type_endpoint.call_with_http_info(**kwargs)
@@ -5225,12 +5570,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5256,9 +5609,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['group'] = \
             group
         return self.get_group_application_form_endpoint.call_with_http_info(**kwargs)
@@ -5295,12 +5652,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5326,9 +5691,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.get_groups_to_auto_registration_endpoint.call_with_http_info(**kwargs)
@@ -5366,12 +5735,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5397,9 +5774,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo'] = \
             vo
         return self.get_vo_application_form_endpoint.call_with_http_info(**kwargs)
@@ -5438,12 +5819,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5469,9 +5858,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.reject_application_endpoint.call_with_http_info(**kwargs)
@@ -5512,12 +5905,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5543,9 +5944,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['email'] = \
             email
         kwargs['language'] = \
@@ -5590,12 +5995,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5621,9 +6034,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['email'] = \
             email
         kwargs['language'] = \
@@ -5662,12 +6079,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5693,9 +6118,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.send_invitation_group_to_existing_user_endpoint.call_with_http_info(**kwargs)
 
     def send_invitation_to_existing_user(
@@ -5729,12 +6158,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5760,9 +6197,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.send_invitation_to_existing_user_endpoint.call_with_http_info(**kwargs)
 
     def send_message(
@@ -5798,12 +6239,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5829,9 +6278,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_send_message'] = \
             input_send_message
         return self.send_message_endpoint.call_with_http_info(**kwargs)
@@ -5868,12 +6321,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5899,9 +6360,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_set_sending_enabled'] = \
             input_set_sending_enabled
         return self.set_sending_enabled_endpoint.call_with_http_info(**kwargs)
@@ -5938,12 +6403,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -5969,9 +6442,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_submit_application'] = \
             input_submit_application
         return self.submit_application_endpoint.call_with_http_info(**kwargs)
@@ -6008,12 +6485,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6039,9 +6524,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_update_application_mail'] = \
             input_update_application_mail
         return self.update_application_mail_endpoint.call_with_http_info(**kwargs)
@@ -6078,12 +6567,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6109,9 +6606,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_update_form'] = \
             input_update_form
         return self.update_form_endpoint.call_with_http_info(**kwargs)
@@ -6148,12 +6649,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6179,16 +6688,20 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_form_item_data'] = \
             input_form_item_data
         return self.update_form_item_data_endpoint.call_with_http_info(**kwargs)
 
     def update_form_items_data(
         self,
-        input_form_item_data1,
+        input_form_items_data,
         **kwargs
     ):
         """Update application form items data, which was originally submitted by the User.  # noqa: E501
@@ -6196,11 +6709,11 @@ class RegistrarManagerApi(object):
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_form_items_data(input_form_item_data1, async_req=True)
+        >>> thread = api.update_form_items_data(input_form_items_data, async_req=True)
         >>> result = thread.get()
 
         Args:
-            input_form_item_data1 (InputFormItemData1):
+            input_form_items_data (InputFormItemsData):
 
         Keyword Args:
             _return_http_data_only (bool): response data without head status
@@ -6218,12 +6731,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6249,11 +6770,15 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
-        kwargs['input_form_item_data1'] = \
-            input_form_item_data1
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['input_form_items_data'] = \
+            input_form_items_data
         return self.update_form_items_data_endpoint.call_with_http_info(**kwargs)
 
     def update_form_items_for_group(
@@ -6288,12 +6813,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6319,9 +6852,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_update_form_items_for_group'] = \
             input_update_form_items_for_group
         return self.update_form_items_for_group_endpoint.call_with_http_info(**kwargs)
@@ -6358,12 +6895,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6389,9 +6934,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['input_update_form_items_for_vo'] = \
             input_update_form_items_for_vo
         return self.update_form_items_for_vo_endpoint.call_with_http_info(**kwargs)
@@ -6428,12 +6977,20 @@ class RegistrarManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -6459,9 +7016,13 @@ class RegistrarManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.verify_application_endpoint.call_with_http_info(**kwargs)

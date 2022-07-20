@@ -49,7 +49,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': (int,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -95,7 +94,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -149,7 +147,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -203,7 +200,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -257,7 +253,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -311,7 +306,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([FacilityState],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -362,7 +356,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([ResourceState],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -415,7 +408,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([ServiceState],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -468,7 +460,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': (FacilityState,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -521,7 +512,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': (Task,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -580,7 +570,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': (Task,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -633,7 +622,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': (TaskResult,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -686,7 +674,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([TaskResult],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -732,7 +719,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([TaskResult],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -785,7 +771,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([TaskResult],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -839,7 +824,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([TaskResult],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -892,7 +876,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([TaskResult],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -951,7 +934,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([TaskResult],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1004,7 +986,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': (int,),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1063,7 +1044,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([Task],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1109,7 +1089,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': ([Task],),
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1162,7 +1141,6 @@ class TasksManagerApi(object):
             settings={
                 'response_type': None,
                 'auth': [
-                    'ApiKeyAuth',
                     'BasicAuth',
                     'BearerAuth'
                 ],
@@ -1241,12 +1219,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1272,9 +1258,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.count_tasks_endpoint.call_with_http_info(**kwargs)
 
     def delete_task(
@@ -1309,12 +1299,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1340,9 +1338,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task_id_object'] = \
             task_id_object
         return self.delete_task_endpoint.call_with_http_info(**kwargs)
@@ -1379,12 +1381,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1410,9 +1420,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task_result_id_object'] = \
             task_result_id_object
         return self.delete_task_result_by_id_endpoint.call_with_http_info(**kwargs)
@@ -1449,12 +1463,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1480,9 +1502,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task_and_destination_id_object'] = \
             task_and_destination_id_object
         return self.delete_task_results_ids_endpoint.call_with_http_info(**kwargs)
@@ -1519,12 +1545,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1550,9 +1584,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task_and_destination_name_object'] = \
             task_and_destination_name_object
         return self.delete_task_results_names_endpoint.call_with_http_info(**kwargs)
@@ -1587,12 +1625,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1618,9 +1664,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.get_all_facilities_states_endpoint.call_with_http_info(**kwargs)
 
     def get_all_resources_state(
@@ -1655,12 +1705,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1686,9 +1744,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['vo_id'] = \
             vo_id
         return self.get_all_resources_state_endpoint.call_with_http_info(**kwargs)
@@ -1725,12 +1787,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1756,9 +1826,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['facility'] = \
             facility
         return self.get_facility_services_state_endpoint.call_with_http_info(**kwargs)
@@ -1795,12 +1869,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1826,9 +1908,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['facility'] = \
             facility
         return self.get_facility_state_endpoint.call_with_http_info(**kwargs)
@@ -1867,12 +1953,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1898,9 +1992,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['service'] = \
             service
         kwargs['facility'] = \
@@ -1939,12 +2037,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -1970,9 +2076,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['id'] = \
             id
         return self.get_task_by_id_endpoint.call_with_http_info(**kwargs)
@@ -2009,12 +2119,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2040,9 +2158,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task_result'] = \
             task_result
         return self.get_task_result_by_id_endpoint.call_with_http_info(**kwargs)
@@ -2076,12 +2198,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2107,9 +2237,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.get_task_results_endpoint.call_with_http_info(**kwargs)
 
     def get_task_results_by_task(
@@ -2144,12 +2278,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2175,9 +2317,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task'] = \
             task
         return self.get_task_results_by_task_endpoint.call_with_http_info(**kwargs)
@@ -2214,12 +2360,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2245,9 +2399,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['destinations'] = \
             destinations
         return self.get_task_results_for_destinations_endpoint.call_with_http_info(**kwargs)
@@ -2284,12 +2442,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2315,9 +2481,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task'] = \
             task
         return self.get_task_results_for_guiby_task_endpoint.call_with_http_info(**kwargs)
@@ -2356,12 +2526,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2387,9 +2565,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task'] = \
             task
         kwargs['destination'] = \
@@ -2428,12 +2610,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2459,9 +2649,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['task'] = \
             task
         return self.get_task_results_for_guiby_task_only_newest_endpoint.call_with_http_info(**kwargs)
@@ -2500,12 +2694,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2531,9 +2733,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['service'] = \
             service
         kwargs['facility'] = \
@@ -2569,12 +2775,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2600,9 +2814,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.list_all_tasks_endpoint.call_with_http_info(**kwargs)
 
     def list_all_tasks_for_facility(
@@ -2637,12 +2855,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2668,9 +2894,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['facility'] = \
             facility
         return self.list_all_tasks_for_facility_endpoint.call_with_http_info(**kwargs)
@@ -2707,12 +2937,20 @@ class TasksManagerApi(object):
             _check_return_type (bool): specifies if type checking
                 should be done one the data received from the server.
                 Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
             _content_type (str/None): force body content-type.
                 Default is None and content-type will be predicted by allowed
                 content-types and body.
             _host_index (int/None): specifies the index of the server
                 that we want to use.
                 Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
             async_req (bool): execute request asynchronously
 
         Returns:
@@ -2738,9 +2976,13 @@ class TasksManagerApi(object):
         kwargs['_check_return_type'] = kwargs.get(
             '_check_return_type', True
         )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
         kwargs['_content_type'] = kwargs.get(
             '_content_type')
         kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         kwargs['suspend'] = \
             suspend
         return self.suspend_tasks_propagation_endpoint.call_with_http_info(**kwargs)

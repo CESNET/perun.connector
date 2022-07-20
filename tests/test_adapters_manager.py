@@ -156,8 +156,10 @@ def test_find_method_on_second_adapter_successfully_execute(
 
     manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
-    unsupported_method_call_warning = 'Adapter not able to execute given action. Method: "get_perun_user" ' \
-                                      'Adapter: ldap_adapter Going to try another adapter if available.'
+    unsupported_method_call_warning = (
+        'Adapter not able to execute given action. Method: "get_perun_user" '
+        "Adapter: ldap_adapter Going to try another adapter if available."
+    )
     perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
         side_effect=AdapterSkipException
     )

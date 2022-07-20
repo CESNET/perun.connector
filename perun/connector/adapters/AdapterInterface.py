@@ -1,6 +1,7 @@
 import abc
 from typing import List, Union, Optional
 
+from perun.connector.models.Member import Member
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
 from perun.connector.models.HasIdAbstract import HasIdAbstract
@@ -21,6 +22,10 @@ class AdapterInterface(metaclass=abc.ABCMeta):
             and callable(subclass.get_vo)
             and hasattr(subclass, "get_member_groups")
             and callable(subclass.get_member_groups)
+            and hasattr(subclass, "get_groups_where_member_is_active")
+            and callable(subclass.get_groups_where_member_is_active)
+            and hasattr(subclass, "get_groups_where_user_as_member_is_active")
+            and callable(subclass.get_groups_where_user_as_member_is_active)
             and hasattr(subclass, "get_sp_groups_by_facility")
             and callable(subclass.get_sp_groups_by_facility)
             and hasattr(subclass, "get_sp_groups_by_rp_id")
@@ -61,6 +66,20 @@ class AdapterInterface(metaclass=abc.ABCMeta):
             and callable(subclass.get_facility_capabilities_by_facility)
             and hasattr(subclass, "get_facility_capabilities_by_rp_id")
             and callable(subclass.get_facility_capabilities_by_rp_id)
+            and hasattr(subclass, "has_registration_form_group")
+            and callable(subclass.has_registration_form_group)
+            and hasattr(subclass, "has_registration_form_vo")
+            and callable(subclass.has_registration_form_vo)
+            and hasattr(subclass, "has_registration_form_by_vo_short_name")
+            and callable(subclass.has_registration_form_by_vo_short_name)
+            and hasattr(subclass, "create_facility")
+            and callable(subclass.create_facility)
+            and hasattr(subclass, "set_facility_attributes")
+            and callable(subclass.set_facility_attributes)
+            and hasattr(subclass, "get_attributes_definition")
+            and callable(subclass.get_attributes_definition)
+            and hasattr(subclass, "get_member_by_user")
+            and callable(subclass.get_member_by_user)
             or NotImplemented
         )
 
@@ -75,7 +94,7 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_vo(self, short_name: str, vo_id: int) -> Optional[VO]:
+    def get_vo(self, short_name="", vo_id=None) -> Optional[VO]:
         """Get VO by either its id or short name"""
         raise NotImplementedError
 
@@ -84,6 +103,19 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         self, user: Union[User, int], vo: Union[VO, int]
     ) -> List[Group]:
         """Get member groups of given user"""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_groups_where_member_is_active(
+        self, member: Union[Member, int]
+    ) -> List[Group]:
+        """Get groups from VO where member is valid"""
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_groups_where_user_as_member_is_active(
+        self, user: Union[User, int], vo: Union[VO, int]
+    ) -> List[Group]:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -224,8 +256,44 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         """Obtains facility capabilities of facility with given rp identifier"""
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def has_registration_form_group(self, group: Union[Group, int]) -> bool:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def has_registration_form_vo(self, vo: Union[VO, int]) -> bool:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def has_registration_form_by_vo_short_name(self, vo_short_name: str) -> bool:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def create_facility(self, name: str, description="") -> Facility:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def set_facility_attributes(
+        self,
+        facility: Union[Facility, int],
+        attributes: dict[
+            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+        ],
+    ) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_attributes_definition(self) -> List[dict[str, Union[str, int, bool]]]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_member_by_user(
+        self, user: Union[User, int], vo: Union[VO, int]
+    ) -> Optional[Member]:
+        raise NotImplementedError
+
     @staticmethod
-    def get_object_id(object_or_id: Union[HasIdAbstract, int]):
+    def get_object_id(object_or_id: Union[HasIdAbstract, int]) -> int:
         if isinstance(object_or_id, HasIdAbstract):
             return object_or_id.id
         else:

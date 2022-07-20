@@ -36,7 +36,6 @@ def lazy_import():
     from perun.connector.perun_openapi.model.application import Application
     from perun.connector.perun_openapi.model.application_form_item_data import ApplicationFormItemData
     from perun.connector.perun_openapi.model.group import Group
-    from perun.connector.perun_openapi.model.rich_application_all_of import RichApplicationAllOf
     from perun.connector.perun_openapi.model.user import User
     from perun.connector.perun_openapi.model.vo import Vo
     globals()['AppState'] = AppState
@@ -44,7 +43,6 @@ def lazy_import():
     globals()['Application'] = Application
     globals()['ApplicationFormItemData'] = ApplicationFormItemData
     globals()['Group'] = Group
-    globals()['RichApplicationAllOf'] = RichApplicationAllOf
     globals()['User'] = User
     globals()['Vo'] = Vo
 
@@ -121,8 +119,11 @@ class RichApplication(ModelComposed):
 
     @cached_property
     def discriminator():
-        return None
-
+        val = {
+        }
+        if not val:
+            return None
+        return {'bean_name': val}
 
     attribute_map = {
         'form_data': 'formData',  # noqa: E501
@@ -207,14 +208,18 @@ class RichApplication(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -319,14 +324,18 @@ class RichApplication(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -376,7 +385,6 @@ class RichApplication(ModelComposed):
           ],
           'allOf': [
               Application,
-              RichApplicationAllOf,
           ],
           'oneOf': [
           ],

@@ -33,7 +33,6 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.attribute import Attribute
     from perun.connector.perun_openapi.model.attribute_definition import AttributeDefinition
-    from perun.connector.perun_openapi.model.auditable_all_of import AuditableAllOf
     from perun.connector.perun_openapi.model.ban import Ban
     from perun.connector.perun_openapi.model.ban_on_facility import BanOnFacility
     from perun.connector.perun_openapi.model.ban_on_resource import BanOnResource
@@ -66,7 +65,6 @@ def lazy_import():
     from perun.connector.perun_openapi.model.vo import Vo
     globals()['Attribute'] = Attribute
     globals()['AttributeDefinition'] = AttributeDefinition
-    globals()['AuditableAllOf'] = AuditableAllOf
     globals()['Ban'] = Ban
     globals()['BanOnFacility'] = BanOnFacility
     globals()['BanOnResource'] = BanOnResource
@@ -271,14 +269,18 @@ class Auditable(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -376,14 +378,18 @@ class Auditable(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -432,7 +438,6 @@ class Auditable(ModelComposed):
           'anyOf': [
           ],
           'allOf': [
-              AuditableAllOf,
               PerunBean,
           ],
           'oneOf': [

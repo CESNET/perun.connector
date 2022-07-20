@@ -33,12 +33,10 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.attribute_definition import AttributeDefinition
     from perun.connector.perun_openapi.model.auditable import Auditable
-    from perun.connector.perun_openapi.model.consent_all_of import ConsentAllOf
     from perun.connector.perun_openapi.model.consent_hub import ConsentHub
     from perun.connector.perun_openapi.model.consent_status import ConsentStatus
     globals()['AttributeDefinition'] = AttributeDefinition
     globals()['Auditable'] = Auditable
-    globals()['ConsentAllOf'] = ConsentAllOf
     globals()['ConsentHub'] = ConsentHub
     globals()['ConsentStatus'] = ConsentStatus
 
@@ -102,12 +100,6 @@ class Consent(ModelComposed):
             'status': (ConsentStatus,),  # noqa: E501
             'consent_hub': (ConsentHub,),  # noqa: E501
             'attributes': ([AttributeDefinition],),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -125,12 +117,6 @@ class Consent(ModelComposed):
         'status': 'status',  # noqa: E501
         'consent_hub': 'consentHub',  # noqa: E501
         'attributes': 'attributes',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -178,12 +164,6 @@ class Consent(ModelComposed):
             status (ConsentStatus): [optional]  # noqa: E501
             consent_hub (ConsentHub): [optional]  # noqa: E501
             attributes ([AttributeDefinition]): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -195,14 +175,18 @@ class Consent(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -289,12 +273,6 @@ class Consent(ModelComposed):
             status (ConsentStatus): [optional]  # noqa: E501
             consent_hub (ConsentHub): [optional]  # noqa: E501
             attributes ([AttributeDefinition]): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -304,14 +282,18 @@ class Consent(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -361,7 +343,6 @@ class Consent(ModelComposed):
           ],
           'allOf': [
               Auditable,
-              ConsentAllOf,
           ],
           'oneOf': [
           ],

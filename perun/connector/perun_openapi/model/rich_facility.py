@@ -33,10 +33,8 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.facility import Facility
     from perun.connector.perun_openapi.model.owner import Owner
-    from perun.connector.perun_openapi.model.rich_facility_all_of import RichFacilityAllOf
     globals()['Facility'] = Facility
     globals()['Owner'] = Owner
-    globals()['RichFacilityAllOf'] = RichFacilityAllOf
 
 
 class RichFacility(ModelComposed):
@@ -95,14 +93,6 @@ class RichFacility(ModelComposed):
             'facility_owners': ([Owner],),  # noqa: E501
             'id': (int,),  # noqa: E501
             'bean_name': (str,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
-            'name': (str,),  # noqa: E501
-            'description': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -117,14 +107,6 @@ class RichFacility(ModelComposed):
         'facility_owners': 'facilityOwners',  # noqa: E501
         'id': 'id',  # noqa: E501
         'bean_name': 'beanName',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
-        'name': 'name',  # noqa: E501
-        'description': 'description',  # noqa: E501
     }
 
     read_only_vars = {
@@ -169,14 +151,6 @@ class RichFacility(ModelComposed):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            name (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -188,14 +162,18 @@ class RichFacility(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -279,14 +257,6 @@ class RichFacility(ModelComposed):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            name (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -296,14 +266,18 @@ class RichFacility(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -353,7 +327,6 @@ class RichFacility(ModelComposed):
           ],
           'allOf': [
               Facility,
-              RichFacilityAllOf,
           ],
           'oneOf': [
           ],

@@ -32,9 +32,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.thanks import Thanks
-    from perun.connector.perun_openapi.model.thanks_for_gui_all_of import ThanksForGUIAllOf
     globals()['Thanks'] = Thanks
-    globals()['ThanksForGUIAllOf'] = ThanksForGUIAllOf
 
 
 class ThanksForGUI(ModelComposed):
@@ -93,11 +91,6 @@ class ThanksForGUI(ModelComposed):
             'id': (int,),  # noqa: E501
             'bean_name': (str,),  # noqa: E501
             'owner_name': (str,),  # noqa: E501
-            'publication_id': (int,),  # noqa: E501
-            'owner_id': (int,),  # noqa: E501
-            'created_by': (str,),  # noqa: E501
-            'created_by_uid': (int,),  # noqa: E501
-            'created_date': (date,),  # noqa: E501
         }
 
     @cached_property
@@ -112,11 +105,6 @@ class ThanksForGUI(ModelComposed):
         'id': 'id',  # noqa: E501
         'bean_name': 'beanName',  # noqa: E501
         'owner_name': 'ownerName',  # noqa: E501
-        'publication_id': 'publicationId',  # noqa: E501
-        'owner_id': 'ownerId',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'created_date': 'createdDate',  # noqa: E501
     }
 
     read_only_vars = {
@@ -161,11 +149,6 @@ class ThanksForGUI(ModelComposed):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             owner_name (str): [optional]  # noqa: E501
-            publication_id (int): [optional]  # noqa: E501
-            owner_id (int): [optional]  # noqa: E501
-            created_by (str): [optional]  # noqa: E501
-            created_by_uid (int): [optional]  # noqa: E501
-            created_date (date): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -177,14 +160,18 @@ class ThanksForGUI(ModelComposed):
         self = super(OpenApiModel, cls).__new__(cls)
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -268,11 +255,6 @@ class ThanksForGUI(ModelComposed):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             owner_name (str): [optional]  # noqa: E501
-            publication_id (int): [optional]  # noqa: E501
-            owner_id (int): [optional]  # noqa: E501
-            created_by (str): [optional]  # noqa: E501
-            created_by_uid (int): [optional]  # noqa: E501
-            created_date (date): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -282,14 +264,18 @@ class ThanksForGUI(ModelComposed):
         _visited_composed_classes = kwargs.pop('_visited_composed_classes', ())
 
         if args:
-            raise ApiTypeError(
-                "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
-                    args,
-                    self.__class__.__name__,
-                ),
-                path_to_item=_path_to_item,
-                valid_classes=(self.__class__,),
-            )
+            for arg in args:
+                if isinstance(arg, dict):
+                    kwargs.update(arg)
+                else:
+                    raise ApiTypeError(
+                        "Invalid positional arguments=%s passed to %s. Remove those invalid positional arguments." % (
+                            args,
+                            self.__class__.__name__,
+                        ),
+                        path_to_item=_path_to_item,
+                        valid_classes=(self.__class__,),
+                    )
 
         self._data_store = {}
         self._check_type = _check_type
@@ -339,7 +325,6 @@ class ThanksForGUI(ModelComposed):
           ],
           'allOf': [
               Thanks,
-              ThanksForGUIAllOf,
           ],
           'oneOf': [
           ],

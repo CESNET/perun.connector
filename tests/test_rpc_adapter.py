@@ -14,7 +14,7 @@ from perun.connector.models.Resource import Resource
 from perun.connector.models.User import User
 from perun.connector.models.UserExtSource import UserExtSource
 from perun.connector.models.VO import VO
-from perun.connector.perun_openapi import ApiException
+from perun.connector.perun_openapi.exceptions import NotFoundException
 from perun.connector.utils.ConfigStore import ConfigStore
 
 
@@ -53,7 +53,7 @@ TEST_GROUP_EXTERNAL_REPRESENTATION_2 = {
 
 TEST_VO = VO(62, "CESNET e-infrastruktura", "einfra")
 TEST_MEMBER_INTERNAL_REPRESENTATION = Member(5, TEST_VO, "VALID")
-TEST_MEMBER_EXTERNAL_REPRESENTATION = {"id": 5, "vo_id": 1, "status": "VALID"}
+TEST_MEMBER_EXTERNAL_REPRESENTATION = {"id": 5, "vo_id": TEST_VO.id, "status": "VALID"}
 TEST_USER = User(10, "John Doe")
 SAMPLE_SHORT_GROUP_NAME = "short_name"
 
@@ -824,14 +824,17 @@ def test_get_member_status_by_user_and_vo_valid_member(mock_request_1):
 def test_get_member_status_by_user_and_vo_invalid_member(mock_request_1):
     perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
         MagicMock(  # noqa E501
-            side_effect=ApiException(
+            side_effect=NotFoundException(
                 http_resp=HttpResponse('"name":"MemberNotExistsException"')
             )
         )
     )
 
-    result_status = ADAPTER.get_member_status_by_user_and_vo(TEST_USER, TEST_VO)
-    assert result_status is None
+    try:
+        ADAPTER.get_member_status_by_user_and_vo(TEST_USER, TEST_VO)
+        assert False
+    except NotFoundException:
+        assert True
 
 
 @patch(
@@ -917,22 +920,16 @@ def test_is_user_in_vo_invalid_member(mock_request_1, mock_request_2):
 def test_is_user_in_vo_non_existing_vo(mock_request_1, caplog):
     perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_short_name = (
         MagicMock(  # noqa E501
-            side_effect=ApiException(
+            side_effect=NotFoundException(
                 http_resp=HttpResponse('"name":"VoNotExistsException"')
             )
         )
     )
-
-    non_existing_short_name = "non_existing_short_name"
-    vo_not_found_msg = f'No VO with short name "{non_existing_short_name}" found'
-
-    with caplog.at_level(logging.DEBUG):
-        user_is_valid_member = ADAPTER.is_user_in_vo_by_short_name(
-            TEST_USER, non_existing_short_name
-        )
-
-        assert not user_is_valid_member
-        assert vo_not_found_msg in caplog.text
+    try:
+        ADAPTER.is_user_in_vo_by_short_name(TEST_USER, "non_existing_short_name")
+        assert False
+    except NotFoundException:
+        assert True
 
 
 def test_is_user_in_vo_user_without_id():
@@ -971,70 +968,19 @@ def test_get_member_by_user_existing_user(mock_request_1):
     "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
     ".get_member_by_user"
 )
-def test_get_member_by_user_get_non_existing_user(mock_request_1, caplog):
+def test_get_member_by_user_user_not_not_found_ex(mock_request_1, caplog):
     perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
         MagicMock(  # noqa E501
-            side_effect=ApiException(
-                http_resp=HttpResponse('"name":"UserNotExistsException"')
-            )
-        )
-    )
-
-    invalid_user_error_msg = f' User with id "{TEST_USER.id}" does not exist in Perun.'
-
-    with caplog.at_level(logging.WARNING):
-        result_member = ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
-
-        assert result_member is None
-        assert invalid_user_error_msg in caplog.text
-
-
-@patch(
-    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
-    ".get_member_by_user"
-)
-def test_get_member_by_user_with_non_existing_vo(mock_request_1, caplog):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
-        MagicMock(  # noqa E501
-            side_effect=ApiException(
-                http_resp=HttpResponse('"name":"VoNotExistsException"')
-            )
-        )
-    )
-
-    invalid_vo_error_msg = f'VO with id "{TEST_VO.id}" does not exist in Perun.'
-
-    with caplog.at_level(logging.WARNING):
-        result_member = ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
-
-        assert result_member is None
-        assert invalid_vo_error_msg in caplog.text
-
-
-@patch(
-    "perun.connector.perun_openapi.api.members_manager_api.MembersManagerApi"
-    ".get_member_by_user"
-)
-def test_get_member_by_user_user_not_member_in_vo(mock_request_1, caplog):
-    perun_openapi.api.members_manager_api.MembersManagerApi.get_member_by_user = (
-        MagicMock(  # noqa E501
-            side_effect=ApiException(
+            side_effect=NotFoundException(
                 http_resp=HttpResponse('"name":"MemberNotExistsException"')
             )
         )
     )
-
-    invalid_vo_error_msg = (
-        f'Member with VO "{TEST_VO.id}" and user id "{TEST_USER.id}" '
-        f"does not "
-        f"exist in Perun."
-    )
-
-    with caplog.at_level(logging.WARNING):
-        result_member = ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
-
-        assert result_member is None
-        assert invalid_vo_error_msg in caplog.text
+    try:
+        ADAPTER.get_member_by_user(TEST_USER, TEST_VO)
+        assert False
+    except NotFoundException:
+        assert True
 
 
 @patch(
@@ -1302,7 +1248,8 @@ def test_get_facility_attribute_valid_attribute(mock_request_1):
         + test_facility_attribute.get("friendly_name")
     )
 
-    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_facility_attributes_by_names = MagicMock(  # noqa E501
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_facility_attributes_by_names = MagicMock(
+        # noqa E501
         return_value=[test_facility_attribute]
     )
 
@@ -1330,3 +1277,110 @@ def test_get_attributes_multiple_attributes():
 def test_get_attributes_empty_attributes():
     result_attributes = ADAPTER._get_attributes([])
     assert result_attributes == {}
+
+
+@patch(
+    "perun.connector.perun_openapi.api.groups_manager_api.GroupsManagerApi.get_groups_where_member_is_active"
+)
+def test_get_groups_where_member_is_active_not_member(mock_request_1):
+    perun_openapi.api.groups_manager_api.GroupsManagerApi.get_groups_where_member_is_active = MagicMock(  # noqa E501
+        side_effect=NotFoundException(
+            http_resp=HttpResponse('"name":"MemberNotExistsException"')
+        )
+    )
+    try:
+        ADAPTER.get_groups_where_member_is_active(TEST_MEMBER_INTERNAL_REPRESENTATION)
+        assert False
+    except NotFoundException:
+        assert True
+
+
+@patch(
+    "perun.connector.perun_openapi.api.groups_manager_api.GroupsManagerApi.get_groups_where_member_is_active"
+)
+@patch(
+    "perun.connector.perun_openapi.api.attributes_manager_api.AttributesManagerApi"
+    ".get_attribute"
+)
+@patch("perun.connector.perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id")
+def test_get_groups_where_member_is_active(
+    mock_request_1, mock_request_2, mock_request_3
+):
+    perun_openapi.api.groups_manager_api.GroupsManagerApi.get_groups_where_member_is_active = MagicMock(  # noqa E501
+        return_value=[
+            TEST_GROUP_EXTERNAL_REPRESENTATION_1,
+            TEST_GROUP_EXTERNAL_REPRESENTATION_2,
+        ]
+    )
+
+    perun_openapi.api.attributes_manager_api.AttributesManagerApi.get_attribute = (
+        MagicMock(return_value={"value": SAMPLE_SHORT_GROUP_NAME})
+    )
+
+    perun_openapi.api.vos_manager_api.VosManagerApi.get_vo_by_id = MagicMock(
+        return_value=TEST_VO
+    )
+
+    result = ADAPTER.get_groups_where_member_is_active(
+        TEST_MEMBER_INTERNAL_REPRESENTATION
+    )
+
+    for group in result:
+        assert isinstance(group, Group)
+
+    assert [
+        TEST_GROUP_INTERNAL_REPRESENTATION_1,
+        TEST_GROUP_INTERNAL_REPRESENTATION_2,
+    ] == result
+
+
+@patch(
+    "perun.connector.perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_group"
+)
+def test_has_registration_form_group(mock_request_1):
+    perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_group = MagicMock(  # noqa E501
+        "Application"
+    )
+
+    result = ADAPTER.has_registration_form_group(TEST_GROUP_INTERNAL_REPRESENTATION_1)
+    assert result
+
+
+@patch(
+    "perun.connector.perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_group"
+)
+def test_has_registration_form_group_no_form(mock_request_1):
+    perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_group = MagicMock(  # noqa E501
+        side_effect=NotFoundException(
+            http_resp=HttpResponse('"name":"FormNotExistsException"')
+        )
+    )
+
+    result = ADAPTER.has_registration_form_group(TEST_GROUP_INTERNAL_REPRESENTATION_1)
+    assert not result
+
+
+@patch(
+    "perun.connector.perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_vo"
+)
+def test_has_registration_form_vo(mock_request_1):
+    perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_vo = MagicMock(  # noqa E501
+        "Application"
+    )
+
+    result = ADAPTER.has_registration_form_vo(TEST_VO)
+    assert result
+
+
+@patch(
+    "perun.connector.perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_vo"
+)
+def test_has_registration_form_vo_no_form(mock_request_1):
+    perun_openapi.api.registrar_manager_api.RegistrarManagerApi.get_applications_for_vo = MagicMock(  # noqa E501
+        side_effect=NotFoundException(
+            http_resp=HttpResponse('"name":"FormNotExistsException"')
+        )
+    )
+
+    result = ADAPTER.has_registration_form_vo(TEST_VO)
+    assert not result
