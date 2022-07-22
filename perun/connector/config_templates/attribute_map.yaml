@@ -86,7 +86,7 @@ urn:perun:facility:attribute-def:def:homeDirUmask:
 urn:perun:facility:attribute-def:def:entityID:
   id: 3395
   type: java.lang.String
-  ldap:
+  ldap: entityID
 
 urn:perun:facility:attribute-def:def:cpu:
   id: 1603
@@ -486,7 +486,7 @@ urn:perun:host:attribute-def:def:sshHostKey:
 urn:perun:user:attribute-def:virt:loa:
   id: 3461
   type: java.lang.Integer
-  ldap:
+  ldap: loa
 
 urn:perun:host:attribute-def:opt:metaIsManaged:
   id: 3140
@@ -861,17 +861,17 @@ urn:perun:user:attribute-def:core:displayName:
 urn:perun:user:attribute-def:core:firstName:
   id: 50
   type: java.lang.String
-  ldap:
+  ldap: def:core:firstName
 
 urn:perun:user:attribute-def:core:lastName:
   id: 51
   type: java.lang.String
-  ldap:
+  ldap: def:core:lastName
 
 urn:perun:user:attribute-def:core:middleName:
   id: 52
   type: java.lang.String
-  ldap:
+  ldap: def:core:middleName
 
 urn:perun:user:attribute-def:core:serviceUser:
   id: 3380
@@ -891,7 +891,7 @@ urn:perun:user:attribute-def:core:titleBefore:
 urn:perun:user:attribute-def:def:address:
   id: 1364
   type: java.lang.String
-  ldap:
+  ldap: address
 
 urn:perun:user:attribute-def:def:altPasswords:einfra:
   id: 2780
@@ -941,7 +941,7 @@ urn:perun:user:attribute-def:def:login-namespace:egi-ui:
 urn:perun:user:attribute-def:def:login-namespace:einfra:
   id: 146
   type: java.lang.String
-  ldap:
+  ldap: login;x-ns-einfra
 
 urn:perun:user:attribute-def:def:login-namespace:einfra-services:
   id: 2060
@@ -966,7 +966,7 @@ urn:perun:user:attribute-def:def:login-namespace:sitola:
 urn:perun:user:attribute-def:def:mailaliasesGenericMail:
   id: 3240
   type: java.lang.String
-  ldap:
+  ldap: mail
 
 urn:perun:facility:attribute-def:def:rpEnableEnsureVoFiltering:
   id: 3644
@@ -976,12 +976,12 @@ urn:perun:facility:attribute-def:def:rpEnableEnsureVoFiltering:
 urn:perun:user:attribute-def:def:organization:
   id: 1363
   type: java.lang.String
-  ldap:
+  ldap: o
 
 urn:perun:user:attribute-def:def:phone:
   id: 1362
   type: java.lang.String
-  ldap:
+  ldap: phone
 
 urn:perun:user:attribute-def:def:preferredEduPersonPrincipalName:
   id: 3360
@@ -991,12 +991,12 @@ urn:perun:user:attribute-def:def:preferredEduPersonPrincipalName:
 urn:perun:user:attribute-def:def:preferredLanguage:
   id: 1365
   type: java.lang.String
-  ldap:
+  ldap: preferredLanguage
 
 urn:perun:user:attribute-def:def:preferredMail:
   id: 1361
   type: java.lang.String
-  ldap:
+  ldap: preferredMail
 
 urn:perun:user:attribute-def:def:preferredShells:
   id: 2680
@@ -1146,7 +1146,7 @@ urn:perun:user:attribute-def:opt:researchGroup:
 urn:perun:user:attribute-def:virt:eduPersonPrincipalNames:
   id: 2300
   type: java.util.ArrayList
-  ldap:
+  ldap: eduPersonPrincipalNames
 
 urn:perun:user:attribute-def:virt:kerberosLogins:
   id: 1941
@@ -1431,7 +1431,7 @@ urn:perun:member:attribute-def:def:telephoneNumbers:
 urn:perun:user:attribute-def:virt:eduPersonScopedAffiliations:
   id: 3454
   type: java.util.ArrayList
-  ldap:
+  ldap: eduPersonScopedAffiliations
 
 urn:perun:entityless:attribute-def:def:cesnetEduroamIdsCounter:
   id: 3455
@@ -1441,7 +1441,7 @@ urn:perun:entityless:attribute-def:def:cesnetEduroamIdsCounter:
 urn:perun:user:attribute-def:def:login-namespace:einfraid-persistent-shadow:
   id: 3458
   type: java.lang.String
-  ldap:
+  ldap: login;x-ns-einfraid-persistent-shadow
 
 urn:perun:user:attribute-def:virt:login-namespace:einfraid-persistent:
   id: 3459
@@ -1596,7 +1596,7 @@ urn:perun:member_resource:attribute-def:def:fileQuotasOverride:
 urn:perun:user:attribute-def:virt:groupNames:
   id: 3472
   type: java.util.ArrayList
-  ldap:
+  ldap: groupNames
 
 urn:perun:entityless:attribute-def:def:namespace-GIDRanges:
   id: 3474
@@ -1666,7 +1666,7 @@ urn:perun:user:attribute-def:core:commonName:
 urn:perun:facility:attribute-def:def:OIDCClientID:
   id: 3482
   type: java.lang.String
-  ldap:
+  ldap: OIDCClientID
 
 urn:perun:entityless:attribute-def:def:orgAups:
   id: 3493
@@ -1676,7 +1676,7 @@ urn:perun:entityless:attribute-def:def:orgAups:
 urn:perun:facility:attribute-def:def:reqAups:
   id: 3495
   type: java.util.ArrayList
-  ldap:
+  ldap: requiredAups
 
 urn:perun:facility:attribute-def:virt:voShortNames:
   id: 3496
@@ -1706,17 +1706,17 @@ urn:perun:facility:attribute-def:def:OIDCCheckGroupMembership:
 urn:perun:facility:attribute-def:def:checkGroupMembership:
   id: 3501
   type: java.lang.Boolean
-  ldap:
+  ldap: checkGroupMembership
 
 urn:perun:user:attribute-def:def:isCesnetEligibleLastSeen:
   id: 3502
   type: java.lang.String
-  ldap:
+  ldap: isCesnetEligibleLastSeen
 
 urn:perun:vo:attribute-def:def:aup:
   id: 3494
   type: java.lang.String
-  ldap:
+  ldap: aup
 
 urn:perun:facility:attribute-def:def:rpLoginURL:
   id: 3647
@@ -1736,12 +1736,12 @@ urn:perun:group:attribute-def:def:googleGroupName-namespace:einfra-cesnet-cz:
 urn:perun:facility:attribute-def:def:dynamicRegistration:
   id: 3504
   type: java.lang.Boolean
-  ldap:
+  ldap: dynamicRegistration
 
 urn:perun:facility:attribute-def:def:registerUrl:
   id: 3505
   type: java.lang.String
-  ldap:
+  ldap: registrationURL
 
 urn:perun:facility:attribute-def:def:quotaEnabled:
   id: 2840
@@ -1751,7 +1751,7 @@ urn:perun:facility:attribute-def:def:quotaEnabled:
 urn:perun:facility:attribute-def:def:allowRegistration:
   id: 3506
   type: java.lang.Boolean
-  ldap:
+  ldap: allowRegistration
 
 urn:perun:facility:attribute-def:def:showOnServiceList:
   id: 3507
@@ -1786,7 +1786,7 @@ urn:perun:host:attribute-def:opt:automaticallyCreated:
 urn:perun:facility:attribute-def:def:privacyPolicyURL:
   id: 3513
   type: java.lang.String
-  ldap:
+  ldap: def:def:privacyPolicyURL
 
 urn:perun:facility:attribute-def:def:isTestSp:
   id: 3515
@@ -1896,17 +1896,17 @@ urn:perun:resource:attribute-def:def:allowInactiveMembers:
 urn:perun:facility:attribute-def:def:wayfFilter:
   id: 3542
   type: java.lang.String
-  ldap:
+  ldap: wayfFilter
 
 urn:perun:facility:attribute-def:def:wayfEFilter:
   id: 3543
   type: java.lang.String
-  ldap:
+  ldap: wayfEFilter
 
 urn:perun:facility:attribute-def:def:registrationURL:
   id: 3544
   type: java.lang.String
-  ldap:
+  ldap: registrationURL
 
 urn:perun:user:attribute-def:virt:userOrganizations:
   id: 3545
@@ -1921,7 +1921,7 @@ urn:perun:ues:attribute-def:def:eduPersonEntitlement:
 urn:perun:group:attribute-def:def:groupAffiliations:
   id: 3532
   type: java.util.ArrayList
-  ldap:
+  ldap: groupAffiliations
 
 urn:perun:entityless:attribute-def:def:nonAuthzPwdResetMailTemplate:einfra:
   id: 3526
@@ -2146,7 +2146,7 @@ urn:perun:facility:attribute-def:def:OIDCClientSecret:
 urn:perun:resource:attribute-def:def:capabilities:
   id: 3585
   type: java.util.ArrayList
-  ldap:
+  ldap: capabilities
 
 urn:perun:facility:attribute-def:def:isOidcFacility:
   id: 3586
@@ -2351,7 +2351,7 @@ urn:perun:facility:attribute-def:def:OIDCIssueRefreshTokens:
 urn:perun:user:attribute-def:def:aups:
   id: 3629
   type: java.util.LinkedHashMap
-  ldap:
+  ldap: aups
 
 urn:perun:vo:attribute-def:def:applicationExpirationRules:
   id: 3630
@@ -2421,7 +2421,7 @@ urn:perun:entityless:attribute-def:def:nonAuthzPwdResetConfirmMailTemplate:egi-u
 urn:perun:user:attribute-def:virt:eduPersonEntitlement:
   id: 3550
   type: java.util.ArrayList
-  ldap:
+  ldap: eduPersonEntitlement
 
 urn:perun:resource:attribute-def:virt:assignedGroups:
   id: 3595
@@ -2561,7 +2561,7 @@ urn:perun:user:attribute-def:virt:unscopedLogin-namespace:einfra:
 urn:perun:user:attribute-def:virt:unscopedLogin-namespace:einfraid-persistent-shadow:
   id: 3691
   type: java.lang.String
-  ldap:
+  ldap: unscopedLogin;x-ns-einfraid-persistent-shadow
 
 urn:perun:group:attribute-def:def:Test:
   id: 3704

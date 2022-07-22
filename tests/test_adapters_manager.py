@@ -5,11 +5,13 @@ from unittest.mock import patch, MagicMock
 import pytest
 
 import perun
-from perun.connector.adapters.AdaptersManager import AdaptersManager
+from perun.connector.adapters.AdaptersManager import (
+    AdaptersManager,
+)
 from perun.connector.adapters.LdapAdapter import LdapAdapter, AdapterSkipException
 from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
 from perun.connector.models.User import User
-from perun.connector.perun_openapi.exceptions import NotFoundException
+from perun.connector.perun_openapi.exceptions import ApiException
 from perun.connector.utils.ConfigStore import ConfigStore
 
 
@@ -171,7 +173,6 @@ def test_find_method_on_second_adapter_successfully_execute(
 
     with caplog.at_level(logging.WARNING):
         result = manager.get_perun_user("1", ["John Doe"])
-        print(caplog.text)
         assert unsupported_method_call_warning in caplog.text
         assert result == test_user
 
@@ -184,52 +185,17 @@ def test_found_method_fail_on_not_found_exception(mock_request_1, caplog):
     manager = AdaptersManager(config, ConfigStore.get_attribute_map())
 
     perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
-        side_effect=NotFoundException(
+        side_effect=ApiException(
             http_resp=HttpResponse('"name":"UserNotExistsException"')
         )
     )
 
-    entity_not_found_warning = "Requested entity doesn't exist in Perun"
-
     # test logging of the exception
-    with caplog.at_level(logging.WARNING):
-        user = manager.get_perun_user("1", ["John Doe"])
-        assert entity_not_found_warning in caplog.text
-        assert user is None
+    expected_error_message = '"name":"UserNotExistsException"'
 
-
-@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")
-def test_found_method_fail_on_unknown_exception(mock_request_1, caplog):
-    config = copy.deepcopy(BASE_MANAGER_CONFIG)
-    config["adapters"] = SUPPORTED_CONFIG_DATA
-
-    manager = AdaptersManager(config, ConfigStore.get_attribute_map())
-
-    error_message = "Some error has occurred"
-    unknown_error = ValueError(error_message)
-    perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user = MagicMock(
-        side_effect=unknown_error
-    )
-
-    unknown_error_warning = (
-        f'Method "get_perun_user" could not be executed '
-        f"successfully by ldap_adapter"
-        f', exception occurred: "{unknown_error}"'
-    )
-
-    # test logging of exception
-    with caplog.at_level(logging.WARNING):
-        try:
-            _ = manager.get_perun_user("1", ["John Doe"])
-        except ValueError:
-            pass
-
-        assert unknown_error_warning in caplog.text
-
-    # test re-raising the exception
-    with pytest.raises(ValueError) as error:
-        _ = manager.get_perun_user("1", ["John Doe"])
-        assert str(error.value.args[0]) == error_message
+    with pytest.raises(Exception) as error:
+        manager.get_perun_user("1", ["John Doe"])
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_perun_user")

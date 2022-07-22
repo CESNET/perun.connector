@@ -31,9 +31,13 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 
 def lazy_import():
+    from perun.connector.perun_openapi.model.author import Author
     from perun.connector.perun_openapi.model.publication import Publication
+    from perun.connector.perun_openapi.model.publication_for_gui_all_of import PublicationForGUIAllOf
     from perun.connector.perun_openapi.model.thanks_for_gui import ThanksForGUI
+    globals()['Author'] = Author
     globals()['Publication'] = Publication
+    globals()['PublicationForGUIAllOf'] = PublicationForGUIAllOf
     globals()['ThanksForGUI'] = ThanksForGUI
 
 
@@ -95,6 +99,20 @@ class PublicationForGUI(ModelComposed):
             'pub_system_name': (str,),  # noqa: E501
             'category_name': (str,),  # noqa: E501
             'thanks': ([ThanksForGUI],),  # noqa: E501
+            'authors': ([Author],),  # noqa: E501
+            'external_id': (int,),  # noqa: E501
+            'publication_system_id': (int,),  # noqa: E501
+            'title': (str,),  # noqa: E501
+            'year': (int,),  # noqa: E501
+            'main': (str,),  # noqa: E501
+            'isbn': (str,),  # noqa: E501
+            'doi': (str,),  # noqa: E501
+            'category_id': (int,),  # noqa: E501
+            'rank': (float,),  # noqa: E501
+            'locked': (bool,),  # noqa: E501
+            'created_by': (str,),  # noqa: E501
+            'created_by_uid': (int,),  # noqa: E501
+            'created_date': (date,),  # noqa: E501
         }
 
     @cached_property
@@ -111,6 +129,20 @@ class PublicationForGUI(ModelComposed):
         'pub_system_name': 'pubSystemName',  # noqa: E501
         'category_name': 'categoryName',  # noqa: E501
         'thanks': 'thanks',  # noqa: E501
+        'authors': 'authors',  # noqa: E501
+        'external_id': 'externalId',  # noqa: E501
+        'publication_system_id': 'publicationSystemId',  # noqa: E501
+        'title': 'title',  # noqa: E501
+        'year': 'year',  # noqa: E501
+        'main': 'main',  # noqa: E501
+        'isbn': 'isbn',  # noqa: E501
+        'doi': 'doi',  # noqa: E501
+        'category_id': 'categoryId',  # noqa: E501
+        'rank': 'rank',  # noqa: E501
+        'locked': 'locked',  # noqa: E501
+        'created_by': 'createdBy',  # noqa: E501
+        'created_by_uid': 'createdByUid',  # noqa: E501
+        'created_date': 'createdDate',  # noqa: E501
     }
 
     read_only_vars = {
@@ -157,6 +189,20 @@ class PublicationForGUI(ModelComposed):
             pub_system_name (str): [optional]  # noqa: E501
             category_name (str): [optional]  # noqa: E501
             thanks ([ThanksForGUI]): [optional]  # noqa: E501
+            authors ([Author]): [optional]  # noqa: E501
+            external_id (int): [optional]  # noqa: E501
+            publication_system_id (int): [optional]  # noqa: E501
+            title (str): [optional]  # noqa: E501
+            year (int): [optional]  # noqa: E501
+            main (str): [optional]  # noqa: E501
+            isbn (str): [optional]  # noqa: E501
+            doi (str): [optional]  # noqa: E501
+            category_id (int): [optional]  # noqa: E501
+            rank (float): [optional]  # noqa: E501
+            locked (bool): [optional]  # noqa: E501
+            created_by (str): [optional]  # noqa: E501
+            created_by_uid (int): [optional]  # noqa: E501
+            created_date (date): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -265,6 +311,20 @@ class PublicationForGUI(ModelComposed):
             pub_system_name (str): [optional]  # noqa: E501
             category_name (str): [optional]  # noqa: E501
             thanks ([ThanksForGUI]): [optional]  # noqa: E501
+            authors ([Author]): [optional]  # noqa: E501
+            external_id (int): [optional]  # noqa: E501
+            publication_system_id (int): [optional]  # noqa: E501
+            title (str): [optional]  # noqa: E501
+            year (int): [optional]  # noqa: E501
+            main (str): [optional]  # noqa: E501
+            isbn (str): [optional]  # noqa: E501
+            doi (str): [optional]  # noqa: E501
+            category_id (int): [optional]  # noqa: E501
+            rank (float): [optional]  # noqa: E501
+            locked (bool): [optional]  # noqa: E501
+            created_by (str): [optional]  # noqa: E501
+            created_by_uid (int): [optional]  # noqa: E501
+            created_date (date): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -335,6 +395,7 @@ class PublicationForGUI(ModelComposed):
           ],
           'allOf': [
               Publication,
+              PublicationForGUIAllOf,
           ],
           'oneOf': [
           ],

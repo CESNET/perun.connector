@@ -34,9 +34,11 @@ def lazy_import():
     from perun.connector.perun_openapi.model.auditable import Auditable
     from perun.connector.perun_openapi.model.candidate import Candidate
     from perun.connector.perun_openapi.model.rich_user import RichUser
+    from perun.connector.perun_openapi.model.user_all_of import UserAllOf
     globals()['Auditable'] = Auditable
     globals()['Candidate'] = Candidate
     globals()['RichUser'] = RichUser
+    globals()['UserAllOf'] = UserAllOf
 
 
 class User(ModelComposed):
@@ -104,6 +106,12 @@ class User(ModelComposed):
             'uuid': (str,),  # noqa: E501
             'specific_user': (bool,),  # noqa: E501
             'major_specific_type': (str,),  # noqa: E501
+            'created_at': (str, none_type,),  # noqa: E501
+            'created_by': (str, none_type,),  # noqa: E501
+            'modified_at': (str, none_type,),  # noqa: E501
+            'modified_by': (str, none_type,),  # noqa: E501
+            'created_by_uid': (int, none_type,),  # noqa: E501
+            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -130,6 +138,12 @@ class User(ModelComposed):
         'uuid': 'uuid',  # noqa: E501
         'specific_user': 'specificUser',  # noqa: E501
         'major_specific_type': 'majorSpecificType',  # noqa: E501
+        'created_at': 'createdAt',  # noqa: E501
+        'created_by': 'createdBy',  # noqa: E501
+        'modified_at': 'modifiedAt',  # noqa: E501
+        'modified_by': 'modifiedBy',  # noqa: E501
+        'created_by_uid': 'createdByUid',  # noqa: E501
+        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -183,6 +197,12 @@ class User(ModelComposed):
             uuid (str): [optional]  # noqa: E501
             specific_user (bool): [optional]  # noqa: E501
             major_specific_type (str): [optional]  # noqa: E501
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -298,6 +318,12 @@ class User(ModelComposed):
             uuid (str): [optional]  # noqa: E501
             specific_user (bool): [optional]  # noqa: E501
             major_specific_type (str): [optional]  # noqa: E501
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -368,6 +394,7 @@ class User(ModelComposed):
           ],
           'allOf': [
               Auditable,
+              UserAllOf,
           ],
           'oneOf': [
           ],

@@ -66,7 +66,7 @@ def test_search_for_entity_found_invalid(mock_request):
     with pytest.raises(Exception) as error:
         _ = CONNECTOR.search_for_entity(BASE, FILTERS)
 
-    assert str(error.value.args[0]) == expected_error_message
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.connectors.LdapConnector.LdapConnector._search")

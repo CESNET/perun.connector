@@ -32,8 +32,10 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.auditable import Auditable
+    from perun.connector.perun_openapi.model.member_all_of import MemberAllOf
     from perun.connector.perun_openapi.model.rich_member import RichMember
     globals()['Auditable'] = Auditable
+    globals()['MemberAllOf'] = MemberAllOf
     globals()['RichMember'] = RichMember
 
 
@@ -100,6 +102,12 @@ class Member(ModelComposed):
             'sponsored': (bool,),  # noqa: E501
             'group_status': (str,),  # noqa: E501
             'group_statuses': ({str: (str,)},),  # noqa: E501
+            'created_at': (str, none_type,),  # noqa: E501
+            'created_by': (str, none_type,),  # noqa: E501
+            'modified_at': (str, none_type,),  # noqa: E501
+            'modified_by': (str, none_type,),  # noqa: E501
+            'created_by_uid': (int, none_type,),  # noqa: E501
+            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -123,6 +131,12 @@ class Member(ModelComposed):
         'sponsored': 'sponsored',  # noqa: E501
         'group_status': 'groupStatus',  # noqa: E501
         'group_statuses': 'groupStatuses',  # noqa: E501
+        'created_at': 'createdAt',  # noqa: E501
+        'created_by': 'createdBy',  # noqa: E501
+        'modified_at': 'modifiedAt',  # noqa: E501
+        'modified_by': 'modifiedBy',  # noqa: E501
+        'created_by_uid': 'createdByUid',  # noqa: E501
+        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -174,6 +188,12 @@ class Member(ModelComposed):
             sponsored (bool): [optional]  # noqa: E501
             group_status (str): [optional]  # noqa: E501
             group_statuses ({str: (str,)}): [optional]  # noqa: E501
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -287,6 +307,12 @@ class Member(ModelComposed):
             sponsored (bool): [optional]  # noqa: E501
             group_status (str): [optional]  # noqa: E501
             group_statuses ({str: (str,)}): [optional]  # noqa: E501
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -357,6 +383,7 @@ class Member(ModelComposed):
           ],
           'allOf': [
               Auditable,
+              MemberAllOf,
           ],
           'oneOf': [
           ],

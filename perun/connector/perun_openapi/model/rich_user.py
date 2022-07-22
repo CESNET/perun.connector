@@ -32,9 +32,11 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.attribute import Attribute
+    from perun.connector.perun_openapi.model.rich_user_all_of import RichUserAllOf
     from perun.connector.perun_openapi.model.user import User
     from perun.connector.perun_openapi.model.user_ext_source import UserExtSource
     globals()['Attribute'] = Attribute
+    globals()['RichUserAllOf'] = RichUserAllOf
     globals()['User'] = User
     globals()['UserExtSource'] = UserExtSource
 
@@ -96,6 +98,22 @@ class RichUser(ModelComposed):
             'user_attributes': ([Attribute], none_type,),  # noqa: E501
             'id': (int,),  # noqa: E501
             'bean_name': (str,),  # noqa: E501
+            'created_at': (str, none_type,),  # noqa: E501
+            'created_by': (str, none_type,),  # noqa: E501
+            'modified_at': (str, none_type,),  # noqa: E501
+            'modified_by': (str, none_type,),  # noqa: E501
+            'created_by_uid': (int, none_type,),  # noqa: E501
+            'modified_by_uid': (int, none_type,),  # noqa: E501
+            'first_name': (str, none_type,),  # noqa: E501
+            'last_name': (str, none_type,),  # noqa: E501
+            'middle_name': (str, none_type,),  # noqa: E501
+            'title_before': (str, none_type,),  # noqa: E501
+            'title_after': (str, none_type,),  # noqa: E501
+            'service_user': (bool,),  # noqa: E501
+            'sponsored_user': (bool,),  # noqa: E501
+            'uuid': (str,),  # noqa: E501
+            'specific_user': (bool,),  # noqa: E501
+            'major_specific_type': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -111,6 +129,22 @@ class RichUser(ModelComposed):
         'user_attributes': 'userAttributes',  # noqa: E501
         'id': 'id',  # noqa: E501
         'bean_name': 'beanName',  # noqa: E501
+        'created_at': 'createdAt',  # noqa: E501
+        'created_by': 'createdBy',  # noqa: E501
+        'modified_at': 'modifiedAt',  # noqa: E501
+        'modified_by': 'modifiedBy',  # noqa: E501
+        'created_by_uid': 'createdByUid',  # noqa: E501
+        'modified_by_uid': 'modifiedByUid',  # noqa: E501
+        'first_name': 'firstName',  # noqa: E501
+        'last_name': 'lastName',  # noqa: E501
+        'middle_name': 'middleName',  # noqa: E501
+        'title_before': 'titleBefore',  # noqa: E501
+        'title_after': 'titleAfter',  # noqa: E501
+        'service_user': 'serviceUser',  # noqa: E501
+        'sponsored_user': 'sponsoredUser',  # noqa: E501
+        'uuid': 'uuid',  # noqa: E501
+        'specific_user': 'specificUser',  # noqa: E501
+        'major_specific_type': 'majorSpecificType',  # noqa: E501
     }
 
     read_only_vars = {
@@ -156,6 +190,22 @@ class RichUser(ModelComposed):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
+            first_name (str, none_type): [optional]  # noqa: E501
+            last_name (str, none_type): [optional]  # noqa: E501
+            middle_name (str, none_type): [optional]  # noqa: E501
+            title_before (str, none_type): [optional]  # noqa: E501
+            title_after (str, none_type): [optional]  # noqa: E501
+            service_user (bool): [optional]  # noqa: E501
+            sponsored_user (bool): [optional]  # noqa: E501
+            uuid (str): [optional]  # noqa: E501
+            specific_user (bool): [optional]  # noqa: E501
+            major_specific_type (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -263,6 +313,22 @@ class RichUser(ModelComposed):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
+            first_name (str, none_type): [optional]  # noqa: E501
+            last_name (str, none_type): [optional]  # noqa: E501
+            middle_name (str, none_type): [optional]  # noqa: E501
+            title_before (str, none_type): [optional]  # noqa: E501
+            title_after (str, none_type): [optional]  # noqa: E501
+            service_user (bool): [optional]  # noqa: E501
+            sponsored_user (bool): [optional]  # noqa: E501
+            uuid (str): [optional]  # noqa: E501
+            specific_user (bool): [optional]  # noqa: E501
+            major_specific_type (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -332,6 +398,7 @@ class RichUser(ModelComposed):
           'anyOf': [
           ],
           'allOf': [
+              RichUserAllOf,
               User,
           ],
           'oneOf': [

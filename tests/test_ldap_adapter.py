@@ -1,12 +1,13 @@
+from unittest.mock import patch, MagicMock
+
+import pytest
+
 from perun.connector.adapters.LdapAdapter import LdapAdapter
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
+from perun.connector.models.MemberStatusEnum import MemberStatusEnum
 from perun.connector.models.User import User
 from perun.connector.models.VO import VO
-from perun.connector.models.MemberStatusEnum import MemberStatusEnum
-import pytest
-from unittest.mock import patch, MagicMock
-
 from perun.connector.utils.ConfigStore import ConfigStore
 
 adapters_cfg = ConfigStore.get_adapters_manager_config().get("adapters")
@@ -26,16 +27,8 @@ USER_WITH_ALL = {
     "mail": "foetoe@cesnet.cz",
 }
 USER_WITH_DN = {"perunUserId": 1, "displayName": "Foe Toe", "cn": []}
-USER_WITH_CN = {
-    "perunUserId": 1,
-    "displayName": "",
-    "cn": ["Foe Toe"],
-}
-USER_WITHOUT_NAME = {
-    "perunUserId": 1,
-    "displayName": "",
-    "cn": [],
-}
+USER_WITH_CN = {"perunUserId": 1, "displayName": "", "cn": ["Foe Toe"]}
+USER_WITHOUT_NAME = {"perunUserId": 1, "displayName": "", "cn": []}
 USER_NOT_FOUND = None
 USER = User(1, "Foe Toe")
 USER_WITHOUT_ID = User(None, "Foe Without Toe")
@@ -187,7 +180,7 @@ def test_group_does_not_exist_in_vo(mock_request):
     with pytest.raises(Exception) as error:
         _ = ADAPTER.get_group_by_name(TEST_FALSE_VO, "grp")
 
-    assert str(error.value.args[0]) == expected_error_message
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity")
@@ -214,7 +207,7 @@ def test_get_vo_by_non_existent_short_name(mock_request):
     with pytest.raises(Exception) as error:
         _ = ADAPTER.get_vo("fake_short_name")
 
-    assert str(error.value.args[0]) == expected_error_message
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity")
@@ -225,7 +218,7 @@ def test_get_vo_by_non_existent_id(mock_request):
     with pytest.raises(Exception) as error:
         _ = ADAPTER.get_vo(None, -1)
 
-    assert str(error.value.args[0]) == expected_error_message
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity")
@@ -294,8 +287,12 @@ def test_get_sp_groups_empty_resources(mock_request, mock_request2):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(return_value=FACILITY)
     ADAPTER.connector.search_for_entities = MagicMock(return_value=RESOURCES_EMPTY)
 
-    groups = ADAPTER.get_sp_groups_by_facility(FACILITY)
-    assert groups == []
+    expected_error_message = (
+        "Service with spEntityId: " + str(1) + " hasn't assigned any resource."
+    )
+    with pytest.raises(Exception) as error:
+        _ = ADAPTER.get_sp_groups_by_facility(FACILITY)
+        assert str(error.value.args[0]) == expected_error_message
 
 
 # TODO UPDATE AFTER FILLING LDAP IN ATTRIBUTES CONFIG
@@ -345,7 +342,7 @@ def test_users_group_on_facility_resources_not_found(mock_request, mock_request2
     with pytest.raises(Exception) as error:
         _ = ADAPTER.get_users_groups_on_facility(FACILITY, USER)
 
-    assert str(error.value.args[0]) == expected_error_message
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier")
@@ -390,7 +387,7 @@ def test_member_status_invalid(mock_request):
     expected_error_message = "Member status is other than valid. Skipping to another adapter to get MemberStatus"
     with pytest.raises(Exception) as error:
         _ = ADAPTER.get_member_status_by_user_and_vo(USER, TEST_VO)
-    assert str(error.value.args[0] == expected_error_message)
+        assert str(error.value.args[0] == expected_error_message)
 
 
 @patch("perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity")
@@ -406,7 +403,7 @@ def test_is_user_in_vo_no_short_name():
     with pytest.raises(Exception) as error:
         _ = ADAPTER.is_user_in_vo_by_short_name(USER, "")
 
-    assert str(error.value.args[0]) == expected_error_message
+        assert str(error.value.args[0]) == expected_error_message
 
 
 def test_is_user_in_vo_user_without_id():
@@ -415,14 +412,7 @@ def test_is_user_in_vo_user_without_id():
     with pytest.raises(Exception) as error:
         _ = ADAPTER.is_user_in_vo_by_short_name(USER_WITHOUT_ID, "org")
 
-    assert str(error.value.args[0]) == expected_error_message
-
-
-@patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo")
-def test_is_user_in_vo_vo_not_found(mock_request):
-    ADAPTER.get_vo = MagicMock(return_value=None)
-    user_in_vo = ADAPTER.is_user_in_vo_by_short_name(USER, "fake_short_name")
-    assert not user_in_vo
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_vo")
@@ -465,10 +455,12 @@ def test_resource_capabilities_no_facility(mock_request):
 def test_resource_capabilities_empty(mock_request, mock_request2):
     ADAPTER.get_facility_by_rp_identifier = MagicMock(return_value=FACILITY)
     ADAPTER.connector.search_for_entities = MagicMock(return_value=RESOURCES_EMPTY)
-    resource_capabilities = ADAPTER.get_resource_capabilities_by_facility(
-        FACILITY, INITIALIZED_GROUPS
+    expected_error_message = (
+        "Service with spEntityId: " + str(1) + " hasn't assigned any resource."
     )
-    assert resource_capabilities == []
+    with pytest.raises(Exception) as error:
+        _ = ADAPTER.get_resource_capabilities_by_facility(FACILITY, INITIALIZED_GROUPS)
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.adapters.LdapAdapter.LdapAdapter.get_facility_by_rp_identifier")
@@ -487,8 +479,10 @@ def test_resource_capabilities(mock_request, mock_request2):
 @patch("perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity")
 def test_facility_capabilities_empty(mock_request):
     ADAPTER.connector.search_for_entity = MagicMock(return_value=None)
-    facility_capabilities = ADAPTER.get_facility_capabilities_by_facility(FACILITY)
-    assert facility_capabilities == []
+    expected_error_message = "Facility with id: " + str(1) + " not found."
+    with pytest.raises(Exception) as error:
+        _ = ADAPTER.get_facility_capabilities_by_facility(FACILITY)
+        assert str(error.value.args[0]) == expected_error_message
 
 
 @patch("perun.connector.connectors.LdapConnector.LdapConnector.search_for_entity")

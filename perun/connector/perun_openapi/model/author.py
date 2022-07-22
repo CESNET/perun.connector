@@ -32,9 +32,11 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.attribute import Attribute
+    from perun.connector.perun_openapi.model.author_all_of import AuthorAllOf
     from perun.connector.perun_openapi.model.authorship import Authorship
     from perun.connector.perun_openapi.model.perun_bean import PerunBean
     globals()['Attribute'] = Attribute
+    globals()['AuthorAllOf'] = AuthorAllOf
     globals()['Authorship'] = Authorship
     globals()['PerunBean'] = PerunBean
 
@@ -352,6 +354,7 @@ class Author(ModelComposed):
           'anyOf': [
           ],
           'allOf': [
+              AuthorAllOf,
               PerunBean,
           ],
           'oneOf': [
