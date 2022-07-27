@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/CESNET/perun.connector/compare/v3.0.0...v3.1.0) (2022-07-27)
+
+
+### Features
+
+* adaptersManager throws AdaptersManagerNotExistsException if no entity found ([a5b6d27](https://github.com/CESNET/perun.connector/commit/a5b6d2741f2eb4c070525b3038c4fc5cbb269c12))
+
 # [3.0.0](https://github.com/CESNET/perun.connector/compare/v2.1.0...v3.0.0) (2022-07-27)
 
 
