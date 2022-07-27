@@ -27,6 +27,12 @@ class AdaptersManagerException(Exception):
         super().__init__(self.message)
 
 
+class AdaptersManagerNotExistsException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
 class AdaptersManager(AdapterInterface):
     def __init__(self, config, attrs_map):
         self._logger = Logger.get_logger(self.__class__.__name__)
@@ -80,7 +86,7 @@ class AdaptersManager(AdapterInterface):
                 if (ex.body and "NotExistsException" in ex.body) or isinstance(
                     ex, NotFoundException
                 ):
-                    raise AdaptersManagerException(ex.body)
+                    raise AdaptersManagerNotExistsException(ex.body)
                 self._logger.warning(
                     f'Method "{method_name}" could not be executed '
                     f'successfully by {current_adapter["name"]}, exception '
@@ -90,7 +96,7 @@ class AdaptersManager(AdapterInterface):
                 current_priority += 1
                 current_adapter = self.adapters.get(current_priority)
             except (LDAPNotExistsException, RPCAdapterNotExistsException) as ex:
-                raise AdaptersManagerException(ex.body)
+                raise AdaptersManagerNotExistsException(ex.body)
 
         raise AdaptersManagerException(
             f'None of the provided adapters was able to resolve method "'
