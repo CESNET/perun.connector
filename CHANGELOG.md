@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/CESNET/perun.connector/compare/v2.1.0...v3.0.0) (2022-07-27)
+
+
+### Features
+
+* adaptersManagerException, regenerated open_api, fixed bugs ([115fe51](https://github.com/CESNET/perun.connector/commit/115fe517bcaa75fb31379b9176ab2d5da098ed73)), closes [#20](https://github.com/CESNET/perun.connector/issues/20)
+
+
+### BREAKING CHANGES
+
+* AdaptersManager now raises exception if requested entity is not found
+
 # [2.1.0](https://github.com/CESNET/perun.connector/compare/v2.0.1...v2.1.0) (2022-07-20)
 
 
