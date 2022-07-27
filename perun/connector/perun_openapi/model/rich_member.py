@@ -33,10 +33,12 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.attribute import Attribute
     from perun.connector.perun_openapi.model.member import Member
+    from perun.connector.perun_openapi.model.rich_member_all_of import RichMemberAllOf
     from perun.connector.perun_openapi.model.user import User
     from perun.connector.perun_openapi.model.user_ext_source import UserExtSource
     globals()['Attribute'] = Attribute
     globals()['Member'] = Member
+    globals()['RichMemberAllOf'] = RichMemberAllOf
     globals()['User'] = User
     globals()['UserExtSource'] = UserExtSource
 
@@ -100,6 +102,20 @@ class RichMember(ModelComposed):
             'bean_name': (str,),  # noqa: E501
             'user_attributes': ([Attribute], none_type,),  # noqa: E501
             'member_attributes': ([Attribute], none_type,),  # noqa: E501
+            'created_at': (str, none_type,),  # noqa: E501
+            'created_by': (str, none_type,),  # noqa: E501
+            'modified_at': (str, none_type,),  # noqa: E501
+            'modified_by': (str, none_type,),  # noqa: E501
+            'created_by_uid': (int, none_type,),  # noqa: E501
+            'modified_by_uid': (int, none_type,),  # noqa: E501
+            'user_id': (int,),  # noqa: E501
+            'vo_id': (int,),  # noqa: E501
+            'status': (str,),  # noqa: E501
+            'membership_type': (str,),  # noqa: E501
+            'source_group_id': (int, none_type,),  # noqa: E501
+            'sponsored': (bool,),  # noqa: E501
+            'group_status': (str,),  # noqa: E501
+            'group_statuses': ({str: (str,)},),  # noqa: E501
         }
 
     @cached_property
@@ -117,6 +133,20 @@ class RichMember(ModelComposed):
         'bean_name': 'beanName',  # noqa: E501
         'user_attributes': 'userAttributes',  # noqa: E501
         'member_attributes': 'memberAttributes',  # noqa: E501
+        'created_at': 'createdAt',  # noqa: E501
+        'created_by': 'createdBy',  # noqa: E501
+        'modified_at': 'modifiedAt',  # noqa: E501
+        'modified_by': 'modifiedBy',  # noqa: E501
+        'created_by_uid': 'createdByUid',  # noqa: E501
+        'modified_by_uid': 'modifiedByUid',  # noqa: E501
+        'user_id': 'userId',  # noqa: E501
+        'vo_id': 'voId',  # noqa: E501
+        'status': 'status',  # noqa: E501
+        'membership_type': 'membershipType',  # noqa: E501
+        'source_group_id': 'sourceGroupId',  # noqa: E501
+        'sponsored': 'sponsored',  # noqa: E501
+        'group_status': 'groupStatus',  # noqa: E501
+        'group_statuses': 'groupStatuses',  # noqa: E501
     }
 
     read_only_vars = {
@@ -164,6 +194,20 @@ class RichMember(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             user_attributes ([Attribute], none_type): [optional]  # noqa: E501
             member_attributes ([Attribute], none_type): [optional]  # noqa: E501
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
+            user_id (int): [optional]  # noqa: E501
+            vo_id (int): [optional]  # noqa: E501
+            status (str): [optional]  # noqa: E501
+            membership_type (str): [optional]  # noqa: E501
+            source_group_id (int, none_type): [optional]  # noqa: E501
+            sponsored (bool): [optional]  # noqa: E501
+            group_status (str): [optional]  # noqa: E501
+            group_statuses ({str: (str,)}): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -273,6 +317,20 @@ class RichMember(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             user_attributes ([Attribute], none_type): [optional]  # noqa: E501
             member_attributes ([Attribute], none_type): [optional]  # noqa: E501
+            created_at (str, none_type): [optional]  # noqa: E501
+            created_by (str, none_type): [optional]  # noqa: E501
+            modified_at (str, none_type): [optional]  # noqa: E501
+            modified_by (str, none_type): [optional]  # noqa: E501
+            created_by_uid (int, none_type): [optional]  # noqa: E501
+            modified_by_uid (int, none_type): [optional]  # noqa: E501
+            user_id (int): [optional]  # noqa: E501
+            vo_id (int): [optional]  # noqa: E501
+            status (str): [optional]  # noqa: E501
+            membership_type (str): [optional]  # noqa: E501
+            source_group_id (int, none_type): [optional]  # noqa: E501
+            sponsored (bool): [optional]  # noqa: E501
+            group_status (str): [optional]  # noqa: E501
+            group_statuses ({str: (str,)}): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -343,6 +401,7 @@ class RichMember(ModelComposed):
           ],
           'allOf': [
               Member,
+              RichMemberAllOf,
           ],
           'oneOf': [
           ],

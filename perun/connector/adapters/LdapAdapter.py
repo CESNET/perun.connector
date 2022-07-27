@@ -21,8 +21,8 @@ class AdapterSkipException(Exception):
 
 class LDAPNotExistsException(Exception):
     def __init__(self, message):
-        self.message = message
-        super().__init__(self.message)
+        self.body = message
+        super().__init__(self.body)
 
 
 class LdapAdapter(AdapterInterface):
@@ -166,6 +166,13 @@ class LdapAdapter(AdapterInterface):
         groups = []
         unique_ids = []
 
+        if not resources:
+            raise LDAPNotExistsException(
+                "Service with spEntityId: "
+                + str(facility_id)
+                + " hasn't assigned any resource."
+            )
+
         for resource in resources:
             if "assignedGroupId" in resource:
                 for group_id in resource["assignedGroupId"]:
@@ -200,6 +207,8 @@ class LdapAdapter(AdapterInterface):
         self, user: Union[User, int], perun_attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         user_id = AdapterInterface.get_object_id(user)
+        if not perun_attr_names:
+            perun_attr_names = ["urn:perun:user:attribute-def:virt:loa"]
         return self._get_attributes(
             perun_attr_names,
             "(&(objectClass=perunUser)(perunUserId=" + str(user_id) + "))",
@@ -218,10 +227,7 @@ class LdapAdapter(AdapterInterface):
             perun_attr_names, "(&(objectClass=perunVO)(perunVoId=" + str(vo_id) + "))"
         )
 
-    def get_facility_by_rp_identifier(
-        self,
-        rp_identifier: str,
-    ) -> Optional[Facility]:
+    def get_facility_by_rp_identifier(self, rp_identifier: str) -> Optional[Facility]:
         attr_name = self._attribute_utils.get_ldap_attr_names([self._RP_ID_ATTR])
         if not attr_name:
             self._logger.warning("Missing RP ID attribute ldap config")
@@ -236,11 +242,9 @@ class LdapAdapter(AdapterInterface):
             ["perunFacilityId", "cn", "description"],
         )
         if not ldap_result:
-            self._logger.warning(
-                "perun:AdapterLdap: "
+            raise LDAPNotExistsException(
                 "No facility with entityID '" + rp_identifier + "' found."
             )
-            return None
 
         return Facility(
             ldap_result["perunFacilityId"],
@@ -383,11 +387,6 @@ class LdapAdapter(AdapterInterface):
             raise ValueError("voShortName is empty")
 
         vo = self.get_vo(vo_short_name)
-        if not vo:
-            self._logger.debug("isUserInVo - No VO found, returning false")
-
-            return False
-
         return MemberStatusEnum.VALID == self.get_member_status_by_user_and_vo(user, vo)
 
     def get_resource_capabilities_by_facility(
@@ -406,6 +405,13 @@ class LdapAdapter(AdapterInterface):
             + "))",
             ["capabilities", "assignedGroupId"],
         )
+
+        if not resources:
+            raise LDAPNotExistsException(
+                "Service with spEntityId: "
+                + str(facility_id)
+                + " hasn't assigned any resource."
+            )
 
         user_groups_ids = []
         for user_group in user_groups:
@@ -443,7 +449,9 @@ class LdapAdapter(AdapterInterface):
         )
 
         if not facility_capabilities:
-            return []
+            raise LDAPNotExistsException(
+                "Facility with id: " + str(facility_id) + " not found."
+            )
 
         return facility_capabilities["capabilities"]
 
@@ -480,7 +488,6 @@ class LdapAdapter(AdapterInterface):
         ) in self._attribute_utils.get_specific_attrs_config_dict(
             perun_attr_names
         ).items():
-            print(ldap_attrs)
             attr_values_dict[internal_name] = self._resolve_attr_value(
                 ldap_attrs[0], internal_attr_cfg
             )

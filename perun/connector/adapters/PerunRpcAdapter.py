@@ -2,17 +2,10 @@ from typing import List, Union, Optional
 
 from perun.connector import perun_openapi
 from perun.connector.adapters.AdapterInterface import AdapterInterface
-from perun.connector.models.MemberStatusEnum import MemberStatusEnum
-from perun.connector.perun_openapi.api.registrar_manager_api import RegistrarManagerApi
-from perun.connector.perun_openapi.exceptions import NotFoundException
-from perun.connector.perun_openapi.model.attribute import Attribute
-from perun.connector.perun_openapi.model.input_set_facility_attributes import (
-    InputSetFacilityAttributes,
-)
-from perun.connector.utils.Logger import Logger
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
 from perun.connector.models.Member import Member
+from perun.connector.models.MemberStatusEnum import MemberStatusEnum
 from perun.connector.models.User import User
 from perun.connector.models.UserExtSource import UserExtSource
 from perun.connector.models.VO import VO
@@ -25,15 +18,28 @@ from perun.connector.perun_openapi.api.facilities_manager_api import (
 )
 from perun.connector.perun_openapi.api.groups_manager_api import GroupsManagerApi
 from perun.connector.perun_openapi.api.members_manager_api import MembersManagerApi
+from perun.connector.perun_openapi.api.registrar_manager_api import RegistrarManagerApi
 from perun.connector.perun_openapi.api.resources_manager_api import ResourcesManagerApi
 from perun.connector.perun_openapi.api.searcher_api import SearcherApi
 from perun.connector.perun_openapi.api.users_manager_api import UsersManagerApi
 from perun.connector.perun_openapi.api.vos_manager_api import VosManagerApi
+from perun.connector.perun_openapi.exceptions import ApiException
+from perun.connector.perun_openapi.model.attribute import Attribute
 from perun.connector.perun_openapi.model.input_get_facilities import InputGetFacilities
+from perun.connector.perun_openapi.model.input_set_facility_attributes import (
+    InputSetFacilityAttributes,
+)
 from perun.connector.perun_openapi.model.input_set_user_ext_source_attributes import (
     InputSetUserExtSourceAttributes,
 )
 from perun.connector.utils.AttributeUtils import AttributeUtils
+from perun.connector.utils.Logger import Logger
+
+
+class RPCAdapterNotExistsException(Exception):
+    def __init__(self, message):
+        self.body = message
+        super().__init__(self.body)
 
 
 class PerunRpcAdapter(AdapterInterface):
@@ -78,22 +84,29 @@ class PerunRpcAdapter(AdapterInterface):
         with ApiClient(self._CONFIG) as api_client:
             api_instance = UsersManagerApi(api_client)
             for uid in uids:
-                user = api_instance.get_user_by_ext_source_name_and_ext_login(
-                    ext_login=uid, ext_source_name=idp_id
-                )
-                name = ""
-                for user_attr in [
-                    "title_before",
-                    "first_name",
-                    "middle_name",
-                    "last_name",
-                    "title_after",
-                ]:
-                    if user[user_attr] is not None:
-                        name += user[user_attr] + " "
+                try:
+                    user = api_instance.get_user_by_ext_source_name_and_ext_login(
+                        ext_login=uid, ext_source_name=idp_id
+                    )
+                    name = ""
+                    for user_attr in [
+                        "title_before",
+                        "first_name",
+                        "middle_name",
+                        "last_name",
+                        "title_after",
+                    ]:
+                        if user[user_attr] is not None:
+                            name += user[user_attr] + " "
 
-                return User(user["id"], name.strip())
-            return None
+                    return User(user["id"], name.strip())
+                except ApiException as ex:
+                    if '"name":"UserExtSourceNotExistsException"' in ex.body:
+                        continue
+                    raise ex
+        raise RPCAdapterNotExistsException(
+            f"No user with uids '{str(uids)}' for idp: {idp_id} found."
+        )
 
     def _get_group_unique_name(
         self,
@@ -218,10 +231,7 @@ class PerunRpcAdapter(AdapterInterface):
             vo = vo_lookup_method(vo_lookup_attribute)
             return VO(vo.id, vo.name, vo.short_name)
 
-    def get_facility_by_rp_identifier(
-        self,
-        rp_identifier: str,
-    ) -> Optional[Facility]:
+    def get_facility_by_rp_identifier(self, rp_identifier: str) -> Optional[Facility]:
         with ApiClient(self._CONFIG) as api_client:
             facilities_api_instance = FacilitiesManagerApi(api_client)
 
@@ -230,14 +240,14 @@ class PerunRpcAdapter(AdapterInterface):
             )
 
             if not facilities:
-                self._logger.warning(f"No facility with rpID '{rp_identifier}' found.")
-                return None
+                raise RPCAdapterNotExistsException(
+                    f"No facility with rpID '{rp_identifier}' found."
+                )
 
             if len(facilities) > 1:
-                self._logger.warning(
-                    f"There is more than one facility with rpID '" f"{rp_identifier}'."
+                raise RPCAdapterNotExistsException(
+                    f"There is more than one facility with rpID '{rp_identifier}'."
                 )
-                return None
             return Facility(
                 facilities[0]["id"],
                 facilities[0]["name"],
@@ -258,8 +268,7 @@ class PerunRpcAdapter(AdapterInterface):
             facility_id = AdapterInterface.get_object_id(facility)
             user_id = AdapterInterface.get_object_id(user)
             users_groups_on_facility = users_api_instance.get_groups_for_facility_where_user_is_active(  # noqa E501
-                user_id,
-                facility_id,
+                user_id, facility_id
             )
             converted_groups = []
             self._create_internal_representation_groups(
@@ -362,8 +371,7 @@ class PerunRpcAdapter(AdapterInterface):
 
             user_ext_source_id = AdapterInterface.get_object_id(user_ext_source)
             perun_attrs = attributes_api_instance.get_user_ext_source_attributes_by_names(  # noqa E501
-                user_ext_source=user_ext_source_id,
-                attr_names=attr_names,
+                user_ext_source=user_ext_source_id, attr_names=attr_names
             )
             return self._get_attributes(perun_attrs)
 
@@ -378,7 +386,6 @@ class PerunRpcAdapter(AdapterInterface):
             attributes_api_instance = AttributesManagerApi(api_client)
             user_ext_source_id = AdapterInterface.get_object_id(user_ext_source)
             openapi_attributes = self.internal_to_open_api_attrs(attributes)
-
             attributes_api_instance.set_user_ext_source_attributes(
                 InputSetUserExtSourceAttributes(user_ext_source_id, openapi_attributes)
             )
@@ -398,6 +405,7 @@ class PerunRpcAdapter(AdapterInterface):
             openapi_attributes.append(
                 Attribute(
                     id=value["id"],
+                    bean_name="Attribute",
                     namespace=namespace,
                     friendly_name=friendly_name,
                     type=value["type"],
@@ -428,10 +436,6 @@ class PerunRpcAdapter(AdapterInterface):
             raise ValueError("VO short name is empty")
 
         vo_of_user = self.get_vo(short_name=vo_short_name)
-
-        if vo_of_user is None:
-            self._logger.debug(f'No VO with short name "{vo_short_name}" found')
-            return False
 
         user_status = self.get_member_status_by_user_and_vo(user, vo_of_user)
         valid_status = MemberStatusEnum.VALID
@@ -508,7 +512,7 @@ class PerunRpcAdapter(AdapterInterface):
 
             facility_capabilities = attributes_api_instance.get_attribute(
                 facility=facility_id,
-                attribute_name="urn:perun:facility:attribute-def:def" ":capabilities",
+                attribute_name="urn:perun:facility:attribute-def:def:capabilities",
             )["value"]
 
             return facility_capabilities
@@ -520,7 +524,7 @@ class PerunRpcAdapter(AdapterInterface):
     def get_user_attributes(
         self, user: Union[User, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
-        default_attribute_name = "perunUserAttribute_loa"
+        default_attribute_name = "urn:perun:user:attribute-def:virt:loa"
         if not attr_names:
             attr_names.append(default_attribute_name)
 
@@ -542,10 +546,8 @@ class PerunRpcAdapter(AdapterInterface):
             attributes_api_instance = AttributesManagerApi(api_client)
 
             attributes = {}
-            perun_attr_values = (
-                attributes_api_instance.get_entityless_attributes_by_name(
-                    attr_name=attr_name
-                )
+            perun_attr_values = attributes_api_instance.get_entityless_attributes_by_name(
+                attr_name=attr_name
             )
 
             attr_id = perun_attr_values[0].get("id")
@@ -620,21 +622,17 @@ class PerunRpcAdapter(AdapterInterface):
         with ApiClient(self._CONFIG) as api_client:
             group_id = self.get_object_id(group)
             registrar_api_instance = RegistrarManagerApi(api_client)
-            try:
-                registrar_api_instance.get_applications_for_group(group_id)
-                return True
-            except NotFoundException:
+            if not registrar_api_instance.get_group_application_form(group_id):
                 return False
+            return True
 
     def has_registration_form_vo(self, vo: Union[VO, int]) -> bool:
         with ApiClient(self._CONFIG) as api_client:
             vo_id = self.get_object_id(vo)
             registrar_api_instance = RegistrarManagerApi(api_client)
-            try:
-                registrar_api_instance.get_applications_for_vo(vo_id)
-                return True
-            except NotFoundException:
+            if not registrar_api_instance.get_vo_application_form(vo_id):
                 return False
+            return True
 
     def has_registration_form_by_vo_short_name(self, vo_short_name: str) -> bool:
         vo = self.get_vo(vo_short_name)

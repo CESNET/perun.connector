@@ -33,12 +33,12 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.app_state import AppState
     from perun.connector.perun_openapi.model.app_type import AppType
-    from perun.connector.perun_openapi.model.group import Group
+    from perun.connector.perun_openapi.model.application_form_group import ApplicationFormGroup
     from perun.connector.perun_openapi.model.user import User
     from perun.connector.perun_openapi.model.vo import Vo
     globals()['AppState'] = AppState
     globals()['AppType'] = AppType
-    globals()['Group'] = Group
+    globals()['ApplicationFormGroup'] = ApplicationFormGroup
     globals()['User'] = User
     globals()['Vo'] = Vo
 
@@ -98,7 +98,7 @@ class Application(ModelNormal):
         return {
             'id': (int,),  # noqa: E501
             'vo': (Vo,),  # noqa: E501
-            'group': (Group,),  # noqa: E501
+            'group': (ApplicationFormGroup,),  # noqa: E501
             'type': (AppType,),  # noqa: E501
             'fed_info': (str,),  # noqa: E501
             'state': (AppState,),  # noqa: E501
@@ -177,7 +177,7 @@ class Application(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             id (int): [optional]  # noqa: E501
             vo (Vo): [optional]  # noqa: E501
-            group (Group): [optional]  # noqa: E501
+            group (ApplicationFormGroup): [optional]  # noqa: E501
             type (AppType): [optional]  # noqa: E501
             fed_info (str): [optional]  # noqa: E501
             state (AppState): [optional]  # noqa: E501
@@ -276,7 +276,7 @@ class Application(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             id (int): [optional]  # noqa: E501
             vo (Vo): [optional]  # noqa: E501
-            group (Group): [optional]  # noqa: E501
+            group (ApplicationFormGroup): [optional]  # noqa: E501
             type (AppType): [optional]  # noqa: E501
             fed_info (str): [optional]  # noqa: E501
             state (AppState): [optional]  # noqa: E501

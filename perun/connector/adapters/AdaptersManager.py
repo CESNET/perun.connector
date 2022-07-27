@@ -3,20 +3,28 @@ from typing import List, Union, Optional
 
 from ldap3.core.exceptions import LDAPException
 
-from perun.connector.adapters.PerunRpcAdapter import PerunRpcAdapter
-from perun.connector.adapters.LdapAdapter import LdapAdapter
-from perun.connector.adapters.LdapAdapter import AdapterSkipException
-from perun.connector.perun_openapi.exceptions import NotFoundException
-from perun.connector.utils.Logger import Logger
-
 from perun.connector.adapters.AdapterInterface import AdapterInterface
+from perun.connector.adapters.LdapAdapter import AdapterSkipException
+from perun.connector.adapters.LdapAdapter import LdapAdapter, LDAPNotExistsException
+from perun.connector.adapters.PerunRpcAdapter import (
+    PerunRpcAdapter,
+    RPCAdapterNotExistsException,
+)
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
+from perun.connector.models.Member import Member
 from perun.connector.models.User import User
 from perun.connector.models.UserExtSource import UserExtSource
 from perun.connector.models.VO import VO
-from perun.connector.models.Member import Member
 from perun.connector.perun_openapi import ApiException
+from perun.connector.perun_openapi.exceptions import NotFoundException
+from perun.connector.utils.Logger import Logger
+
+
+class AdaptersManagerException(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
 
 
 class AdaptersManager(AdapterInterface):
@@ -68,13 +76,11 @@ class AdaptersManager(AdapterInterface):
                 )
                 current_priority += 1
                 current_adapter = self.adapters.get(current_priority)
-            except NotFoundException as ex:
-                self._logger.warning(
-                    f'Method "{method_name}"Requested entity doesn\'t exist in Perun. '
-                    f'NotFoundException: "{str(ex.body)}"'
-                )
-                return None
-            except ApiException or LDAPException as ex:
+            except (ApiException, LDAPException) as ex:
+                if (ex.body and "NotExistsException" in ex.body) or isinstance(
+                    ex, NotFoundException
+                ):
+                    raise AdaptersManagerException(ex.body)
                 self._logger.warning(
                     f'Method "{method_name}" could not be executed '
                     f'successfully by {current_adapter["name"]}, exception '
@@ -83,15 +89,10 @@ class AdaptersManager(AdapterInterface):
                 )
                 current_priority += 1
                 current_adapter = self.adapters.get(current_priority)
-            except Exception as ex:
-                self._logger.warning(
-                    f'Method "{method_name}" could not be executed '
-                    f'successfully by {current_adapter["name"]}, exception '
-                    f'occurred: "{ex}"'
-                )
-                raise
+            except (LDAPNotExistsException, RPCAdapterNotExistsException) as ex:
+                raise AdaptersManagerException(ex.body)
 
-        raise Exception(
+        raise AdaptersManagerException(
             f'None of the provided adapters was able to resolve method "'
             f'{method_name}"'
         )
@@ -181,7 +182,7 @@ class AdaptersManager(AdapterInterface):
         self, user_ext_source: Union[int, UserExtSource], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         return self._execute_method_by_priority(
-            self._get_caller_name(), user_ext_source
+            self._get_caller_name(), user_ext_source, attr_names
         )
 
     def set_user_ext_source_attributes(
@@ -192,7 +193,7 @@ class AdaptersManager(AdapterInterface):
         ],
     ) -> None:
         return self._execute_method_by_priority(
-            self._get_caller_name(), user_ext_source
+            self._get_caller_name(), user_ext_source, attributes
         )
 
     def get_member_status_by_user_and_vo(

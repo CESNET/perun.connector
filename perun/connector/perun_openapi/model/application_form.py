@@ -31,9 +31,9 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from perun.connector.perun_openapi.model.group import Group
+    from perun.connector.perun_openapi.model.application_form_group import ApplicationFormGroup
     from perun.connector.perun_openapi.model.vo import Vo
-    globals()['Group'] = Group
+    globals()['ApplicationFormGroup'] = ApplicationFormGroup
     globals()['Vo'] = Vo
 
 
@@ -92,7 +92,7 @@ class ApplicationForm(ModelNormal):
         return {
             'id': (int,),  # noqa: E501
             'vo': (Vo,),  # noqa: E501
-            'group': (Group,),  # noqa: E501
+            'group': (ApplicationFormGroup,),  # noqa: E501
             'automatic_approval': (bool,),  # noqa: E501
             'automatic_approval_extension': (bool,),  # noqa: E501
             'automatic_approval_embedded': (bool,),  # noqa: E501
@@ -157,7 +157,7 @@ class ApplicationForm(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             id (int): [optional]  # noqa: E501
             vo (Vo): [optional]  # noqa: E501
-            group (Group): [optional]  # noqa: E501
+            group (ApplicationFormGroup): [optional]  # noqa: E501
             automatic_approval (bool): [optional]  # noqa: E501
             automatic_approval_extension (bool): [optional]  # noqa: E501
             automatic_approval_embedded (bool): [optional]  # noqa: E501
@@ -249,7 +249,7 @@ class ApplicationForm(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             id (int): [optional]  # noqa: E501
             vo (Vo): [optional]  # noqa: E501
-            group (Group): [optional]  # noqa: E501
+            group (ApplicationFormGroup): [optional]  # noqa: E501
             automatic_approval (bool): [optional]  # noqa: E501
             automatic_approval_extension (bool): [optional]  # noqa: E501
             automatic_approval_embedded (bool): [optional]  # noqa: E501

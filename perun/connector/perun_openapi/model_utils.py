@@ -647,12 +647,10 @@ class ModelComposed(OpenApiModel):
         # The value stored in all model instances must be the same
         if model_instances:
             for model_instance in model_instances:
-                from perun.connector import perun_openapi
-                if not isinstance(model_instance, perun_openapi.model.auditable.Auditable):
-                    if name in model_instance._data_store:
-                        v = model_instance._data_store[name]
-                        if v not in values:
-                            values.append(v)
+                if name in model_instance._data_store:
+                    v = model_instance._data_store[name]
+                    if v not in values:
+                        values.append(v)
         len_values = len(values)
         if len_values == 0:
             return default
