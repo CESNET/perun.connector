@@ -1,5 +1,6 @@
 from typing import List, Union, Optional
 
+from perun.connector.models.Resource import Resource
 from perun.connector.models.Member import Member
 from perun.connector.connectors.LdapConnector import LdapConnector
 from perun.connector.models.Facility import Facility
@@ -120,7 +121,7 @@ class LdapAdapter(AdapterInterface):
         return VO(vo_id or int(vo["perunVoId"]), vo["description"][0], vo["o"][0])
 
     def get_member_groups(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> List[Group]:
         user_id = AdapterInterface.get_object_id(user)
         vo_id = AdapterInterface.get_object_id(vo)
@@ -204,7 +205,7 @@ class LdapAdapter(AdapterInterface):
         return self.get_sp_groups_by_facility(facility)
 
     def get_user_attributes(
-        self, user: Union[User, int], perun_attr_names: List[str]
+            self, user: Union[User, int], perun_attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         user_id = AdapterInterface.get_object_id(user)
         if not perun_attr_names:
@@ -215,12 +216,12 @@ class LdapAdapter(AdapterInterface):
         )
 
     def get_entityless_attribute(
-        self, attr_name: str
+            self, attr_name: str
     ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
         raise AdapterSkipException()
 
     def get_vo_attributes(
-        self, vo: Union[VO, int], perun_attr_names: List[str]
+            self, vo: Union[VO, int], perun_attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         vo_id = AdapterInterface.get_object_id(vo)
         return self._get_attributes(
@@ -254,7 +255,7 @@ class LdapAdapter(AdapterInterface):
         )
 
     def get_users_groups_on_facility(
-        self, facility: Union[Facility, int], user: Union[User, int]
+            self, facility: Union[Facility, int], user: Union[User, int]
     ) -> List[Group]:
 
         if not facility:
@@ -281,7 +282,7 @@ class LdapAdapter(AdapterInterface):
         resources_string = "(|"
         for resource in resources:
             resources_string += (
-                "(assignedToResourceId=" + resource["perunResourceId"] + ")"
+                    "(assignedToResourceId=" + resource["perunResourceId"] + ")"
             )
         resources_string += ")"
         result_groups = []
@@ -314,7 +315,7 @@ class LdapAdapter(AdapterInterface):
         return result_groups
 
     def get_users_groups_on_facility_by_rp_id(
-        self, rp_identifier: str, user: Union[User, int]
+            self, rp_identifier: str, user: Union[User, int]
     ):
         facility = self.get_facility_by_rp_identifier(rp_identifier)
         return self.get_users_groups_on_facility(facility, user)
@@ -323,7 +324,7 @@ class LdapAdapter(AdapterInterface):
         raise AdapterSkipException()
 
     def get_facility_attributes(
-        self, facility: Union[Facility, int], perun_attr_names: List[str]
+            self, facility: Union[Facility, int], perun_attr_names: List[str]
     ):
         facility_id = AdapterInterface.get_object_id(facility)
         return self._get_attributes(
@@ -335,26 +336,26 @@ class LdapAdapter(AdapterInterface):
         raise AdapterSkipException()
 
     def update_user_ext_source_last_access(
-        self, user_ext_source: Union[UserExtSource, int]
+            self, user_ext_source: Union[UserExtSource, int]
     ):
         raise AdapterSkipException()
 
     def get_user_ext_source_attributes(
-        self, user_ext_source: Union[UserExtSource, int], attr_names: List[str]
+            self, user_ext_source: Union[UserExtSource, int], attr_names: List[str]
     ):
         raise AdapterSkipException()
 
     def set_user_ext_source_attributes(
-        self,
-        user_ext_source: Union[UserExtSource, int],
-        attributes: dict[
-            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
-        ],
+            self,
+            user_ext_source: Union[UserExtSource, int],
+            attributes: dict[
+                str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+            ],
     ):
         raise AdapterSkipException()
 
     def get_member_status_by_user_and_vo(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ):
         user_id = AdapterInterface.get_object_id(user)
         vo_id = AdapterInterface.get_object_id(vo)
@@ -378,7 +379,7 @@ class LdapAdapter(AdapterInterface):
         return MemberStatusEnum.VALID
 
     def is_user_in_vo_by_short_name(
-        self, user: Union[User, int], vo_short_name: str
+            self, user: Union[User, int], vo_short_name: str
     ) -> bool:
         user_id = AdapterInterface.get_object_id(user)
         if not user_id:
@@ -390,7 +391,7 @@ class LdapAdapter(AdapterInterface):
         return MemberStatusEnum.VALID == self.get_member_status_by_user_and_vo(user, vo)
 
     def get_resource_capabilities_by_facility(
-        self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
+            self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
     ) -> List[str]:
         if not facility:
             return []
@@ -431,13 +432,13 @@ class LdapAdapter(AdapterInterface):
         return resource_capabilities
 
     def get_resource_capabilities_by_rp_id(
-        self, rp_identifier: str, user_groups: List[Union[Group, int]]
+            self, rp_identifier: str, user_groups: List[Union[Group, int]]
     ) -> List[str]:
         facility = self.get_facility_by_rp_identifier(rp_identifier)
         return self.get_resource_capabilities_by_facility(facility, user_groups)
 
     def get_facility_capabilities_by_facility(
-        self, facility: Union[Facility, int]
+            self, facility: Union[Facility, int]
     ) -> List[str]:
         if facility is None:
             return []
@@ -483,8 +484,8 @@ class LdapAdapter(AdapterInterface):
             return attr_values_dict
 
         for (
-            internal_name,
-            internal_attr_cfg,
+                internal_name,
+                internal_attr_cfg,
         ) in self._attribute_utils.get_specific_attrs_config_dict(
             perun_attr_names
         ).items():
@@ -533,12 +534,12 @@ class LdapAdapter(AdapterInterface):
         return ldap_attr_names
 
     def get_groups_where_member_is_active(
-        self, member: Union[Member, int]
+            self, member: Union[Member, int]
     ) -> List[Group]:
         raise AdapterSkipException()
 
     def get_groups_where_user_as_member_is_active(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> List[Group]:
         raise AdapterSkipException()
 
@@ -555,11 +556,11 @@ class LdapAdapter(AdapterInterface):
         raise AdapterSkipException()
 
     def set_facility_attributes(
-        self,
-        facility: Union[Facility, int],
-        attributes: dict[
-            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
-        ],
+            self,
+            facility: Union[Facility, int],
+            attributes: dict[
+                str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+            ],
     ) -> None:
         raise AdapterSkipException()
 
@@ -567,6 +568,47 @@ class LdapAdapter(AdapterInterface):
         raise AdapterSkipException()
 
     def get_member_by_user(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> Optional[Member]:
         raise AdapterSkipException()
+
+    def is_user_perun_admin(self, user: Union[User, int]) -> bool:
+        raise AdapterSkipException()
+
+    def get_vos_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[VO]:
+        raise AdapterSkipException
+
+    def get_groups_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False,
+                                       fill_group_unique_name=False) -> List[Group]:
+        raise AdapterSkipException
+
+    def get_facilities_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[Facility]:
+        raise AdapterSkipException
+
+    def get_resources_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[Resource]:
+        raise AdapterSkipException
+
+    def get_all_vos(self) -> List[VO]:
+        vos = self.connector.search_for_entities(
+            self._ldap_base,
+            "(objectClass=perunVo)",
+            ["perunVoId", "o", "description"],
+        )
+        return [VO(int(vo["perunVoId"]), vo["description"][0], vo["o"][0]) for vo in vos]
+
+    def get_all_facilities(self, fill_rp_ids=False) -> List[Facility]:
+        attr_list = ["perunFacilityId", "cn", "description"]
+        if fill_rp_ids:
+            attr_list.append(self._RP_ID_ATTR)
+        facilities = self.connector.search_for_entities(
+            self._ldap_base,
+            "(objectClass=perunFacility)",
+            attr_list,
+        )
+
+        return [Facility(
+            facility["perunFacilityId"],
+            facility["cn"][0],
+            facility["description"][0],
+            facility[self._RP_ID_ATTR] if fill_rp_ids else ""
+        ) for facility in facilities]

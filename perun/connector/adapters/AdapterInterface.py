@@ -1,7 +1,7 @@
 import abc
 from typing import List, Union, Optional
 
-from perun.connector import Resource
+from perun.connector.models.Resource import Resource
 from perun.connector.models.Member import Member
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
@@ -81,6 +81,20 @@ class AdapterInterface(metaclass=abc.ABCMeta):
             and callable(subclass.get_attributes_definition)
             and hasattr(subclass, "get_member_by_user")
             and callable(subclass.get_member_by_user)
+            and hasattr(subclass, "is_user_perun_admin")
+            and callable(subclass.is_user_perun_admin)
+            and hasattr(subclass, "get_vos_where_user_is_admin")
+            and callable(subclass.get_vos_where_user_is_admin)
+            and hasattr(subclass, "get_groups_where_user_is_admin")
+            and callable(subclass.get_groups_where_user_is_admin)
+            and hasattr(subclass, "get_facilities_where_user_is_admin")
+            and callable(subclass.get_facilities_where_user_is_admin)
+            and hasattr(subclass, "get_resources_where_user_is_admin")
+            and callable(subclass.get_resources_where_user_is_admin)
+            and hasattr(subclass, "get_all_vos")
+            and callable(subclass.get_all_vos)
+            and hasattr(subclass, "get_all_facilities")
+            and callable(subclass.get_all_facilities)
             or NotImplemented
         )
 
@@ -293,23 +307,34 @@ class AdapterInterface(metaclass=abc.ABCMeta):
     ) -> Optional[Member]:
         raise NotImplementedError
 
-    '''
     @abc.abstractmethod
-    def get_vos_where_user_is_admin(self, user: Union[User, int]) -> List[VO]:
+    def is_user_perun_admin(self, user: Union[User, int]) -> bool:
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_resources_where_user_is_admin(self, user: Union[User, int]) -> List[Resource]:
+    def get_vos_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[VO]:
         raise NotImplementedError
-    
+
     @abc.abstractmethod
-    def get_facilities_where_user_is_admin(self, user: Union[User, int]) -> List[Facility]:
+    def get_groups_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False,
+                                       fill_group_unique_name=False) -> List[Group]:
         raise NotImplementedError
-    
+
     @abc.abstractmethod
-    def get_groups_where_user_is_admin(self, user: Union[User, int]) -> List[Group]:
+    def get_facilities_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[Facility]:
         raise NotImplementedError
-        '''
+
+    @abc.abstractmethod
+    def get_resources_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[Resource]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_all_vos(self) -> List[VO]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_all_facilities(self, fill_rp_ids=False) -> List[Facility]:
+        raise NotImplementedError
 
     @staticmethod
     def get_object_id(object_or_id: Union[HasIdAbstract, int]) -> int:
