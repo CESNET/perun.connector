@@ -1,6 +1,7 @@
 import abc
 from typing import List, Union, Optional
 
+from perun.connector import Resource
 from perun.connector.models.Member import Member
 from perun.connector.models.Facility import Facility
 from perun.connector.models.Group import Group
@@ -291,6 +292,24 @@ class AdapterInterface(metaclass=abc.ABCMeta):
         self, user: Union[User, int], vo: Union[VO, int]
     ) -> Optional[Member]:
         raise NotImplementedError
+
+    '''
+    @abc.abstractmethod
+    def get_vos_where_user_is_admin(self, user: Union[User, int]) -> List[VO]:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_resources_where_user_is_admin(self, user: Union[User, int]) -> List[Resource]:
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_facilities_where_user_is_admin(self, user: Union[User, int]) -> List[Facility]:
+        raise NotImplementedError
+    
+    @abc.abstractmethod
+    def get_groups_where_user_is_admin(self, user: Union[User, int]) -> List[Group]:
+        raise NotImplementedError
+        '''
 
     @staticmethod
     def get_object_id(object_or_id: Union[HasIdAbstract, int]) -> int:

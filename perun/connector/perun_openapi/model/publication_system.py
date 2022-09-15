@@ -32,9 +32,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.perun_bean import PerunBean
-    from perun.connector.perun_openapi.model.publication_system_all_of import PublicationSystemAllOf
     globals()['PerunBean'] = PerunBean
-    globals()['PublicationSystemAllOf'] = PublicationSystemAllOf
 
 
 class PublicationSystem(ModelComposed):
@@ -347,7 +345,6 @@ class PublicationSystem(ModelComposed):
           ],
           'allOf': [
               PerunBean,
-              PublicationSystemAllOf,
           ],
           'oneOf': [
           ],

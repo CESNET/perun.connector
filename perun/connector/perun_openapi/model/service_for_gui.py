@@ -32,9 +32,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.service import Service
-    from perun.connector.perun_openapi.model.service_for_gui_all_of import ServiceForGUIAllOf
     globals()['Service'] = Service
-    globals()['ServiceForGUIAllOf'] = ServiceForGUIAllOf
 
 
 class ServiceForGUI(ModelComposed):
@@ -93,19 +91,6 @@ class ServiceForGUI(ModelComposed):
             'id': (int,),  # noqa: E501
             'bean_name': (str,),  # noqa: E501
             'allowed_on_facility': (bool,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
-            'name': (str,),  # noqa: E501
-            'description': (str,),  # noqa: E501
-            'delay': (int,),  # noqa: E501
-            'recurrence': (int,),  # noqa: E501
-            'enabled': (bool,),  # noqa: E501
-            'script': (str,),  # noqa: E501
-            'use_expired_members': (bool,),  # noqa: E501
         }
 
     @cached_property
@@ -120,19 +105,6 @@ class ServiceForGUI(ModelComposed):
         'id': 'id',  # noqa: E501
         'bean_name': 'beanName',  # noqa: E501
         'allowed_on_facility': 'allowedOnFacility',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
-        'name': 'name',  # noqa: E501
-        'description': 'description',  # noqa: E501
-        'delay': 'delay',  # noqa: E501
-        'recurrence': 'recurrence',  # noqa: E501
-        'enabled': 'enabled',  # noqa: E501
-        'script': 'script',  # noqa: E501
-        'use_expired_members': 'useExpiredMembers',  # noqa: E501
     }
 
     read_only_vars = {
@@ -177,19 +149,6 @@ class ServiceForGUI(ModelComposed):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             allowed_on_facility (bool): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            name (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
-            delay (int): [optional]  # noqa: E501
-            recurrence (int): [optional]  # noqa: E501
-            enabled (bool): [optional]  # noqa: E501
-            script (str): [optional]  # noqa: E501
-            use_expired_members (bool): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -296,19 +255,6 @@ class ServiceForGUI(ModelComposed):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             allowed_on_facility (bool): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            name (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
-            delay (int): [optional]  # noqa: E501
-            recurrence (int): [optional]  # noqa: E501
-            enabled (bool): [optional]  # noqa: E501
-            script (str): [optional]  # noqa: E501
-            use_expired_members (bool): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -379,7 +325,6 @@ class ServiceForGUI(ModelComposed):
           ],
           'allOf': [
               Service,
-              ServiceForGUIAllOf,
           ],
           'oneOf': [
           ],

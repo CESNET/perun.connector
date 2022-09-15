@@ -32,9 +32,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.auditable import Auditable
-    from perun.connector.perun_openapi.model.vo_all_of import VoAllOf
     globals()['Auditable'] = Auditable
-    globals()['VoAllOf'] = VoAllOf
 
 
 class Vo(ModelComposed):
@@ -94,12 +92,6 @@ class Vo(ModelComposed):
             'bean_name': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'short_name': (str,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -115,12 +107,6 @@ class Vo(ModelComposed):
         'bean_name': 'beanName',  # noqa: E501
         'name': 'name',  # noqa: E501
         'short_name': 'shortName',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -166,12 +152,6 @@ class Vo(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             name (str): [optional]  # noqa: E501
             short_name (str): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -279,12 +259,6 @@ class Vo(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             name (str): [optional]  # noqa: E501
             short_name (str): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -355,7 +329,6 @@ class Vo(ModelComposed):
           ],
           'allOf': [
               Auditable,
-              VoAllOf,
           ],
           'oneOf': [
           ],
