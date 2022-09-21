@@ -1,3 +1,11 @@
+# [3.2.0](https://github.com/CESNET/perun.connector/compare/v3.1.0...v3.2.0) (2022-09-21)
+
+
+### Features
+
+* get entities (vo, facility, resource, group) where user is admin ([92064e9](https://github.com/CESNET/perun.connector/commit/92064e9537da882c946d75698e16453ddb2331d2))
+* openapi regenerated ([1be38ce](https://github.com/CESNET/perun.connector/commit/1be38cee5b4875d1fc35a99a9c754790cb16f738))
+
 # [3.1.0](https://github.com/CESNET/perun.connector/compare/v3.0.0...v3.1.0) (2022-07-27)
 
 
