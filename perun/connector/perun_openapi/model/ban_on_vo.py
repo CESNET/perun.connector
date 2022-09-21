@@ -32,9 +32,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.ban import Ban
-    from perun.connector.perun_openapi.model.ban_on_vo_all_of import BanOnVoAllOf
     globals()['Ban'] = Ban
-    globals()['BanOnVoAllOf'] = BanOnVoAllOf
 
 
 class BanOnVo(ModelComposed):
@@ -94,14 +92,6 @@ class BanOnVo(ModelComposed):
             'bean_name': (str,),  # noqa: E501
             'member_id': (int,),  # noqa: E501
             'vo_id': (int,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
-            'validity_to': (str,),  # noqa: E501
-            'description': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -117,14 +107,6 @@ class BanOnVo(ModelComposed):
         'bean_name': 'beanName',  # noqa: E501
         'member_id': 'memberId',  # noqa: E501
         'vo_id': 'voId',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
-        'validity_to': 'validityTo',  # noqa: E501
-        'description': 'description',  # noqa: E501
     }
 
     read_only_vars = {
@@ -170,14 +152,6 @@ class BanOnVo(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             member_id (int): [optional]  # noqa: E501
             vo_id (int): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            validity_to (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -285,14 +259,6 @@ class BanOnVo(ModelComposed):
                                 _visited_composed_classes = (Animal,)
             member_id (int): [optional]  # noqa: E501
             vo_id (int): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            validity_to (str): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -363,7 +329,6 @@ class BanOnVo(ModelComposed):
           ],
           'allOf': [
               Ban,
-              BanOnVoAllOf,
           ],
           'oneOf': [
           ],

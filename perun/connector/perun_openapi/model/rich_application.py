@@ -36,7 +36,6 @@ def lazy_import():
     from perun.connector.perun_openapi.model.application import Application
     from perun.connector.perun_openapi.model.application_form_group import ApplicationFormGroup
     from perun.connector.perun_openapi.model.application_form_item_data import ApplicationFormItemData
-    from perun.connector.perun_openapi.model.rich_application_all_of import RichApplicationAllOf
     from perun.connector.perun_openapi.model.user import User
     from perun.connector.perun_openapi.model.vo import Vo
     globals()['AppState'] = AppState
@@ -44,7 +43,6 @@ def lazy_import():
     globals()['Application'] = Application
     globals()['ApplicationFormGroup'] = ApplicationFormGroup
     globals()['ApplicationFormItemData'] = ApplicationFormItemData
-    globals()['RichApplicationAllOf'] = RichApplicationAllOf
     globals()['User'] = User
     globals()['Vo'] = Vo
 
@@ -387,7 +385,6 @@ class RichApplication(ModelComposed):
           ],
           'allOf': [
               Application,
-              RichApplicationAllOf,
           ],
           'oneOf': [
           ],

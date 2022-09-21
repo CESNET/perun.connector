@@ -34,12 +34,10 @@ def lazy_import():
     from perun.connector.perun_openapi.model.destination import Destination
     from perun.connector.perun_openapi.model.perun_bean import PerunBean
     from perun.connector.perun_openapi.model.service import Service
-    from perun.connector.perun_openapi.model.task_result_all_of import TaskResultAllOf
     from perun.connector.perun_openapi.model.task_result_status import TaskResultStatus
     globals()['Destination'] = Destination
     globals()['PerunBean'] = PerunBean
     globals()['Service'] = Service
-    globals()['TaskResultAllOf'] = TaskResultAllOf
     globals()['TaskResultStatus'] = TaskResultStatus
 
 
@@ -365,7 +363,6 @@ class TaskResult(ModelComposed):
           ],
           'allOf': [
               PerunBean,
-              TaskResultAllOf,
           ],
           'oneOf': [
           ],

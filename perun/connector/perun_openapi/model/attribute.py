@@ -31,9 +31,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from perun.connector.perun_openapi.model.attribute_all_of import AttributeAllOf
     from perun.connector.perun_openapi.model.attribute_definition import AttributeDefinition
-    globals()['AttributeAllOf'] = AttributeAllOf
     globals()['AttributeDefinition'] = AttributeDefinition
 
 
@@ -97,22 +95,6 @@ class Attribute(ModelComposed):
             'value_modified_at': (str, none_type,),  # noqa: E501
             'value_modified_by': (str, none_type,),  # noqa: E501
             'value': (bool, date, datetime, dict, float, int, list, str, none_type,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
-            'friendly_name': (str,),  # noqa: E501
-            'namespace': (str,),  # noqa: E501
-            'description': (str, none_type,),  # noqa: E501
-            'type': (str,),  # noqa: E501
-            'display_name': (str,),  # noqa: E501
-            'writable': (bool,),  # noqa: E501
-            'unique': (bool,),  # noqa: E501
-            'friendly_name_parameter': (str,),  # noqa: E501
-            'base_friendly_name': (str,),  # noqa: E501
-            'entity': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -131,28 +113,9 @@ class Attribute(ModelComposed):
         'value_modified_at': 'valueModifiedAt',  # noqa: E501
         'value_modified_by': 'valueModifiedBy',  # noqa: E501
         'value': 'value',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
-        'friendly_name': 'friendlyName',  # noqa: E501
-        'namespace': 'namespace',  # noqa: E501
-        'description': 'description',  # noqa: E501
-        'type': 'type',  # noqa: E501
-        'display_name': 'displayName',  # noqa: E501
-        'writable': 'writable',  # noqa: E501
-        'unique': 'unique',  # noqa: E501
-        'friendly_name_parameter': 'friendlyNameParameter',  # noqa: E501
-        'base_friendly_name': 'baseFriendlyName',  # noqa: E501
-        'entity': 'entity',  # noqa: E501
     }
 
     read_only_vars = {
-        'friendly_name_parameter',  # noqa: E501
-        'base_friendly_name',  # noqa: E501
-        'entity',  # noqa: E501
     }
 
     @classmethod
@@ -198,22 +161,6 @@ class Attribute(ModelComposed):
             value_modified_at (str, none_type): [optional]  # noqa: E501
             value_modified_by (str, none_type): [optional]  # noqa: E501
             value (bool, date, datetime, dict, float, int, list, str, none_type): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            friendly_name (str): [optional]  # noqa: E501
-            namespace (str): [optional]  # noqa: E501
-            description (str, none_type): [optional]  # noqa: E501
-            type (str): [optional]  # noqa: E501
-            display_name (str): [optional]  # noqa: E501
-            writable (bool): [optional]  # noqa: E501
-            unique (bool): [optional]  # noqa: E501
-            friendly_name_parameter (str): [optional]  # noqa: E501
-            base_friendly_name (str): [optional]  # noqa: E501
-            entity (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -324,22 +271,6 @@ class Attribute(ModelComposed):
             value_modified_at (str, none_type): [optional]  # noqa: E501
             value_modified_by (str, none_type): [optional]  # noqa: E501
             value (bool, date, datetime, dict, float, int, list, str, none_type): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
-            friendly_name (str): [optional]  # noqa: E501
-            namespace (str): [optional]  # noqa: E501
-            description (str, none_type): [optional]  # noqa: E501
-            type (str): [optional]  # noqa: E501
-            display_name (str): [optional]  # noqa: E501
-            writable (bool): [optional]  # noqa: E501
-            unique (bool): [optional]  # noqa: E501
-            friendly_name_parameter (str): [optional]  # noqa: E501
-            base_friendly_name (str): [optional]  # noqa: E501
-            entity (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -409,7 +340,6 @@ class Attribute(ModelComposed):
           'anyOf': [
           ],
           'allOf': [
-              AttributeAllOf,
               AttributeDefinition,
           ],
           'oneOf': [

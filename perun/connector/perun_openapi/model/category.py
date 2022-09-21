@@ -31,9 +31,7 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from perun.connector.perun_openapi.model.category_all_of import CategoryAllOf
     from perun.connector.perun_openapi.model.perun_bean import PerunBean
-    globals()['CategoryAllOf'] = CategoryAllOf
     globals()['PerunBean'] = PerunBean
 
 
@@ -330,7 +328,6 @@ class Category(ModelComposed):
           'anyOf': [
           ],
           'allOf': [
-              CategoryAllOf,
               PerunBean,
           ],
           'oneOf': [

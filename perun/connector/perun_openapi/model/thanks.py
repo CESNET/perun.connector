@@ -32,10 +32,8 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.perun_bean import PerunBean
-    from perun.connector.perun_openapi.model.thanks_all_of import ThanksAllOf
     from perun.connector.perun_openapi.model.thanks_for_gui import ThanksForGUI
     globals()['PerunBean'] = PerunBean
-    globals()['ThanksAllOf'] = ThanksAllOf
     globals()['ThanksForGUI'] = ThanksForGUI
 
 
@@ -347,7 +345,6 @@ class Thanks(ModelComposed):
           ],
           'allOf': [
               PerunBean,
-              ThanksAllOf,
           ],
           'oneOf': [
           ],

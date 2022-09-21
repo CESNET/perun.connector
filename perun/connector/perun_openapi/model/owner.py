@@ -32,10 +32,8 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 
 def lazy_import():
     from perun.connector.perun_openapi.model.auditable import Auditable
-    from perun.connector.perun_openapi.model.owner_all_of import OwnerAllOf
     from perun.connector.perun_openapi.model.owner_type import OwnerType
     globals()['Auditable'] = Auditable
-    globals()['OwnerAllOf'] = OwnerAllOf
     globals()['OwnerType'] = OwnerType
 
 
@@ -97,12 +95,6 @@ class Owner(ModelComposed):
             'name': (str,),  # noqa: E501
             'contact': (str,),  # noqa: E501
             'type': (OwnerType,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -119,12 +111,6 @@ class Owner(ModelComposed):
         'name': 'name',  # noqa: E501
         'contact': 'contact',  # noqa: E501
         'type': 'type',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -171,12 +157,6 @@ class Owner(ModelComposed):
             name (str): [optional]  # noqa: E501
             contact (str): [optional]  # noqa: E501
             type (OwnerType): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -285,12 +265,6 @@ class Owner(ModelComposed):
             name (str): [optional]  # noqa: E501
             contact (str): [optional]  # noqa: E501
             type (OwnerType): [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -361,7 +335,6 @@ class Owner(ModelComposed):
           ],
           'allOf': [
               Auditable,
-              OwnerAllOf,
           ],
           'oneOf': [
           ],

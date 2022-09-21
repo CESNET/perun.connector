@@ -33,10 +33,8 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.auditable import Auditable
     from perun.connector.perun_openapi.model.ext_source import ExtSource
-    from perun.connector.perun_openapi.model.user_ext_source_all_of import UserExtSourceAllOf
     globals()['Auditable'] = Auditable
     globals()['ExtSource'] = ExtSource
-    globals()['UserExtSourceAllOf'] = UserExtSourceAllOf
 
 
 class UserExtSource(ModelComposed):
@@ -100,12 +98,6 @@ class UserExtSource(ModelComposed):
             'loa': (int,),  # noqa: E501
             'persistent': (bool,),  # noqa: E501
             'last_access': (str,),  # noqa: E501
-            'created_at': (str, none_type,),  # noqa: E501
-            'created_by': (str, none_type,),  # noqa: E501
-            'modified_at': (str, none_type,),  # noqa: E501
-            'modified_by': (str, none_type,),  # noqa: E501
-            'created_by_uid': (int, none_type,),  # noqa: E501
-            'modified_by_uid': (int, none_type,),  # noqa: E501
         }
 
     @cached_property
@@ -125,12 +117,6 @@ class UserExtSource(ModelComposed):
         'loa': 'loa',  # noqa: E501
         'persistent': 'persistent',  # noqa: E501
         'last_access': 'lastAccess',  # noqa: E501
-        'created_at': 'createdAt',  # noqa: E501
-        'created_by': 'createdBy',  # noqa: E501
-        'modified_at': 'modifiedAt',  # noqa: E501
-        'modified_by': 'modifiedBy',  # noqa: E501
-        'created_by_uid': 'createdByUid',  # noqa: E501
-        'modified_by_uid': 'modifiedByUid',  # noqa: E501
     }
 
     read_only_vars = {
@@ -180,12 +166,6 @@ class UserExtSource(ModelComposed):
             loa (int): [optional]  # noqa: E501
             persistent (bool): [optional]  # noqa: E501
             last_access (str): SQL timestamp. [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -297,12 +277,6 @@ class UserExtSource(ModelComposed):
             loa (int): [optional]  # noqa: E501
             persistent (bool): [optional]  # noqa: E501
             last_access (str): SQL timestamp. [optional]  # noqa: E501
-            created_at (str, none_type): [optional]  # noqa: E501
-            created_by (str, none_type): [optional]  # noqa: E501
-            modified_at (str, none_type): [optional]  # noqa: E501
-            modified_by (str, none_type): [optional]  # noqa: E501
-            created_by_uid (int, none_type): [optional]  # noqa: E501
-            modified_by_uid (int, none_type): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -373,7 +347,6 @@ class UserExtSource(ModelComposed):
           ],
           'allOf': [
               Auditable,
-              UserExtSourceAllOf,
           ],
           'oneOf': [
           ],

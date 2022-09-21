@@ -33,7 +33,6 @@ from perun.connector.perun_openapi.exceptions import ApiAttributeError
 def lazy_import():
     from perun.connector.perun_openapi.model.attribute import Attribute
     from perun.connector.perun_openapi.model.attribute_definition import AttributeDefinition
-    from perun.connector.perun_openapi.model.auditable_all_of import AuditableAllOf
     from perun.connector.perun_openapi.model.ban import Ban
     from perun.connector.perun_openapi.model.ban_on_facility import BanOnFacility
     from perun.connector.perun_openapi.model.ban_on_resource import BanOnResource
@@ -66,7 +65,6 @@ def lazy_import():
     from perun.connector.perun_openapi.model.vo import Vo
     globals()['Attribute'] = Attribute
     globals()['AttributeDefinition'] = AttributeDefinition
-    globals()['AuditableAllOf'] = AuditableAllOf
     globals()['Ban'] = Ban
     globals()['BanOnFacility'] = BanOnFacility
     globals()['BanOnResource'] = BanOnResource
@@ -440,7 +438,6 @@ class Auditable(ModelComposed):
           'anyOf': [
           ],
           'allOf': [
-              AuditableAllOf,
               PerunBean,
           ],
           'oneOf': [

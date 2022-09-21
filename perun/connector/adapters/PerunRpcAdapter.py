@@ -1,5 +1,7 @@
 from typing import List, Union, Optional
 
+from perun.connector.models.Resource import Resource
+
 from perun.connector import perun_openapi
 from perun.connector.adapters.AdapterInterface import AdapterInterface
 from perun.connector.models.Facility import Facility
@@ -13,6 +15,7 @@ from perun.connector.perun_openapi import ApiClient, Configuration
 from perun.connector.perun_openapi.api.attributes_manager_api import (
     AttributesManagerApi,
 )
+from perun.connector.perun_openapi.api.authz_resolver_api import AuthzResolverApi
 from perun.connector.perun_openapi.api.facilities_manager_api import (
     FacilitiesManagerApi,
 )
@@ -109,10 +112,10 @@ class PerunRpcAdapter(AdapterInterface):
         )
 
     def _get_group_unique_name(
-        self,
-        attributes_api_instance: AttributesManagerApi,
-        group_name: str,
-        group_id: int,
+            self,
+            attributes_api_instance: AttributesManagerApi,
+            group_name: str,
+            group_id: int,
     ) -> str:
         attr = attributes_api_instance.get_attribute(
             group=group_id,
@@ -121,10 +124,10 @@ class PerunRpcAdapter(AdapterInterface):
         return f'{attr["value"]}:{group_name}'
 
     def _create_internal_representation_groups(
-        self,
-        input_groups: List[perun_openapi.model.group.Group],
-        converted_groups: List[Group],
-        attributes_api_instance: AttributesManagerApi,
+            self,
+            input_groups: List[perun_openapi.model.group.Group],
+            converted_groups: List[Group],
+            attributes_api_instance: AttributesManagerApi,
     ) -> None:
         unique_ids = []
         for group in input_groups:
@@ -145,7 +148,7 @@ class PerunRpcAdapter(AdapterInterface):
                 unique_ids.append(group["id"])
 
     def get_member_groups(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> List[Group]:
         with ApiClient(self._CONFIG) as api_client:
             members_api_instance = MembersManagerApi(api_client)
@@ -256,7 +259,7 @@ class PerunRpcAdapter(AdapterInterface):
             )
 
     def get_users_groups_on_facility(
-        self, facility: Union[Facility, int], user: Union[User, int]
+            self, facility: Union[Facility, int], user: Union[User, int]
     ) -> List[Group]:
         if facility is None:
             return []
@@ -277,7 +280,7 @@ class PerunRpcAdapter(AdapterInterface):
             return converted_groups
 
     def get_users_groups_on_facility_by_rp_id(
-        self, rp_identifier: str, user: Union[User, int]
+            self, rp_identifier: str, user: Union[User, int]
     ) -> List[Group]:
         facility = self.get_facility_by_rp_identifier(rp_identifier)
         return self.get_users_groups_on_facility(facility, user)
@@ -289,7 +292,7 @@ class PerunRpcAdapter(AdapterInterface):
 
     # TODO test this method once SearcherAPI is supported on Devel
     def get_facilities_by_attribute_value(
-        self, attribute: dict[str, str]
+            self, attribute: dict[str, str]
     ) -> List[Facility]:
         if len(attribute) != 1:
             self._logger.warning(
@@ -320,7 +323,7 @@ class PerunRpcAdapter(AdapterInterface):
         return facilities
 
     def get_facility_attributes(
-        self, facility: Union[Facility, int], attr_names: List[str]
+            self, facility: Union[Facility, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
@@ -332,7 +335,7 @@ class PerunRpcAdapter(AdapterInterface):
             return self._get_attributes(perun_attrs)
 
     def get_user_ext_source(
-        self, ext_source_name: str, ext_source_login: str
+            self, ext_source_name: str, ext_source_login: str
     ) -> UserExtSource:
         with ApiClient(self._CONFIG) as api_client:
             users_api_instance = UsersManagerApi(api_client)
@@ -354,7 +357,7 @@ class PerunRpcAdapter(AdapterInterface):
             return UserExtSource(ext_source_id, name, login, user)
 
     def update_user_ext_source_last_access(
-        self, user_ext_source: Union[UserExtSource, int]
+            self, user_ext_source: Union[UserExtSource, int]
     ) -> None:
         user_ext_source_id = AdapterInterface.get_object_id(user_ext_source)
 
@@ -364,7 +367,7 @@ class PerunRpcAdapter(AdapterInterface):
             users_api_instance.update_user_ext_source_last_access(user_ext_source_id)
 
     def get_user_ext_source_attributes(
-        self, user_ext_source: Union[UserExtSource, int], attr_names: List[str]
+            self, user_ext_source: Union[UserExtSource, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
@@ -376,11 +379,11 @@ class PerunRpcAdapter(AdapterInterface):
             return self._get_attributes(perun_attrs)
 
     def set_user_ext_source_attributes(
-        self,
-        user_ext_source: Union[UserExtSource, int],
-        attributes: dict[
-            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
-        ],
+            self,
+            user_ext_source: Union[UserExtSource, int],
+            attributes: dict[
+                str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+            ],
     ) -> None:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
@@ -391,10 +394,10 @@ class PerunRpcAdapter(AdapterInterface):
             )
 
     def internal_to_open_api_attrs(
-        self,
-        attributes: dict[
-            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
-        ],
+            self,
+            attributes: dict[
+                str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+            ],
     ) -> List[Attribute]:
         attrs_cfg = self._ATTRIBUTE_UTILS.get_specific_attrs_config_dict(
             list(attributes.keys())
@@ -415,7 +418,7 @@ class PerunRpcAdapter(AdapterInterface):
         return openapi_attributes
 
     def get_member_status_by_user_and_vo(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> Optional[str]:
 
         member = self.get_member_by_user(user, vo)
@@ -426,7 +429,7 @@ class PerunRpcAdapter(AdapterInterface):
         return None
 
     def is_user_in_vo_by_short_name(
-        self, user: Union[User, int], vo_short_name: str
+            self, user: Union[User, int], vo_short_name: str
     ) -> bool:
         user_id = AdapterInterface.get_object_id(user)
         if not user_id:
@@ -443,7 +446,7 @@ class PerunRpcAdapter(AdapterInterface):
         return user_status == valid_status
 
     def get_member_by_user(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> Optional[Member]:
         with ApiClient(self._CONFIG) as api_client:
             members_api_instance = MembersManagerApi(api_client)
@@ -455,7 +458,7 @@ class PerunRpcAdapter(AdapterInterface):
             return Member(member["id"], vo, member["status"])
 
     def get_resource_capabilities_by_facility(
-        self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
+            self, facility: Union[Facility, int], user_groups: List[Union[Group, int]]
     ) -> List[str]:
         capabilities = []
         if facility is None:
@@ -481,7 +484,7 @@ class PerunRpcAdapter(AdapterInterface):
                 resource_capabilities = attributes_api_instance.get_attribute(
                     resource=resource["id"],
                     attribute_name="urn:perun:resource:attribute-def:def"
-                    ":capabilities",
+                                   ":capabilities",
                 )["value"]
 
                 if resource_capabilities is None:
@@ -494,13 +497,13 @@ class PerunRpcAdapter(AdapterInterface):
         return capabilities
 
     def get_resource_capabilities_by_rp_id(
-        self, rp_identifier: str, user_groups: List[Union[Group, int]]
+            self, rp_identifier: str, user_groups: List[Union[Group, int]]
     ) -> List[str]:
         facility = self.get_facility_by_rp_identifier(rp_identifier)
         return self.get_resource_capabilities_by_facility(facility, user_groups)
 
     def get_facility_capabilities_by_facility(
-        self, facility: Union[Facility, int]
+            self, facility: Union[Facility, int]
     ) -> List[str]:
         if facility is None:
             return []
@@ -522,7 +525,7 @@ class PerunRpcAdapter(AdapterInterface):
         return self.get_facility_capabilities_by_facility(facility)
 
     def get_user_attributes(
-        self, user: Union[User, int], attr_names: List[str]
+            self, user: Union[User, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         default_attribute_name = "urn:perun:user:attribute-def:virt:loa"
         if not attr_names:
@@ -540,7 +543,7 @@ class PerunRpcAdapter(AdapterInterface):
             return self._get_attributes(perun_attrs)
 
     def get_entityless_attribute(
-        self, attr_name: str
+            self, attr_name: str
     ) -> Union[str, Optional[int], bool, List[str], dict[str, str]]:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
@@ -561,7 +564,7 @@ class PerunRpcAdapter(AdapterInterface):
             return attributes
 
     def get_vo_attributes(
-        self, vo: Union[VO, int], attr_names: List[str]
+            self, vo: Union[VO, int], attr_names: List[str]
     ) -> dict[str, Union[str, Optional[int], bool, List[str], dict[str, str]]]:
         default_attribute_name = "urn:perun:vo:attribute-def:core:id"
         if not attr_names:
@@ -579,13 +582,13 @@ class PerunRpcAdapter(AdapterInterface):
             return self._get_attributes(perun_attrs)
 
     def _get_attributes(
-        self,
-        perun_attrs: List[dict[str, Union[str, int, bool, list[str], dict[str, str]]]],
+            self,
+            perun_attrs: List[dict[str, Union[str, int, bool, list[str], dict[str, str]]]],
     ) -> dict[str, dict[str, Union[str, int, bool, list[str], dict[str, str]]]]:
         attributes = {}
         for perun_attr in perun_attrs:
             perun_attr_name = (
-                perun_attr["namespace"] + ":" + perun_attr["friendly_name"]
+                    perun_attr["namespace"] + ":" + perun_attr["friendly_name"]
             )
 
             # for some reason open_api map int attributes as float
@@ -597,7 +600,7 @@ class PerunRpcAdapter(AdapterInterface):
         return attributes
 
     def get_groups_where_member_is_active(
-        self, member: Union[Member, int]
+            self, member: Union[Member, int]
     ) -> List[Group]:
         with ApiClient(self._CONFIG) as api_client:
             member_id = self.get_object_id(member)
@@ -613,7 +616,7 @@ class PerunRpcAdapter(AdapterInterface):
             return internal_groups
 
     def get_groups_where_user_as_member_is_active(
-        self, user: Union[User, int], vo: Union[VO, int]
+            self, user: Union[User, int], vo: Union[VO, int]
     ) -> List[Group]:
         member = self.get_member_by_user(user, vo)
         return self.get_groups_where_member_is_active(member)
@@ -648,11 +651,11 @@ class PerunRpcAdapter(AdapterInterface):
             return facilities_api_instance.create_facility(name)
 
     def set_facility_attributes(
-        self,
-        facility: Union[Facility, int],
-        attributes: dict[
-            str, Union[str, Optional[int], bool, List[str], dict[str, str]]
-        ],
+            self,
+            facility: Union[Facility, int],
+            attributes: dict[
+                str, Union[str, Optional[int], bool, List[str], dict[str, str]]
+            ],
     ) -> None:
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
@@ -669,3 +672,102 @@ class PerunRpcAdapter(AdapterInterface):
         with ApiClient(self._CONFIG) as api_client:
             attributes_api_instance = AttributesManagerApi(api_client)
             return attributes_api_instance.get_all_attribute_definitions()
+
+    def get_user_role_names(self):
+        with ApiClient(self._CONFIG) as api_client:
+            authz_api_instance = AuthzResolverApi(api_client)
+            return authz_api_instance.get_user_role_names(74017)
+
+    def is_user_perun_admin(self, user: Union[User, int]) -> bool:
+        with ApiClient(self._CONFIG) as api_client:
+            authz_api_instance = AuthzResolverApi(api_client)
+            if 'perunadmin' in authz_api_instance.get_user_role_names(AdapterInterface.get_object_id(user)):
+                return True
+            return False
+
+    def get_vos_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[VO]:
+        with ApiClient(self._CONFIG) as api_client:
+            if check_perun_admin and self.is_user_perun_admin(user):
+                return self.get_all_vos()
+            users_api_instance = UsersManagerApi(api_client)
+            vos = users_api_instance.get_vos_where_user_is_admin(AdapterInterface.get_object_id(user))
+            return [VO(vo.id, vo.name, vo.short_name) for vo in vos]
+
+    def get_groups_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False,
+                                       fill_group_unique_name=False) -> List[Group]:
+        with ApiClient(self._CONFIG) as api_client:
+            vos = self.get_all_vos()
+            attributes_api_instance = AttributesManagerApi(api_client)
+            if check_perun_admin and self.is_user_perun_admin(user):
+                groups_api_instance = GroupsManagerApi(api_client)
+                groups = groups_api_instance.get_all_groups_from_all_vos()
+                return [Group(group.id,
+                              self.__find_vo_in_list_by_id(vos, group.vo_id),
+                              group.uuid, group.name,
+                              "" if not fill_group_unique_name else self._get_group_unique_name(attributes_api_instance,
+                                                                                                group.name, group.id),
+                              group.description) for group in groups]
+            users_api_instance = UsersManagerApi(api_client)
+            groups = users_api_instance.get_groups_where_user_is_admin(AdapterInterface.get_object_id(user))
+            return [Group(group.id,
+                          self.__find_vo_in_list_by_id(vos, group.vo_id),
+                          group.uuid, group.name,
+                          "" if not fill_group_unique_name else self._get_group_unique_name(attributes_api_instance,
+                                                                                            group.name, group.id),
+                          group.description) for group in groups]
+
+    def get_facilities_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[Facility]:
+        with ApiClient(self._CONFIG) as api_client:
+            if check_perun_admin and self.is_user_perun_admin(user):
+                return self.get_all_facilities()
+            facilities_api_instance = FacilitiesManagerApi(api_client)
+            facilities = facilities_api_instance.get_facilities_where_user_is_admin(
+                AdapterInterface.get_object_id(user))
+            return [Facility(facility.id, facility.name, facility.description, facility.rp_id) for facility in
+                    facilities]
+
+    def get_resources_where_user_is_admin(self, user: Union[User, int], check_perun_admin=False) -> List[Resource]:
+        with ApiClient(self._CONFIG) as api_client:
+            resources_api_instance = ResourcesManagerApi(api_client)
+            facilities = self.get_all_facilities()
+            vos = self.get_all_vos()
+            if check_perun_admin and self.is_user_perun_admin(user):
+                result = []
+                for vo in vos:
+                    resources = resources_api_instance.get_resources(vo.id)
+                    result.extend([Resource(resource.id, vo,
+                                            self.__find_facility_in_list_by_id(facilities, resource.facility_id),
+                                            resource.name) for resource in resources])
+                return result
+            resources = resources_api_instance.get_all_resources_where_user_is_admin(
+                AdapterInterface.get_object_id(user))
+            return [Resource(resource.id, self.__find_vo_in_list_by_id(vos, resource.vo_id),
+                             self.__find_facility_in_list_by_id(facilities, resource.facility_id),
+                             resource.name) for resource in resources]
+
+    def get_all_vos(self) -> List[VO]:
+        with ApiClient(self._CONFIG) as api_client:
+            vos_api_instance = VosManagerApi(api_client)
+            vos = vos_api_instance.get_all_vos()
+            return [VO(vo.id, vo.name, vo.short_name) for vo in vos]
+
+    def get_all_facilities(self, fill_rp_ids=False) -> List[Facility]:
+        with ApiClient(self._CONFIG) as api_client:
+            facilities_api_instance = FacilitiesManagerApi(api_client)
+            facilities = facilities_api_instance.get_all_facilities()
+            return [Facility(facility.id,
+                             facility.name,
+                             facility.description,
+                             "" if not fill_rp_ids else self._get_rp_id(facility.id)) for facility in facilities]
+
+    @staticmethod
+    def __find_vo_in_list_by_id(vo_list, vo_id):
+        for vo in vo_list:
+            if vo.id == vo_id:
+                return vo
+
+    @staticmethod
+    def __find_facility_in_list_by_id(facility_list, facility_id):
+        for facility in facility_list:
+            if facility.id == facility_id:
+                return facility
