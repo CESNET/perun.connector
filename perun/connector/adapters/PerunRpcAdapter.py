@@ -127,18 +127,19 @@ class PerunRpcAdapter(AdapterInterface):
             self,
             input_groups: List[perun_openapi.model.group.Group],
             converted_groups: List[Group],
-            attributes_api_instance: AttributesManagerApi,
+            attributes_api_instance: AttributesManagerApi = None,
+            vo: VO = None
     ) -> None:
         unique_ids = []
         for group in input_groups:
             if group["id"] not in unique_ids:
-                group["unique_name"] = self._get_group_unique_name(
+                group["unique_name"] = "" if not attributes_api_instance else self._get_group_unique_name(
                     attributes_api_instance, group["name"], group["id"]
                 )
                 converted_groups.append(
                     Group(
                         group["id"],
-                        self.get_vo(vo_id=group["vo_id"]),
+                        vo if vo else self.get_vo(vo_id=group["vo_id"]),
                         group["uuid"],
                         group["name"],
                         group["unique_name"],
@@ -163,7 +164,7 @@ class PerunRpcAdapter(AdapterInterface):
             if member:
                 member_groups = groups_api_instance.get_all_member_groups(member["id"])
             self._create_internal_representation_groups(
-                member_groups, converted_groups, attributes_api_instance
+                member_groups, converted_groups, attributes_api_instance, self.get_vo(vo_id=vo_id)
             )  # noqa E501
             return converted_groups
 
@@ -285,7 +286,7 @@ class PerunRpcAdapter(AdapterInterface):
         facility = self.get_facility_by_rp_identifier(rp_identifier)
         return self.get_users_groups_on_facility(facility, user)
 
-    def _get_rp_id(self, facility: Facility) -> str:
+    def _get_rp_id(self, facility: Union[Facility, int]) -> str:
         return self.get_facility_attributes(facility, [self._RP_ID_ATTR]).get(
             self._RP_ID_ATTR
         )
@@ -609,9 +610,13 @@ class PerunRpcAdapter(AdapterInterface):
             perun_groups = groups_api_instance.get_groups_where_member_is_active(
                 member_id
             )
+            if isinstance(member, Member):
+                vo = member.vo
+            elif perun_groups:
+                vo = self.get_vo(vo_id=perun_groups[0]["vo_id"])
             attributes_api_instance = AttributesManagerApi(api_client)
             self._create_internal_representation_groups(
-                perun_groups, internal_groups, attributes_api_instance
+                perun_groups, internal_groups, attributes_api_instance, vo
             )
             return internal_groups
 
@@ -759,6 +764,53 @@ class PerunRpcAdapter(AdapterInterface):
                              facility.name,
                              facility.description,
                              "" if not fill_rp_ids else self._get_rp_id(facility.id)) for facility in facilities]
+
+    def get_groups_where_user_is_active_resource(self, user: Union[User, int], resource: Union[Resource, int]) \
+            -> List[Group]:
+        with ApiClient(self._CONFIG) as api_client:
+            if isinstance(resource, Resource):
+                vo = resource.vo
+                resource_id = resource.id
+            else:
+                perun_vo = ResourcesManagerApi(api_client).get_vo(resource)
+                vo = VO(perun_vo.id, perun_vo.name, perun_vo.short_name)
+                resource_id = resource
+            result = []
+            perun_groups = UsersManagerApi(api_client).get_groups_for_resource_where_user_is_active(
+                self.get_object_id(user), resource_id)
+            self._create_internal_representation_groups(perun_groups, result, vo=vo)
+            return result
+
+    def get_groups_where_user_is_active_facility(self, user: Union[User, int], facility: Union[Facility, int]) \
+            -> List[Group]:
+        with ApiClient(self._CONFIG) as api_client:
+            resource_id = self.get_object_id(facility)
+            result = []
+            perun_groups = UsersManagerApi(api_client).get_groups_for_resource_where_user_is_active(
+                self.get_object_id(user), resource_id)
+            self._create_internal_representation_groups(perun_groups, result, AttributesManagerApi(api_client))
+            return result
+
+    def get_facility_by_id(self, facility_id: int) -> Facility:
+        with ApiClient(self._CONFIG) as api_client:
+            facility = FacilitiesManagerApi(api_client).get_facility_by_id(facility_id)
+            return Facility(facility_id, facility.name, facility.description, self._get_rp_id(facility_id))
+
+    def get_resources_for_facility(self, facility: Union[Facility, int], map_vo=True) -> List[Resource]:
+        with ApiClient(self._CONFIG) as api_client:
+            if isinstance(facility, Facility):
+                facility_id = facility.id
+            else:
+                facility_id = facility
+                facility = self.get_facility_by_id(facility)
+
+            resources = FacilitiesManagerApi(api_client).get_assigned_resources_for_facility(facility_id)
+            return [Resource(resource.id,
+                             self.get_vo(vo_id=resource.vo_id) if map_vo else VO(resource.vo_id, "", ""),
+                             facility,
+                             resource.name) for resource in resources]
+
+
 
     @staticmethod
     def __find_vo_in_list_by_id(vo_list, vo_id):
